@@ -16,13 +16,13 @@ Once FFT is opened in Word, it appears as a task pane on the right side of the d
 ## Icons
 Before diving into the FFT, let's take a step into the pane discovery.
 
-### Announcements ![1](/fft_user_guide/images/11.png)
+### Announcements ![11](/fft_user_guide/images/11.png)
 Updated information will be posted in the announcements section, including version updates, issues detected/solved, new feature releases, etc.
 
-### Shortcuts Status ![1](/fft_user_guide/images/12.png)
+### Shortcuts Status ![12](/fft_user_guide/images/12.png)
 Visual check for the Shortcuts function. The details of the Shortcuts function will be covered in section 2.1.
 
-### Settings
+### Settings ![14](/fft_user_guide/images/14.png)
 Designed to help users get oriented, access documentation, and get in touch with the shortcut function before applying any formatting. 
 Click the Settings icon in the top-right corner of the FFT pane. 
 
@@ -37,11 +37,14 @@ From here, users can manage:
 ### Configure, Format and Generate
 Configure, Format, and Generate are the three fundamental processes of FFT, which help a document go from disorderly to ready for submission.
 
+![15](/fft_user_guide/images/15.png)
 
 
 ## Step 1 Configure
 Step 1 Configure defines how FFT will prepare the document before formatting begins. 
 This step allows users to load a predefined FFT template, control layout elements, and set page margins.
+
+![16](/fft_user_guide/images/16.png)
 
 ### 1.1 Select Module
 At the top of Step 1, select the appropriate module or category from the dropdown list (for example, Module 2.5 – Clinical Overview).
@@ -54,6 +57,8 @@ Provided flexibility in the template load and document layout setup.
 The principle of FFT template configuration is to deploy the preset styles (named "FFT XXX" in the Styles) and field into a Word document, and it only needs to be deployed once. 
 The document needs to be opened several times for editing, but users do not have to deploy the FFT styles each time. 
 Therefore, the design of the Load Templates helps the users decide whether to reload the template.
+
+![17](/fft_user_guide/images/17.png)
 
 - ON (recommended for first use):
    Loads FFT-defined header, footer, and styles
@@ -69,6 +74,8 @@ Therefore, the design of the Load Templates helps the users decide whether to re
 
 #### 1.2.2 Load Header / Load Footer
 These options allow fine control over whether FFT should overwrite existing headers and footers.
+
+![18](/fft_user_guide/images/18.png) ![19](/fft_user_guide/images/19.png)
 
 - Load Header
    ON: FFT applies the predefined header from the selected module
@@ -109,6 +116,8 @@ All actions in Step 2 can be undone using Ctrl + Z.
 ### 2.1 Styles
 Section 2.1 is used to apply predefined FFT styles to headings and paragraphs.
 
+![20](/fft_user_guide/images/20.png)
+
 Each style is mapped to:
 - A button in the FFT pane
 - A keyboard shortcut, shown in grey parentheses on the button
@@ -137,42 +146,37 @@ Three Key principles:
 
    one paragraph at a time, auto-skip all the table and figure, focus on plain-text only
 
-- Shortcut Mode
-   
+- Shortcut Mode 
    active only when the floating window is in green with "Shortcut On" and apply only to the navigated paragraph
 
+   ![12](/fft_user_guide/images/12.png) ![13](/fft_user_guide/images/13.png)
+
 #### Step-by-Step Paragraph Formatting
-- Place the Cursor
+#### 1. Place the Cursor ####
+   Click anywhere inside the paragraph that needs to be formatted. The cursor must be inside plain text, not inside a table or figure.
 
-   Click anywhere inside the paragraph that needs to be formatted. 
+   ![21](/fft_user_guide/images/21.png)
 
-   The cursor must be inside plain text, not inside a table or figure.
-
-- Activate Shortcut Mode ![1](/fft_user_guide/images/13.png)
-
-   Move the cursor to the FFT pane and click once.
-
-   The floating indicator will change from: “Shortcut Off” (grey) → “Shortcut On” (green)
-
+#### 2. Activate Shortcut Mode ####
+   Move the cursor to the FFT pane and click once. The floating indicator will change from: “Shortcut Off” (grey) → “Shortcut On” (green) 
    This confirms that shortcuts are active.
 
-- Navigate to the current paragraph
+   ![13](/fft_user_guide/images/13.png)
 
-   Press [N] on the keyboard. (Think about "Navigate")
+#### 3. Navigate to the current paragraph ####
+   Press [N] on the keyboard. (Think about "Navigate"). FFT will select the paragraph containing the cursor and highlight it in grey.
 
-   FFT will select the paragraph containing the cursor and highlight it in grey.
+   ![22](/fft_user_guide/images/22.png)
 
-- Apply the Desired Style
-
-   Press the shortcut key corresponding to the target style (as shown in grey parentheses on the style buttons).
-
+#### 4. Apply the Desired Style ####
+   Press the shortcut key corresponding to the target style (as shown in grey parentheses on the style buttons). 
    The style is applied immediately, and the selection remains on the same paragraph.
 
-- Move to the Next paragraph
+   ![23](/fft_user_guide/images/23.png)
 
-   Press [→] to move to the next paragraph.
+#### 5. Move to the Next paragraph ####
 
-   Repeat step 4 and 5 until the entire document is formatted.
+   Press [→] / customized key to move to the next paragraph. Repeat step 4 and 5 until the entire document is formatted.
 
 #### Default Shortcuts Not Included in the Styles Pane
 - [N] – Navigate to the currently selected location
@@ -188,7 +192,9 @@ Users may also format content using the mouse:
 - Select a paragraph using the cursor
 - Click the desired style button in the FFT pane
 
-Example: Select a table caption and click Table Title [6] to apply the predefined table title style.
+Example: Select a table caption and click Table Title to apply the predefined table title style.
+
+   ![24](/fft_user_guide/images/24.png)
 
 ### 2.2 Fix Tables
 Section 2.2 is designed specifically for table formatting. Tables are excluded from shortcut traversal because:
@@ -196,28 +202,19 @@ Section 2.2 is designed specifically for table formatting. Tables are excluded f
 - Accurate formatting requires explicit user-defined scope
 
 #### 2.2.1 Table Formatting Principle
-Users define a target area within a table by selecting:
-- The top-left cell
-- The bottom-right cell
+Users define an area within a table by selecting:
+- The top-left cell (area "a")
+- The bottom-right cell (area "b")
 
-FFT formats only the cells inside this defined range.
+Header in purple, Data in orange
 
-#### 2.2.2 Step-by-Step Table Formatting
-- Define the Start of the Target Area
+   ![25](/fft_user_guide/images/25.png)
 
-   Click inside the top-left cell of the area to be formatted.
+FFT will format the cells in the defined area by choosing the category of the cells (header, text or numeral).
 
-   Click Submit.
+   ![26](/fft_user_guide/images/26.png)
 
-- Define the End and Apply Style
-
-   Click inside the bottom-right cell of the target area.
-   
-   Set the desired Text Size (default: 10Pt).
-
-   Choose the appropriate cell type.
-
-#### 2.2.3 Cell Style Options
+#### 2.2.2 Cell Style Options
 Cells without indentation (more reliable)
 - Header Cells
 - Data Cells (Text)
@@ -235,6 +232,32 @@ This option preserves existing indentation and is recommended for hierarchical t
 Example:
 
 Use “Cells with indentation” when indentation conveys hierarchy or categorization.
+
+#### 2.2.3 Step-by-Step Table Formatting
+#### 1. Define the Start of the Area ####
+   Select the top-left cell of the target area.
+   
+   ![27](/fft_user_guide/images/27.png) 
+
+   Click Submit.
+
+   ![28](/fft_user_guide/images/28.png)
+
+#### 2. Define the End of the Area ####
+   Click inside the bottom-right cell of the target area.
+
+   ![29](/fft_user_guide/images/29.png)
+   
+   Set the desired Text Size (default: 10Pt).
+
+   ![30](/fft_user_guide/images/30.png)
+
+#### 3. Apply Style ####
+   Choose the appropriate cell type, then the defined area will auto-format.
+
+   ![31](/fft_user_guide/images/31.png)
+
+   ![32](/fft_user_guide/images/32.png)
 
 ### 2.3 Normalize Symbols
 Section 2.3 normalizes full-width (Chinese) symbols into ASCII (half-width) symbols. One click for the entire document.
@@ -261,7 +284,6 @@ Section 3.1 automatically creates bookmarks for references with a single click.
 This function is designed to simplify cross-referencing literature references within the document.
 
 FFT will:
-
 - Identify the “References” section (typically the last section of the document)
 - Automatically add bookmarks for each reference entry
 - Assign each bookmark a standardized name (first-author-name_year, such as Ying_2022)
@@ -269,16 +291,16 @@ FFT will:
 These bookmarks will appear in Word → Insert → Bookmark, allowing users to easily locate and reference them.
 
 #### Step-by-Step Adding Bookmarks
-- Confirm the Reference section is formatted with FFT Heading in Styles
-- Navigate to Step 3 Finalize
-- Under 3.1 Bookmarks, click Add Bookmarks
-- FFT scans the References section and creates bookmarks automatically.
+1. Confirm the Reference section is formatted with FFT Heading in Styles
+2. Navigate to Step 3 Finalize
+3. Under 3.1 Bookmarks, click Add Bookmarks
+4. FFT scans the References section and creates bookmarks automatically.
 
 #### Create a Cross-Reference in the Paragraph
-- Select the text in the paragraph where the reference should appear
-- Go to Word → Insert → Cross-reference
-- Choose Bookmark as the reference type
-- Select the appropriate name_year bookmark
+1. Select the text in the paragraph where the reference should appear
+2. Go to Word → Insert → Cross-reference
+3. Choose Bookmark as the reference type
+4. Select the appropriate name_year bookmark
 
 #### Important Distinction: Bookmarks vs Figures/Tables
 Bookmarks are used for literature references only.
