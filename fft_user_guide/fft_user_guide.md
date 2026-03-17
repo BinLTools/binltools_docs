@@ -235,29 +235,50 @@ Use “Cells with indentation” when indentation conveys hierarchy or categoriz
 
 #### 2.2.3 Step-by-Step Table Formatting
 #### 1. Define the Start of the Area ####
-   Select the top-left cell of the target area.
+Select the top-left cell of the target area.
    
-   ![27](/fft_user_guide/images/27.png) 
+![27](/fft_user_guide/images/27.png) 
 
-   Click Submit.
+Click Submit.
 
-   ![28](/fft_user_guide/images/28.png)
+![28](/fft_user_guide/images/28.png)
 
 #### 2. Define the End of the Area ####
-   Click inside the bottom-right cell of the target area.
+Click inside the bottom-right cell of the target area.
 
-   ![29](/fft_user_guide/images/29.png)
+![29](/fft_user_guide/images/29.png)
    
-   Set the desired Text Size (default: 10Pt).
+Set the desired Text Size (default: 10Pt).
 
-   ![30](/fft_user_guide/images/30.png)
+![30](/fft_user_guide/images/30.png)
 
 #### 3. Apply Style ####
-   Choose the appropriate cell type, then the defined area will auto-format.
+Choose the appropriate cell type, then the defined area will auto-format.
 
-   ![31](/fft_user_guide/images/31.png)
+![31](/fft_user_guide/images/31.png)
 
-   ![32](/fft_user_guide/images/32.png)
+![32](/fft_user_guide/images/32.png)
+
+#### 2.2.4 Pre-set Table Style in Microsoft Word
+
+![33](/fft_user_guide/images/33.png)
+
+Microsoft Word has several preset table styles to choose from. The following are the reference steps:
+
+- Create or select a table in the document
+- Select Table Design on the top right of the document
+- Under Table Style, choose the appropriate format that meets the table design
+
+Table Grid is recommended for common table.
+
+#### 2.2.5 Set up Table Layout in Microsoft Word
+In addition to table design, the layout can also be edited directly in Table Layout. The following are the common use options:
+
+- Alignment → Cell Margins: customized cell margins and spacing between cells
+
+![34](/fft_user_guide/images/34.png)
+
+- Data → Repeat Header Rows
 
 ### 2.3 Normalize Symbols
 Section 2.3 normalizes full-width (Chinese) symbols into ASCII (half-width) symbols. One click for the entire document.
