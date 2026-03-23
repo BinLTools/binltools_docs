@@ -136,7 +136,7 @@ Both methods apply identical formatting.
 - Sub Bullet Point [H] – Sub Bulleted lists
 - Numbering [V] – Numbered lists
 - Sub Numbering [G] – Sub Numbered lists
-- Checkpoint [ctrl + CC] – Blue Highlight for the selected text
+- Checkpoint [ctrl + CC] – Blue Highlight for the selected text, refer to 3.2 Checks for review instruction
 
 Shortcuts that do not appear as buttons:
 
@@ -309,7 +309,8 @@ It is used to generate document-wide reference structures, including bookmarks a
 
 Step 3 contains two sections:
 - 3.1 Bookmarks – Auto-add bookmarks based on the references
-- 3.2 TOC – Auto-generate the Table of Contents, Table of Figures, and Table of Tables
+- 3.2 Checks - jump menu for reviewing all the checks that are highlighted in blue
+- 3.3 TOC – Auto-generate the Table of Contents, Table of Figures, and Table of Tables
 
 ### 3.1 Bookmarks
 Section 3.1 automatically creates bookmarks for references with a single click.
@@ -348,14 +349,24 @@ To cross-reference figures or tables:
 - FFT prevents duplicate creation if “Add Bookmarks” is clicked multiple times
 - Adding Bookmarks can be undone with a single Ctrl + Z
 
-### 3.2 TOC (Table of Contents)
-Section 3.2 generates the structural tables required for health authority submissions.
+### 3.2 Checks
+Section 3.2 Checks provides a visual pane for the user to review all the text highlighted in blue in section 2.1. 
+
+#### Step-by-Step reviewing the text with a blue highlight
+- Click "Load Checks" for FFT to detect all the highlighted checks in the document
+- Select the checks by clicking in the visual pane
+- Move between different checks by using Shift + → or Shift + ←
+
+![35](/fft_user_guide/images/35.png)
+
+### 3.3 TOC (Table of Contents)
+Section 3.3 generates the structural tables required for health authority submissions.
 With a single click, FFT will generate Table of Contents, Table of Figures and Table of Tables based on the FFT headings.
 
 #### Step-by-Step Adding TOC
 - Confirm all the headings equipped with FFT Heading in Styles
 - Navigate to Step 3 Finalize
-- Under 3.2 TOC, click Add TOC
+- Under 3.3 TOC, click Add TOC
 - FFT inserts all three tables at the cursor position.
 
 💡 Tips:
