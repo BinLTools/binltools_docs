@@ -128,10 +128,21 @@ Both methods apply identical formatting.
 - Normal [X] – Body text, justified
 - Normal 2 [C] – Body text, left-aligned
 - Heading 1–5 [1–5] – Section headings
-- Table Title [6] – Table captions
-- Figure Title [7] – Figure captions
+- NoNum Heading [6] – Heading that does not contain numbers at the front
+- Table Title [T] – Table captions
+- Table Note [E] – Table Note
+- Figure Title [F] – Figure captions
 - Bullet Point [B] – Bulleted lists
+- Sub Bullet Point [H] – Sub Bulleted lists
 - Numbering [V] – Numbered lists
+- Sub Numbering [G] – Sub Numbered lists
+- Checkpoint [ctrl + CC] – Blue Highlight for the selected text
+
+Shortcuts that do not appear as buttons:
+
+- Bold [Shift + B] – Bold the selected text
+- Italic [Shift + I] – Italic the selected text
+- Underline [Shift + U] – underline the selected text
 
 #### 2.1.2 Method A – Formatting Using Keyboard Shortcuts (Recommended)
 The Keyboard-driven shortcuts is one of the most powerful features of FFT. 
