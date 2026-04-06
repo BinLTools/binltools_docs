@@ -16,13 +16,16 @@ Once FFT is opened in Word, it appears as a task pane on the right side of the d
 ## Icons
 Before diving into the FFT, let's take a step into the pane discovery.
 
-### Announcements ![11](/fft_user_guide/images/11.png)
+### Announcements 
+![11](/fft_user_guide/images/11.png)
 Updated information will be posted in the announcements section, including version updates, issues detected/solved, new feature releases, etc.
 
-### Shortcuts Status ![12](/fft_user_guide/images/12.png)
+### Shortcuts Status 
+![12](/fft_user_guide/images/12.png)
 Visual check for the Shortcuts function. The details of the Shortcuts function will be covered in section 2.1.
 
-### Settings ![14](/fft_user_guide/images/14.png)
+### Settings 
+![14](/fft_user_guide/images/14.png)
 Designed to help users get oriented, access documentation, and get in touch with the shortcut function before applying any formatting. 
 Click the Settings icon in the top-right corner of the FFT pane. 
 

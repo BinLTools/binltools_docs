@@ -11,13 +11,13 @@ The deployment process is required only once per device. After deployment, users
 2. Microsoft Word (2016 or later) / Microsoft Word Web
 
 ### 1. Download the Certificate and Manifest
-1. Click [001. Certificate and Manifest](https://topalliancebiousa.sharepoint.com/:f:/r/sites/TopallianceRA/Regulatory%20Tools/File%20Formatting%20Translator%20(FFT)/001.%20Certificate%20and%20Manifest?csf=1&web=1&e=uYJVga) to download.
+1. Click [001. Certificate and Manifest](https://topalliancebiousa.sharepoint.com/:f:/r/sites/TopallianceRA/Regulatory%20Tools/File%20Formatting%20Tool%20(FFT)/001.%20Certificate%20and%20Manifest?csf=1&web=1&e=d0JQOL) to download.
 2. Save the certificate and manifest in a folder.
    
 
 ### 2. Import the Certificate to the Local Machine
 1. **MacOS**
-   1. Click [here]() to download the CA cert `rootCA.pem`.
+   1. Download the CA cert `rootCA.pem`.
    2. Double-click `rootCA.pem`. This will open "Keychain Access".
    3. Select "System" keychain (top left).
    4. Right-click the certificate you just downloaded -> Click "Get Info".
