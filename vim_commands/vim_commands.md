@@ -36,6 +36,7 @@
 - `.`: Repeat the last command
 - `sp`: Split window horizontally
 - `vsp`: Split window vertically
+- `<C-g>`: Check current path
 
 ## Nvim & Plugins
 The keymaps below are my own customized. They may not in default.
@@ -59,8 +60,3 @@ The keymaps below are my own customized. They may not in default.
 - `R`: Refresh explorer
 - `/`: Search file
 - `C-t`: Open a file with new tab
-
-### Barbar
-- `A-,`: Previous tab
-- `A-.`: Next tab
-- `A-c`: Close tab
