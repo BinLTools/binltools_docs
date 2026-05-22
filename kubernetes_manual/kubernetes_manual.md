@@ -169,6 +169,17 @@ curl 127.0.0.1:8001
     - When a PVC is deleted, it also unmounts the PV and takes action based on the reclaim policy
 - etc.
 
+### Informer
+- Informer located in the controller.
+- It solves HTTP Overhead & Lag
+- It's a cache.
+- How an Informer works:
+    1. **The "List" Phase**: When the controller starts up, the Informer makes a single, big HTTP request to List all the resources it cares about (e.g., all Pods). It uses this data to fill up a local, in-memory cache.
+
+    2. **The "Watch" Phase**: After listing, the Informer opens a long-lived, streaming HTTP connection to Watch for updates. The API server only sends a tiny chunk of data whenever something changes (like Pod_Created, Pod_Updated, or Pod_Deleted).
+
+    3. **Updating the Cache**: When the Informer hears about a change via the Watch stream, it updates its local cache immediately.
+
 ## Kubelet (Worker Node)
 
 ### Function
