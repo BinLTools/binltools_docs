@@ -1,41 +1,42 @@
-# 组件（Components）
+# Components
 
-- 原生组件
+- Native Components
     
     ![截屏2024-09-29 17.36.39.png](/kubernetes_manual/images/截屏2024-09-29%2017.36.39.png)
     
 
-## API Server（Master）
+## API Server (Master)
 
-### 功能
+### Function
 
-1. API Server 是唯一和 etcd 通信的组件，任何组件需要与 etcd 交互都需要通过 API Server
-2. 提供以 RESTful API 为基础的 CRUD interface 来查询和更改集群状态，这些状态存在 etcd 中
+1.  The API Server is the only component that communicates with etcd; any component that needs to interact with etcd must do so through the API Server
+2.  It provides a RESTful API-based CRUD interface for querying and modifying cluster state, which is stored in etcd
 
-### 流程
+### Process
 
-1. Authentication（认证）
-    - 通过检查 HTTP 请求来完成认证
-    - 身份认证插件会获取：username、user ID、用户的 group
-2. Authorization（鉴权）
-    - 授权插件会确认用户是否有权限对请求的资源进行相应动作
-3. Admission
-    - 当请求是 Create/Update/Delete 时，这个请求会进入 Admission Control plugins
-    - 这些插件可以用默认值填补缺失的 spec 或者覆盖 spec；可以修改相关资源
-    - Admission Control plugins examples
-        - AlwaysPullImages：覆盖 pod 内的 imagePullPolicy 到 Always
-        - ServiceAccount：将默认的 Service Account 应用于没有声明 service account 的 pod
-        - NamespaceLifecycle：防止 pod 创建时使用的 ns 正在删除或不存在
-        - ResourceQuota：确保 pod 使用的 CPU 和 memory 的量
-4. Validation
-    - APIServer 验证 object，存入 etcd 中，并返回一个响应给ke hu
+1.  Authentication
+    - Authentication is performed by inspecting HTTP requests
+    - The authentication plugin retrieves: username, user ID, and the user’s group
+2.  Authorization
+    - The authorization plugin verifies whether the user has permission to perform the requested action on the resource
+    - e.g., RBAC
+3.  Admission
+    - When a request is a Create/Update/Delete operation, it enters the Admission Control plugins
+    - These plugins can fill in missing spec values with defaults or override the spec; they can modify the relevant resource
+    - Examples of Admission Control plugins
+        - AlwaysPullImages: Overrides the `imagePullPolicy` in the pod to `Always`
+        - ServiceAccount: Applies the default ServiceAccount to pods that do not declare a ServiceAccount
+        - NamespaceLifecycle: Prevents pods from being created in a namespace that is being deleted or does not exist
+        - ResourceQuota: Ensures the amount of CPU and memory used by a pod
+4.  Validation
+    - The API Server validates the object, stores it in etcd, and returns a response to the client
 
-### 特性
+### Features
 
-1. API Server 可以拥有多个实例，可以做到同时并行
-2. API Server 可以被直接部署到系统中，也可以以 Pod 的形式运行
+1.  The API Server can have multiple instances, enabling parallel processing
+2.  The API Server can be deployed directly on the system or run as a Pod
 
-### [localhost](http://localhost) 连接到 API Server
+### Connect to the API Server via [localhost](http://localhost)
 
 ```go
 // 获取 API Server 的 IP Addr，此时无法直接访问（无权限）
@@ -48,15 +49,15 @@ kubectl proxy
 curl 127.0.0.1:8001
 ```
 
-## etcd（Master）
+## etcd (Master)
 
-### 功能
+### Features
 
-1. etcd 是一个快速、分布式、稳定的 key-value 存储组件
-2. 存储方式
+1.  etcd is a fast, distributed, and reliable key-value storage component
+2.  Storage Method
     - v2
-        - 等级制度（Hierarchical）的键空间，使 key-value pair 像一个文件系统。
-        - 每一个 key 就是一个目录，内部包含了其他 key 或者 value
+        - A hierarchical keyspace that makes key-value pairs resemble a file system.
+        - Each key acts as a directory, containing other keys or values
             
             ```yaml
             $ etcdctl ls /registry
@@ -69,66 +70,68 @@ curl 127.0.0.1:8001
             ...
             ```
             
-        - 使用轮询模式
+        - Uses a round-robin mode
             - HTTP/1.x + JSON
-            - Client 通过 HTTP/1.1 协议长连接定时轮询（Watch） Server，获取最新的数据变化事件（客户端例如 Scheduler）
-            - 缺点：如果 Watcher 太多会消耗大量内存、Socket等资源
+            - The client uses a persistent HTTP/1.1 connection to periodically poll (watch) the server for the latest data change events (e.g., a client such as a scheduler)
+            - Disadvantages: If there are too many Watchers, it consumes a significant amount of memory, sockets, and other resources
     - v3
-        - 使用推送模式
-            - 使用 Protobuf（类 json，属于结构化数据，占用小，但是是二进制 less human-readable）
-            - 使用 HTTP/2 的 gRPC 与 Server 进行通信
-            - 具有双向流，Server 端可以推送 data
-            - 可以多路复用，减少负载
+        - Using the push model
+            - Uses Protobuf (similar to JSON; structured data with small footprint, but binary and less human-readable)
+            - Communicates with the server using gRPC over HTTP/2
+            - Supports bidirectional data flow; the server can push data
+            - Supports multiplexing to reduce load
 
-### 特性
+### Features
 
-1. etcd 可以拥有多个实例，可以做到同时并行
-2. etcd 可以被直接部署到系统中，也可以以 Pod 的形式运行
-3. 只有 API Server 与 etcd 通信
-    1. Robust optimistic locking system
-    2. 验证 (Validation)
-4. 一般 etcd 的实例个数为奇数
-    - 偶数个节点集群不可用风险更高，表现在选主过程中，有较大概率获得等额选票，从而触发下一轮选举
-    - 奇数个节点和偶数（奇数+1）个节点允许宕机的节点数是一样的，偶数个节点浪费资源
-    - majority：超过半数节点接受投票的节点数量
+1.  etcd can have multiple instances, enabling parallel operation
+2.  etcd can be deployed directly on the system or run as a Pod
+3.  Only the API Server communicates with etcd
+    1.  Robust optimistic locking system
+    2.  Validation
+4.  Typically, the number of etcd instances is odd
+    - Clusters with an even number of nodes carry a higher risk of unavailability, as there is a higher probability of a tie during the leader election process, thereby triggering the next round of elections
+        - A member that times out without receiving heartbeats from the current leader initiates an election
+        - Leader: Processes all operations **requiring consensus** (writes, linearizable reads), replicates the Raft log to followers
+    - Clusters with an odd number of nodes and those with an even number (odd number + 1) can tolerate the same number of node failures; clusters with an even number of nodes waste resources
+    - Majority: The number of nodes that accept the vote, exceeding half of the total
 
-## Scheduler（Master）
+## Scheduler (Master)
 
-### 功能
+### Function
 
-- Scheduler 会监听没有绑定 node 的 pod，然后它会更新 pod 的定义，让 pod 和对应的 node 绑定（这里 Scheduler 没有让 node 去运行 pod，需要 kubelet）
-- Scheduler 寻找 node 的方法
+- The Scheduler monitors pods that are not bound to a node, then updates the pod’s definition to bind the pod to a corresponding node (here, the Scheduler does not cause the node to run the pod; this requires the kubelet)
+- How the Scheduler Selects Nodes
     
     ![截屏2024-10-08 11.39.29.png](/kubernetes_manual/images/截屏2024-10-08%2011.39.29.png)
     
-    - 在选择最优 node 时，如果出现同分，则 Round-Robin
-    - 选择 node 的条件
+    - When selecting the optimal node, if there is a tie, Round-Robin is used
+    - Criteria for selecting a node
         - Hardware resources
-        - Label 匹配 node selector
-        - 绑定指定的 host port
-        - 指定类型的 volume
-        - tolerate taints
-        - node and / or pod affinity or anti-affinity rules
+        - Label matches the node selector
+        - Binding to a specified host port
+        - Volumes of a specified type
+        - Tolerate taints
+        - Node and/or pod affinity or anti-affinity rules
 
-### 特性
+### Features
 
-1. Scheduler 在同一时间只能运行一个实例
-2. Scheduler 可以被直接部署到系统中，也可以以 Pod 的形式运行
+1.  Only one instance of the Scheduler can run at a time
+2.  The Scheduler can be deployed directly to the system or run as a Pod
 
-## Controller Manager（Master）
+## Controller Manager (Master)
 
-### 功能
+### Functionality
 
-1. Controllers 会监听来自 API Server 提供的资源变动，并对每一个变动执行操作
-2. Controllers 还会周期性执行 re-list 操作去确保没有丢失部分没有监听到的变动
-3. Controllers 会运行 Reconciliation loop（调协循环），将 actual state 和 desired state 进行调谐
+1.  Controllers monitor resource changes provided by the API Server and perform operations for each change
+2.  Controllers also periodically perform a re-list operation to ensure that no changes are missed
+3.  Controllers run a reconciliation loop to align the actual state with the desired state
 
-### 特性
+### Characteristics
 
-1. Controller 之间不会有任何联系，也不知道彼此的存在，也不知道 kubelet 的存在
-2. Controller 只会在 API Server 上更新资源
-3. Controller Manager 在同一时间只能运行一个实例
-4. Controller Manager 可以被直接部署到系统中，也可以以 Pod 的形式运行
+1.  Controllers have no communication with one another; they are unaware of each other’s existence or that of the kubelet
+2.  Controllers only update resources on the API Server
+3.  Only one instance of the Controller Manager can run at a time
+4.  The Controller Manager can be deployed directly to the system or run as a Pod
 
 ### Controllers Cooperate
 
@@ -140,123 +143,129 @@ curl 127.0.0.1:8001
     
     ![截屏2024-10-08 17.39.58.png](/kubernetes_manual/images/截屏2024-10-08%2017.39.58.png)
     
-- ReplicaSet, DaemonSet, Job controllers
-    - 类似 Replication Manager
+- ReplicaSet, DaemonSet, and Job controllers
+    - Similar to Replication Manager
 - Deployment controller
-    - 在 Replication Manager 的基础上增加了 Rollout 的功能
+    - Adds Rollout functionality to Replication Manager
 - StatefulSet controller
-    - 类似 ReplicaSet
+    - Similar to ReplicaSet
 - Node controller
-    - 管理的是 Worker nodes
-    - 确保 nodes 的列表和实际机器上运行的 nodes 一致
-    - 监视 node 的健康，从无法连接的 node 中驱逐 pods
+    - Manages worker nodes
+    - Ensures that the list of nodes matches the nodes actually running on the physical machines
+    - Monitors node health and evicts pods from unreachable nodes
 - Service controller
-    - 当 create/delete LoadBalancer Service 时，Service controller 是从基础设施中请求和释放load balancer 的控制器。
-- Endpoint controller
-    - Service 不是直接连接 pod 的，而是持有一个 endpoints（IP & Ports）的列表的
-    - Endpoint Controller 负责确保 endpoint list 是更新的（pod 的 ip & port 与 label selector 匹配）
-    - Endpoint Controller 同时监视 Service Resources 和 Pod Resources，并改变 Endpoint Resources
+    - When creating or deleting a LoadBalancer Service, the Service controller is responsible for requesting and releasing load balancers from the infrastructure.
+- Endpoint Controller
+    - A Service does not connect directly to pods; instead, it maintains a list of endpoints (IPs and ports).
+    - The Endpoint Controller is responsible for ensuring that the endpoint list is up to date (pod IPs and ports match the label selector).
+    - The Endpoint Controller monitors both Service resources and Pod resources and updates the Endpoint resources accordingly.
         
-        ![截屏2024-10-08 17.53.25.png](/kubernetes_manual/images/截屏2024-10-08%2017.53.25.png)
+    ![截屏2024-10-08 17.39.58.png](/kubernetes_manual/images/截屏2024-10-08%2017.39.58.png)
         
-- Namespace controller
-    - 当一个 ns resource 被删除了，Namespace controller 确保这个 ns 下所有资源删除
-- PersistentVolume controller
-    - PersistentVolume controller 会帮创建好的 PVC 寻找合适的 PV
-    - 当 PVC 删除时，还会让 PV 解绑并根据 reclaim policy 作出操作
+- Namespace Controller
+    - When a namespace resource is deleted, the Namespace Controller ensures that all resources within that namespace are deleted
+- PersistentVolume Controller
+    - The PersistentVolume Controller helps created PVCs find suitable PVs
+    - When a PVC is deleted, it also unmounts the PV and takes action based on the reclaim policy
 - etc.
 
-## Kubelet（Worker Node）
+## Kubelet (Worker Node)
 
-### 功能
+### Function
 
-1. 在 API Server 中创建 Node 资源
-2. 监听 API Server，确保 pods 已经被调度到此 node 中，然后启动 pod 的容器（通过通知configured container runtime（Docker…））
-3. 监听运行中的容器，向 API Server 报告状态、事件、资源消耗
-4. 运行 Container liveness probes，当 probes 失败时重启容器
-5. 当 pod 被终止时，终止容器
-6. 可以不通过 API Server，直接使用本地的 Pod manifest 创建 pod
+1.  Creates a Node resource in the API Server
+2.  Listens to the API Server to ensure pods have been scheduled to this node, then starts the pod’s containers (by notifying the configured container runtime (Docker…))
+3.  Monitors running containers and reports their status, events, and resource consumption to the API Server
+4.  Runs container liveness probes and restarts containers when probes fail
+5.  Terminate the container when the pod is terminated
+6.  You can create pods directly using a local pod manifest without going through the API Server
 
-### 特性
+### Features
 
-1. Kubelet 只能直接部署在系统中
-2. Kubelet 对 Worker node 中的一切负责
+1.  Kubelet can only be deployed directly on the system
+2.  Kubelet is responsible for everything on the worker node
 
-## kube-proxy（Worker Node）
+## kube-proxy (Worker Node)
 
-全称：Kubernetes Service Proxy
+ Full name: Kubernetes Service Proxy
 
-### 功能
+### Functionality
 
-1. Kube-proxy 确保与 Service 的 IP 和 Port 的连接最终在支持该 Service 的其中一个 pod。当服务由多个 pod 支持时，proxy 会跨这些 pod 执行 Load Balancing。Kube-proxy 维护节点上的网络规则，使发往 Service 的流量（通过 ClusterIP 和端口）负载均衡到正确的后端 Pod。
-2. iptables proxy mode：使用 iptables 的规则去重定向数据包到随机的 pod 中，而不是将数据包通过实际的 proxy server
+1.  Kube-proxy ensures that connections made to a Service’s IP and port ultimately reach one of the pods supporting that Service. When a service is supported by multiple pods, the proxy performs load balancing across these pods. Kube-proxy maintains network rules on the node to load balance traffic destined for the Service (via ClusterIP and port) to the correct backend pods.
+2.  iptables proxy mode: Uses iptables rules to redirect packets to random pods, rather than routing them through an actual proxy server
+    - Instead of kube-proxy itself listening on a port and forwarding packets, it installs NAT rules so the **kernel** directly rewrites and forwards packets.
     
     ![截屏2024-10-09 09.59.51.png](/kubernetes_manual/images/截屏2024-10-09%2009.59.51.png)
     
-3. userspace mode：老版本。等待连接，并为每一个连接开启一个新的连接
+3.  userspace mode: Legacy version. Waits for connections and opens a new connection for each one
 
-### 特性
+### Features
 
-1. kube-proxy 可以被直接部署到系统中，也可以以 Pod 的形式运行
-2. 是一个实际的代理
+1.  kube-proxy can be deployed directly on the system or run as a Pod
+2.  Acts as an actual proxy
 
-## Container Runtime（Worker Node）
+## Container Runtime (Worker Node)
 
-## CSI （Add-on）
+- Pulls the container image from a registry.
+- Creates the container filesystem from the image.
+- Sets up cgroups (CPU/memory limits) and namespaces (isolation).
+- Starts the container process.
 
-查看 [Kubernetes CSI](https://www.notion.so/Kubernetes-CSI-7ab6ca25a6ab416cae8482c5b7d280cb?pvs=21) 
+## CSI (Add-on)
 
-## CNI（Add-on）
+ View [Kubernetes CSI](https://www.notion.so/Kubernetes-CSI-7ab6ca25a6ab416cae8482c5b7d280cb?pvs=21) 
 
-## DNS server（Add-on）
+## CNI (Add-on)
 
-1. 所有的 pod 都默认使用集群内部的 DNS Server，这允许 pod 可以通过名字查找 Service
-2. Service 的 ip 都记录在每个容器的 /etc/resolv.conf 文件中
-3. kube-dns pod 使用 API Server 的监听机制来观察 Services 和 Endpoints 的更新，然后更新 DNS 记录
+## DNS server (Add-on)
 
-## Dashboard（Add-on）
+1.  All pods use the cluster's internal DNS server by default, which allows pods to look up the IP address of a Service by name
+2.  The IP addresses of Services are recorded in the /etc/resolv.conf file of each container
+3.  The kube-dns pod uses the API Server’s watch mechanism to monitor updates to Services and Endpoints, then updates the DNS records
 
-## Ingress controller（Add-on）
+## Dashboard (Add-on)
 
-1. 提供反向代理服务器（Reverse proxy server）
-2. 确保服务器时刻为最新状态（需要监听 Ingress、 Services 和 Endpoints 的更新）
-3. Ingress Controller 负责解析 Ingress 反向代理规则。在 Ingress Controller 收到请求后，它会根据 Ingress 的规则将请求转发到对应 Service 的 Pod 中
+## Ingress Controller (Add-on)
 
-## Heapster（Add-on）
+1.  Provides a reverse proxy server
+2.  Ensures the server is always up to date (requires monitoring updates to Ingress, Services, and Endpoints)
+3.  The Ingress Controller is responsible for resolving Ingress reverse proxy rules. After the Ingress Controller receives a request, it forwards the request to the corresponding Service’s Pod based on the Ingress rules
 
-## Provisioner（Add-on）
+## Heapster (Add-on)
 
-用于建立 PV 和实际的 Volume（DIsk）
+## Provisioner (Add-on)
 
-决定使用哪一个卷来制备 PV
+ Used to create PVs and actual Volumes (Disks)
+
+ Determines which volume to use to provision the PV
 
 ![image.png](/kubernetes_manual/images/image.png)
 
 ### ProvisionController
 
-- 提供**动态供应**
+- Provides **dynamic provisioning**
     
     ![截屏2024-09-24 14.08.11.png](/kubernetes_manual/images/截屏2024-09-24%2014.08.11.png)
     
-    - 静态供应：需要手动在服务器上创建存储卷，然后要创建 PV，最后要创建 PVC 与 PV 绑定
-    - 动态供应：用户无需关心PV资源创建以及存储服务器上的存储卷创建。ProvisionController 根据 StorageClass 资源中的信息以及 PVC 的请求容量，自动创建存储卷和 PV 资源
+    - Static provisioning: Requires manually creating a storage volume on the server, then creating a PV, and finally creating a PVC to bind to the PV
+    - Dynamic provisioning: Users do not need to concern themselves with creating PV resources or storage volumes on the storage server. The ProvisionController automatically creates storage volumes and PV resources based on the information in the StorageClass resource and the requested capacity of the PVC
 
 ### CapacityController
 
 ![截屏2024-09-24 14.14.04.png](/kubernetes_manual/images/截屏2024-09-24%2014.14.04.png)
 
-- ProvisionController 完成 PV 创建操作后，CapacityController 更新 CSIStorageCapacity 消耗容量
-- ProvisionController 完成 PV 删除操作后，CapacityController 更新 CSIStorageCapacity 释放空闲容量
+- After the ProvisionController completes the PV creation operation, the CapacityController updates the consumed capacity in CSIStorageCapacity
+- After the ProvisionController completes the PV deletion operation, the CapacityController updates the CSIStorageCapacity to release the freed capacity
 
 ### **CloningProtectionController**
 
-ProvisionController 在克隆存储卷时，会对 dataSource 指向的 PVC 设置克隆保护
+ When cloning a storage volume, the ProvisionController sets cloning protection on the PVC pointed to by the dataSource.
 
-之后，CloningProtectionController 会监听克隆保护的 PVC，发现目标 PVC 已完成克隆操作，则会删除克隆 finalizer 成员。这样可以避免 PVC 在进行克隆卷创建时，出现源 PVC 被删除的情况。
+ Subsequently, the CloningProtectionController monitors the PVCs under cloning protection. If it detects that the target PVC has completed the cloning operation, it deletes the cloning finalizer member. This prevents the source PVC from being deleted while the cloned volume is being created.
 
-**Finalizer**：Finalizer 是带有命名空间的键，告诉 Kubernetes 等到特定的条件被满足后， 再完全删除被标记为删除的资源。 Finalizer 提醒[控制器](https://kubernetes.io/zh-cn/docs/concepts/architecture/controller/)清理被删除的对象拥有的资源。
+**Finalizer**: A finalizer is a namespace-scoped key that instructs Kubernetes to wait until specific conditions are met before completely deleting resources marked for deletion. Finalizers prompt [controllers](https://kubernetes.io/zh-cn/docs/concepts/architecture/controller/) to clean up resources owned by the deleted objects.
 
-# 资源（Resources）
+# Resources
 
 ![截屏2024-09-23 11.39.28.png](/kubernetes_manual/images/截屏2024-09-23%2011.39.28.png)
 
@@ -264,9 +273,9 @@ ProvisionController 在克隆存储卷时，会对 dataSource 指向的 PVC 设�
 
 ![未命名.png](/kubernetes_manual/images/未命名.png)
 
-一个 Pod 下所有 Containers 共用一个 Linux Namespace 和 Network
+ All containers within a Pod share a single Linux namespace and network.
 
-### 创建 pod
+### Create a Pod
 
 ```yaml
 apiVersion: v1
@@ -284,45 +293,61 @@ spec:
 
 ### Pause Container
 
-- Pod 中一定会有 Pause Container，而且它会比 pod 内其他容器更早起来
-- Pause Container 让所有此 pod 中的容器都共用一个网络、一个 Linux Namespace
-- 如果 Pause 被 kill 了，kubelet 会重新创建 Pause 和其他所有的容器
+- A Pod must contain a Pause Container, and it starts up before any other containers in the Pod
+- The Pause Container ensures that all containers in this Pod share a single network and a single Linux namespace
+    - The Pause container starts first and "acquires" the namespaces (Network, UTS, IPC).
+    - All your actual containers then join the namespaces owned by the Pause container.
+    - This is the Pause Container code:
+    
+    ```bash
+    #include <unistd.h>
+    #include <signal.h>
+    
+    int main() {
+        // Ignore signals or handle them to reap "zombie" processes
+        for (;;) {
+            pause(); 
+        }
+    }
+    ```
+    
+- If the Pause Container is killed, the kubelet will recreate the Pause Container and all other containers
 
-### Pod 在同个 Node 中通信
+### Pods communicate within the same Node
 
-- Virtual Ethernet Interface Pair（veth pair） 服务于容器
-- Veth pair 中，一个接口保留在 host 的 namespace 中；一个在容器的 network namespace 中
-- 这两个虚拟接口像管道的两端，一边进了就从另一边出
-- Network Packet 可以从容器中的接口传入，并到达 Bridge，最后可以送到任意一个连接到 Bridge 的容器中
+- Virtual Ethernet Interface Pair (veth pair) serves the containers
+- In a veth pair, one interface remains in the host’s namespace; the other is in the container’s network namespace
+- These two virtual interfaces act like the two ends of a pipe: what goes in one end comes out the other
+- Network packets can enter through the container’s interface, reach the bridge, and ultimately be delivered to any container connected to the bridge
 
 ![截屏2024-10-11 16.11.30.png](/kubernetes_manual/images/截屏2024-10-11%2016.11.30.png)
 
-### Pod 在不同 Node 中通信
+### Pod Communication Across Nodes
 
-- 集群中，Pod IP Address 是必须唯一的，所以不会有 IP Address 冲突
-- Node 的 Physical network interface 需要连接到 Bridge
-- Node 中的 Routing Table 需要确保对应的 ip 地址 route 到目标 Node
+- Within the cluster, Pod IP addresses must be unique, so there are no IP address conflicts
+- The Node’s physical network interface must be connected to the bridge
+- The routing table on the Node must ensure that the corresponding IP address is routed to the target Node
 
 ![截屏2024-10-11 16.21.58.png](/kubernetes_manual/images/截屏2024-10-11%2016.21.58.png)
 
-### Pod 绑核
+### Pod CPU Binding
 
-- Kubelet 使用 CFS（完全公平策略）算法来为 Pod 分配 CPU
-- kubelet 通过 Linux 的 cpusets 来实现 Pod 独占 CPU（即绑核）
-- 可以避免跟其它 Pod 争抢 CPU 降低性能
-- 操作方法：
-    1. 驱逐 Node：`kubectl drain <NODE_NAME>` 
-    2. 停止 Kubelet： `systemctl stop kubelet`
-    3. 修改 Kubelet 参数：`--cpu-manager-policy="static”`
-        - --cpu-manager-policy：
-            - [`none`](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#none-policy)：默认策略，通过 Linux 默认的 CFS quota 实现 Guaranteed 和 Burstable 的 CPU 使用限制。
-            - [`static`](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#static-policy)：允许 `requests` 中 CPU 为整数的 *Guaranteed* Pod 独占节点上的 CPU，通过 Linux cpuset cgroup 实现。
-    4. 删除旧的 CPU 管理器状态文件：`rm var/lib/kubelet/cpu_manager_state`
-    5. 启动 Kubelet：`systemctl start kubelet`
+- Kubelet uses the CFS (Completely Fair Scheduler) algorithm to allocate CPU resources to Pods
+- Kubelet uses Linux cpusets to enable Pod CPU exclusivity (i.e., CPU pinning)
+- This prevents competition for CPU resources with other Pods, thereby avoiding performance degradation
+- Procedure:
+    1.  Drain the Node: `kubectl drain <NODE_NAME>` 
+    2.  Stop Kubelet: `systemctl stop kubelet`
+    3.  Modify Kubelet parameters: `--cpu-manager-policy="static"`
+        - --cpu-manager-policy:
+            - [`none`](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#none-policy): Default policy, which enforces CPU usage limits for Guaranteed and Burstable pods using Linux’s default CFS quota.
+            - [`static`](https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#static-policy): Allows *Guaranteed* Pods with integer CPU `requests` to exclusively use the node’s CPU, implemented via Linux cpuset cgroups.
+    4.  Delete the old CPU manager state file: `rm /var/lib/kubelet/cpu_manager_state`
+    5.  Start Kubelet: `systemctl start kubelet`
 
 ## Namespace
 
-### 创建 Namespace
+### Create a namespace
 
 ```yaml
 
@@ -332,23 +357,23 @@ metadata:
   name: custom-namespace
 ```
 
-或者：**`kubectl create namespace custom-namespace`**
+ Alternatively: **`kubectl create namespace custom-namespace`**
 
 ## ReplicationController
 
-### 操作流程：
+### Procedure:
 
 ![截屏2024-09-23 11.30.59.png](/kubernetes_manual/images/截屏2024-09-23%2011.30.59.png)
 
-### 内部结构：
+### Internal Structure:
 
 ![截屏2024-09-23 11.32.59.png](/kubernetes_manual/images/截屏2024-09-23%2011.32.59.png)
 
-确定标签，查看 replicas 是否符合数量，通过 pod template 创建新 pod
+ Determine labels, verify that the number of replicas matches the requirement, and create new pods using the pod template
 
-## RelipcaSet
+## ReplicaSet
 
-### 创建 RelipcaSet
+### Create a ReplicaSet
 
 ```yaml
 apiVersion: apps/v1beta2
@@ -372,22 +397,22 @@ spec:
 
 ## Deployment
 
-启动 Deployment 时，Deployment 会启动 ReplicaSet
+ When a Deployment is launched, it launches a ReplicaSet
 
 ![截屏2024-09-29 15.47.57.png](/kubernetes_manual/images/截屏2024-09-29%2015.47.57.png)
 
-### Deployment vs ReplicaSet
+### Deployment vs. ReplicaSet
 
-1. Deployment 拥有滚动更新的机制，而 ReplicaSet 没有
-2. Deployment 可以回滚，ReplicaSet 不可以
+1.  A Deployment has a rolling update mechanism, whereas a ReplicaSet does not
+2.  A Deployment can be rolled back, but a ReplicaSet cannot
 
-### 回滚（Rolling Back）与 Revision
+### Rolling Back and Revisions
 
-- Deployment 的 .spec.template 改动后，会创建一个 Revision
-- Revision 用于 Rolling Back，可以回滚到之前的 revision
-- 更改 revisionHistoryLimit 可以改变 Revision 的存储量
+- When changes are made to a Deployment’s `.spec.template`, a Revision is created
+- Revisions are used for rolling back; you can roll back to a previous revision
+- Changing the `revisionHistoryLimit` can adjust the number of revisions stored
 
-### 滚动更新（Rolling Update）
+### Rolling Update
 
 - rollingUpdate Strategy
     
@@ -401,7 +426,7 @@ spec:
     ```
     
 
-### 创建 Deployment
+### Create a Deployment
 
 ```yaml
 apiVersion: apps/v1
@@ -425,10 +450,10 @@ spec:
 
 ![截屏2024-09-23 17.22.17.png](/kubernetes_manual/images/截屏2024-09-23%2017.22.17.png)
 
-- DaemonSet 会保证每个 Node 有一个指定的 Pod
-- 通过  `Node selector`  来指定需要放置 Pod 的 Nodes（Nodes 中添加 Label）
+- A DaemonSet ensures that each Node has a specific Pod
+- Use `a NodeSelector` to specify the Nodes where Pods should be placed (by adding labels to the Nodes)
 
-### 创建 DaemonSet
+### Create a DaemonSet
 
 ```yaml
 apiVersion: apps/v1beta2
@@ -453,24 +478,33 @@ spec:
 
 ## StatefulSet
 
-### StatefulSet vs Deployment & ReplicaSet & ReplicationController
+### StatefulSet vs. Deployment, ReplicaSet, and ReplicationController
 
-- StatefulSet 内的 Pod 是有状态的，而另外三个资源的 Pod 是无状态的
-    - 有状态指 StatefulSet 存有 Pod 的信息和状态
-    - 当 Pod 消失时，StatefulSet 会创建一个新 Pod 并让该 Pod 持有原来 Pod 的信息和状态
-    - 而另外三个资源的 Pod 是没有信息和状态的，它们会创建一个新的随机 Pod
-- StatefulSet 通过给每个 Pod 名称后添加序列号来确保 Pod 拥有稳定的网络身份（Network Identity）
-    - 并且当一个 Pod 消失了，它会创建一个新 Pod 并持有消失 Pod 的名字
+- Pods within a StatefulSet are stateful, whereas Pods in the other three resources are stateless
+    - "Stateful" means that a StatefulSet maintains the Pod's information and state
+    - When a Pod is lost, the StatefulSet creates a new Pod and ensures that the new Pod retains the information and state of the original Pod
+    - In contrast, the Pods associated with the other three resources have no information or state; they create a new, random Pod
+    - Advantages of pods having state:
+        - A **StatefulSet** ensures:
+            - Pods are assigned **stable names** ( `pod-0`, `pod-1`, …).
+            - Each Pod gets its **own PersistentVolumeClaim (PVC)** that remains associated with it.
+            - Pods are created and terminated in **order** (important for clustered databases, Zookeeper, Kafka, etc.).
+        - Without a StatefulSet, if you used a Deployment:
+            - Pods would have random names (e.g., `mysql-abc123` ),
+            - Storage would be lost or reassigned,
+            - and cluster membership would be disrupted.
+- StatefulSet ensures that each Pod has a stable network identity by appending a sequence number to the Pod name
+    - and when a Pod disappears, it creates a new Pod that retains the name of the disappeared Pod
     
     ![截屏2024-09-29 16.50.52.png](/kubernetes_manual/images/截屏2024-09-29%2016.50.52.png)
     
 - StatefulSet Scaling
-    - Scaling Up：新创建的 Pod 名字序号会是下一个没有用过的号码
-    - Scaling Down：删除 Pod 的顺序是从序号高位到地位
-- StatefulSet 拥有 Volume Claim Templates
-    - 可以给每个 Pod 创建不同需求的 PVC
+    - Scaling Up: The sequence number for the newly created Pod will be the next unused number
+    - Scaling Down: Pods are deleted in descending order of their sequence numbers
+- StatefulSet has Volume Claim Templates
+    - You can create PVCs with different requirements for each Pod
 
-### 创建 StatefulSet
+### Creating a StatefulSet
 
 ```yaml
 kind: List
@@ -498,7 +532,7 @@ name: pv-b
 
 ## Job
 
-### 创建 Job
+### Create a Job
 
 ```yaml
 apiVersion: batch/v1
@@ -521,7 +555,7 @@ spec:
 
 ## CronJob
 
-### 创建CronJob
+### Create a CronJob
 
 ```yaml
 apiVersion: batch/v1beta1
@@ -547,15 +581,15 @@ spec:
 
 ## Service
 
-### 特性
+### Features
 
-- Service 有自己稳定的 IP 地址和 Port 用于客户端来连接（一般是 Pod）
-- 这个 IP 地址是虚拟的（VIP），没有实际连接到任何一个网络端口，它不会被列为 Destination IP Addr
-- 当 Service 创建时，VIP 就立刻分配给它了
-- API Server 会通知所有运行在 Worker Node 的 kube-proxy，Service 已经创建
-- Kube-proxy 通过设置 iptables 规则来确保 Service 的 ip 地址可以连接到
+- A Service has its own static IP address and port for clients to connect to (typically a Pod)
+- This IP address is virtual (VIP) and is not physically connected to any network port; it is not listed as a Destination IP Addr
+- When a Service is created, the VIP is immediately assigned to it
+- The API Server notifies all kube-proxy instances running on Worker Nodes that the Service has been created
+- kube-proxy ensures that the Service’s IP address is reachable by configuring iptables rules
 
-### 创建Service
+### Creating a Service
 
 ```yaml
 apiVersion: v1
@@ -570,25 +604,74 @@ spec:
 		app: kubia  # 所有 app=kubia 的 pod 才能使用这个 svc
 ```
 
-### Pod 内部访问 Service
+### Internal access to the Service from a Pod
 
 ![截屏2024-09-23 17.47.48.png](/kubernetes_manual/images/截屏2024-09-23%2017.47.48.png)
 
-### Cluster类型
+### Service Types
 
-1. ClusterIP（默认）：从 IP 地址池中分配一个 IP 地址
-2. NodePort：额外分配一个端口，使得集群外部可以访问服务
-3. LoadBalancer：外部请求会先通过 LB，来自 LB 的流量将被直接重定向到后端各个 Pod 上，云平台决定如何进行负载平衡
-    1. 多个 svc 可以被一个 Ingress 暴露
+1.  ClusterIP (default): Assigns an IP address from an IP address pool
+2.  NodePort: Assigns an additional port to allow external access to the service
+3.  LoadBalancer: External requests first pass through the load balancer; traffic from the load balancer is directly redirected to the various backend Pods, with the cloud platform determining how to perform load balancing
+    - Each Service requires its **own external load balancer** (which can be expensive).
+    - Works only at **Layer 4 (TCP/UDP)**: no URL routing, no domain-based routing.
+    - Multiple services can be exposed by a single Ingress
         
         ![截屏2024-09-23 18.21.50.png](/kubernetes_manual/images/截屏2024-09-23%2018.21.50.png)
         
+        - An **API object + controller (e.g., Nginx, HAProxy, Traefik, Istio Gateway)**.
+        - Provides **L7 (HTTP/HTTPS)** routing:
+            - Path-based ( `/api` → service A, `/blog` → service B).
+            - Host-based ( `foo.example.com` → service A, `bar.example.com` → service B).
+        - Typically runs behind **a single LoadBalancer** or NodePort → so you don’t need a separate load balancer for each service.
+        - Supports additional features:
+            - TLS termination (HTTPS)
+            - URL rewrites, request/response manipulation
+            - Centralized routing configuration
+
+### **Service (L4: TCP/UDP) vs. Ingress (L7: HTTP/HTTPS)**
+
+**L4:**
+
+- Operates at the **Transport layer** (IP + port).
+- Balances traffic across Pods based on **port only**.
+- Types: ClusterIP, NodePort, LoadBalancer.
+- **Pros**
+    - Simple and lightweight.
+    - Fast (no HTTP parsing).
+    - Works for **any protocol** (HTTP, gRPC, MySQL, Redis, custom TCP/UDP).
+    - Built-in Kubernetes primitive (no extra controller needed).
+- **Cons**
+    - Basic load balancing (round-robin, no content awareness).
+    - Cannot route based on URL path, host header, or cookies.
+    - No TLS termination, rewrites, or advanced policies.
+    - If exposed via NodePort or LoadBalancer, can become expensive or complex.
+
+**L7:**
+
+- Operates at the **application layer** (understands HTTP and gRPC).
+- Requires an **Ingress Controller** (Nginx, Traefik, Istio Gateway, etc.).
+- Can route traffic based on **Host, Path, Headers, and Cookies**.
+- **Pros**
+    - Smart routing:
+        - `/api` → backend API Pods
+        - `/static` → CDN service
+        - `foo.example.com` → Team A app
+        - `bar.example.com` → Team B app
+    - TLS termination (manage HTTPS certificates centrally, e.g., cert-manager).
+    - Can implement rate limiting, authentication, caching, etc. via a controller.
+    - Cleaner than exposing multiple NodePorts/LoadBalancers.
+- **Cons**
+    - Only works for **HTTP/HTTPS/gRPC** (L7 protocols).
+    - Requires an additional component (Ingress Controller) → increased complexity.
+    - More overhead (must parse HTTP, manage configurations).
+    - Advanced features vary between controllers (Nginx vs. Traefik vs. Istio).
 
 ## Endpoint
 
 ![image.png](/kubernetes_manual/images/image%20(1).png)
 
-## Volume（Pod / PersistentVolume）
+## Volume (Pod / PersistentVolume)
 
 ### Non-persistent Storage
 
@@ -637,7 +720,7 @@ spec:
 		fsType: ext4
 ```
 
-- PV 不属于任何 Namespace，所有 Namespace 中的 pod 都可以获取到
+- A PV does not belong to any namespace; pods in all namespaces can access it
 
 ### Access Modes
 
@@ -650,7 +733,7 @@ spec:
 
 ![截屏2024-09-24 13.46.55.png](/kubernetes_manual/images/截屏2024-09-24%2013.46.55.png)
 
-### 创建PVC
+### Create PVC
 
 ```yaml
 apiVersion: v1
@@ -669,13 +752,13 @@ spec:
 
 ## StorageClass
 
-- 不同的类型可能会映射到不同的服务质量等级或备份策略，相当于配置文件
-- 需要包含 `provisioner`、`parameters` 和 `reclaimPolicy` 字段
-- 你可以将某个 StorageClass 标记为集群的默认存储类
-- 当一个 PVC 没有指定 `storageClassName` 时，会使用默认的 StorageClass
-    - 改为默认：`kubectl patch storageclass <your-class-name> -p '{"metadata {"annotations":{"[storageclass.kubernetes.io/is-default-class":"true](http://storageclass.kubernetes.io/is-default-class%22:%22true)"}}}'`
+- Different types may map to different service levels or backup policies, equivalent to configuration profiles (SSD/HDD/100T/500GB…)
+- Must include `the provisioner`, `parameters`, and `reclaimPolicy` fields
+- You can mark a specific StorageClass as the cluster’s default storage class
+- When a PVC does not specify a ` `storageClassName` `, the default StorageClass is used
+    - To set as default: ` `kubectl patch storageclass <your-class-name> -p '{"metadata {"annotations":{"[storageclass.kubernetes.io/is-default-class":"true](http://storageclass.kubernetes.io/is-default-class%22:%22true)"}}}'``
 
-### 创建 StorageClass
+### Create a StorageClass
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -698,15 +781,15 @@ parameters:
 
 ### Node Heartbeats
 
-每个 Node在 `kube-node-lease` Namespace 中都有一个具有匹配名称的 Lease 对象。 在此基础上，每个 kubelet 心跳都是对该 `Lease` 对象的 **update** 请求，更新该 Lease 的 `spec.renewTime` 字段。
+ Each Node has a Lease object with a matching name in the `kube-node-lease` Namespace. Based on this, each kubelet heartbeat is an **update** request to that `Lease` object, updating the `spec.renewTime` field of the Lease.
 
 ### Leader Election
 
-确保在一个组件中，只有一个实例在运行。
+ Ensures that only one instance of a component is running.
 
-一般用于 Controller 或 Scheduler。
+ Typically used for Controllers or Schedulers.
 
-### 查看 Lease YAML
+### View Lease YAML
 
 ```yaml
 apiVersion: coordination.k8s.io/v1
@@ -740,19 +823,19 @@ data:
 
 ## ServiceAccount
 
-### 特性
+### Features
 
-- 一个 Pod 只可以使用同一个 namespace 下的 ServiceAccount
-- 如果不给一个 Pod 声明 ServiceAccount，那么默认使用 namespace 下的 default ServiceAccount
-- 用于和 Role/ClusterRole 绑定
+- A Pod can only use a ServiceAccount from the same namespace
+- If no ServiceAccount is declared for a Pod, the default ServiceAccount in the namespace is used by default
+- Used to bind to a Role or ClusterRole
 
 ## Role
 
-### 特性
+### Characteristics
 
-- 定义 verbs 以及针对的 resources
+- Defines verbs and the resources they target
 
-### 创建 Role
+### Create a Role
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1kind: Role
@@ -775,9 +858,9 @@ $ kubectl create role service-reader --verb=get --verb=list --resource=services 
 
 ![截屏2024-10-25 11.27.28.png](/kubernetes_manual/images/截屏2024-10-25%2011.27.28.png)
 
-- 将 Roles/ClusterRoles 与 users/groups/ServiceAccounts 绑定
+- Bind Roles/ClusterRoles to users/groups/ServiceAccounts
 
-### 创建 RoleBinding
+### Create a RoleBinding
 
 ```bash
 $ kubectl create rolebinding test --role=service-reader --serviceaccount=foo:default -n foo
@@ -836,18 +919,19 @@ spec:
 				  	 divisor: 1Ki
 ```
 
-# 字段
+# Field
 
-## Label（标签可以自定义起）
+## Label (labels can be customized)
 
 ![截屏2024-09-23 10.55.42.png](/kubernetes_manual/images/截屏2024-09-23%2010.55.42.png)
 
-- app: 属于的类别
-- rel: 当前的版本状态（stable, beta, canary）
+- app: Category
+- rel: Current version status (stable, beta, canary)
+- app and rel are key-value labels that can be customized.
 
-Label 一个 node：**`kubectl label node test1 gpu=true`**
+ Label a node: **`kubectl label node test1 gpu=true`**
 
-**根据 node 的 label 创建 pod （nodeSelector）：**
+**Create a pod based on the node's labels (nodeSelector):**
 
 ```yaml
 apiVersion: v1
@@ -865,26 +949,27 @@ name: kubia
 ## Label vs Taint
 
 - Label
-    - Node 打上 `label`，yaml 内规定 `nodeSelector`
-    - Pod 只会部署在对应的 Node
+    - Apply labels to a node and specify `a nodeSelector` in `the YAML`
+    - The pod will only be deployed on the corresponding node
 - Taint
-    - Node 打上 `taint` ，yaml 内必须要有 `toleration` 才能把 Pod 部署到该 Node 上
+    - When a node is `tainted`, the YAML must include `a tolerance` to deploy a Pod to that node
+    - Taints = repelling mechanism. By default, pods are *blocked* unless they tolerate the taint.
 
 ## Annotation
 
-没有像 Label 一样，可以通过 command 来查找过滤的功能。
+ Unlike Labels, there is no functionality to search or filter using the `command` field.
 
-用于添加 Description
+ Used to add a description
 
 ## Liveness probe
 
-通过三种方式检测 pod 健康状态：
+ Detects pod health in three ways:
 
-1. HTTP GET
-2. TCP Socket
-3. Exec (发送指令，查看返回码是否为0)
+1.  HTTP GET
+2.  TCP Socket
+3.  Exec (sends a command and checks if the return code is 0)
 
-### 创建 Liveness probe
+### Create a Liveness Probe
 
 ```yaml
 apiVersion: v1
@@ -912,7 +997,7 @@ spec:
 
 ## Readiness Probe
 
-### 创建Readiness Probe
+### Create Readiness Probe
 
 ```yaml
 readinessProbe:
@@ -924,7 +1009,7 @@ readinessProbe:
   periodSeconds: 5
 ```
 
-## Command & Args
+## Command & Arguments
 
 ### e.g.
 
@@ -939,11 +1024,11 @@ kind: Pod
 
 ### command
 
-- 相当于 Docker 的 ENTRYPOINT，在容器内执行可执行的文件
+- Equivalent to Docker's ENTRYPOINT; executes an executable file inside the container
 
 ### args
 
-- 相当于 Docker 的 CMD，传递给可执行文件的参数
+- Equivalent to Docker's CMD; parameters passed to the executable
 
 ## Env
 
@@ -961,18 +1046,18 @@ spec:
 
 ## ConfigMap
 
-### 创建ConfigMap
+### Create a ConfigMap
 
-1. 根据文件内容创建
+1.  Create based on file contents
     
     **`kubectl create configmap my-config --from-file=config-file.conf`**
     
     ![截屏2024-09-24 14.53.57.png](/kubernetes_manual/images/截屏2024-09-24%2014.53.57.png)
     
-2. 根据 YAML 文件创建
-**`kubectl create -f fortune-config.yaml`**
+2.  Create from a YAML file
+ **`kubectl create -f fortune-config.yaml`**
 
-### Pod 使用 ConfigMap
+### Pods Using ConfigMaps
 
 ```yaml
 apiVersion: v1
@@ -991,26 +1076,26 @@ spec:
 ...
 ```
 
-# 流程
+# Process
 
-## 创建资源
+## Create resources
 
-### 通过 kubectl 载入 YAML 文件创建 Deployment
+### Create a Deployment by loading a YAML file via kubectl
 
 ![截屏2024-10-11 13.48.17.png](/kubernetes_manual/images/截屏2024-10-11%2013.48.17.png)
 
-### 创建 Service
+### Create a Service
 
-- PodA 想要发送 Packet 给 Service
-- Packet 的目的地起初设置为 Service 的 IP 和 port（172.30.0.1:80）
-- Packet 首先由 Node A 的 kernel 根据 iptables 规则进行处理
-- 如果 packet 匹配了 iptables 上的规则，packet 的 destination IP 和 port 就会被更换为随机选中的 Pod 的 IP 和 port（例子中改为了 10.1.2.1:8080）
+- Pod A wants to send a packet to the Service
+- The packet’s destination is initially set to the Service’s IP and port (172.30.0.1:80)
+- The packet is first processed by Node A’s kernel according to iptables rules
+- If the packet matches a rule in iptables, its destination IP and port are replaced with those of a randomly selected Pod (in this example, changed to 10.1.2.1:8080)
 
 ![截屏2024-10-12 10.50.04.png](/kubernetes_manual/images/截屏2024-10-12%2010.50.04.png)
 
-# 指令
+# Instructions
 
-```go
+```shell
 // 创建新资源（重复配置会报错）（需要yaml/yml/json文件）
 kubectl create -f <file's name>
 
