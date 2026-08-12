@@ -1,4 +1,13 @@
-> **📌 This guide has moved.** The current, always-up-to-date guide is [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — it covers the region selector (US/EU/JP), the new style keys, and everything added since January 2026. The page below is kept for reference only and is no longer updated.
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**; check "What's new" below for features added after the screenshots were taken.
+
+## What's new since January 2026
+
+- **Step 1.0 Region selector** — choose **US / EU / JP** before picking a document. The category and module lists, page size, fonts, and caption language all follow the region. JP covers the NDA Module 2 set (表/図 captions, 目次, A4).
+- **New style keys** — <kbd>u</kbd> (3rd-level bullet ▪) and <kbd>y</kbd> (3rd-level numbering i.), with matching buttons in Step 2.
+- **Re-run Step 1 to renumber** — loading a different module number on an already-formatted document now updates the heading numbers in place.
+- **Self-healing styles** — if a style is missing from your document, FFT imports it automatically when you press the key (brief "importing…" notice). No fresh document needed.
+- **Step 3.4 Clean Leftover CN Fonts** — strips Chinese fonts (DengXian, SimSun…) stuck on translated text so the template's fonts apply.
+- **USPI/SmPC** — Step 1 offers a section-skeleton toggle: ON for a new document, OFF when reformatting an existing one.
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in designed to improve efficiency, consistency, and accuracy when formatting documents for health authority submissions. 
