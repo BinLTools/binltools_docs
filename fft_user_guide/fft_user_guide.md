@@ -1,3 +1,5 @@
+> **📌 This guide has moved.** The current, always-up-to-date guide is [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — it covers the region selector (US/EU/JP), the new style keys, and everything added since January 2026. The page below is kept for reference only and is no longer updated.
+
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in designed to improve efficiency, consistency, and accuracy when formatting documents for health authority submissions. 
 
