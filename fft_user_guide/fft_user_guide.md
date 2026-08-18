@@ -6,7 +6,7 @@
 - **New style keys** — <kbd>u</kbd> (3rd-level bullet ▪) and <kbd>y</kbd> (3rd-level numbering i.), with matching buttons in Step 2.
 - **Re-run Step 1 to renumber** — loading a different module number on an already-formatted document now updates the heading numbers in place.
 - **Self-healing styles** — if a style is missing from your document, FFT imports it automatically when you press the key (brief "importing…" notice). No fresh document needed.
-- **Step 3.4 Clean Leftover CN Fonts** — strips Chinese fonts (DengXian, SimSun…) stuck on translated text so the template's fonts apply.
+- **Step 2.4 Clean Leftover CN Fonts** (JP region only; moved from Finalize to Format in v1.5.1) — strips Chinese fonts (DengXian, SimSun, YaHei…) and stray theme fonts stuck on translated text so the template's fonts apply. Body text only; Track Changes pauses during the pass.
 - **USPI/SmPC** — Step 1 offers a section-skeleton toggle: ON for a new document, OFF when reformatting an existing one.
 
 ## Introduction
