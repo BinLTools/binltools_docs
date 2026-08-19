@@ -8,6 +8,9 @@
 - **Self-healing styles** — if a style is missing from your document, FFT imports it automatically when you press the key (brief "importing…" notice). No fresh document needed.
 - **Step 2.4 Clean Leftover CN Fonts** (JP region only; moved from Finalize to Format in v1.5.1) — strips Chinese fonts (DengXian, SimSun, YaHei…) and stray theme fonts stuck on translated text so the template's fonts apply. Body text only; Track Changes pauses during the pass.
 - **USPI/SmPC** — Step 1 offers a section-skeleton toggle: ON for a new document, OFF when reformatting an existing one.
+- **Step 1.3 Product and Company** (v1.6.0) — two boxes under the module picker; what you type is printed into the page header (US/EU: company + product lines; JP: the 【Product Name】 slot) and remembered on your computer.
+- **Step 2.4 never touches tables or figures** (v1.6.0) — only body paragraphs and captions are cleaned; it switches Track Changes on so you can review. The pane header now shows a build stamp next to the version — if it is older than the latest update, close Word and clear the Office add-in cache.
+- **JP 目次** (v1.6.0) — lists the document title, X.X.1 and X.X.1.1 exactly like hhkk's 2.5, with the 目次/表一覧/図一覧 titles themselves as level 1.
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in designed to improve efficiency, consistency, and accuracy when formatting documents for health authority submissions. 
