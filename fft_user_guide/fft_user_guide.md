@@ -10,7 +10,9 @@
 - **USPI/SmPC** — Step 1 offers a section-skeleton toggle: ON for a new document, OFF when reformatting an existing one.
 - **Step 1.3 Product and Company** (v1.6.0) — two boxes under the module picker; what you type is printed into the page header (US/EU: company + product lines; JP: the 【Product Name】 slot) and remembered on your computer.
 - **Step 2.4 never touches tables or figures** (v1.6.0) — only body paragraphs and captions are cleaned; it switches Track Changes on so you can review. The pane header now shows a build stamp next to the version — if it is older than the latest update, close Word and clear the Office add-in cache.
-- **Step 3.2 Cross-references** (v1.6.1) — *Link Mentions* turns "Table 2.5-1" / "表 2.4-1" in the text into live references to the captions, and "(Smith et al., 2020)" into links to the reference list (run 3.1 Bookmarks first); unclear cases are highlighted for 3.3 Highlights. *Update All Fields* refreshes TOC and references in one click. Highlights is now 3.3 and the TOC 3.4.
+- **Shortcut pill is now a button** (v1.6.2) — click the green/grey "Shortcut On/Off" pill at the top of the pane to switch the style keys on or off; it no longer follows where you last clicked. Your choice is remembered.
+- **Track Changes handling** (v1.6.2) — Step 1 turns tracking off while it loads (structural churn is not review content); Normalize Symbols and Clean CN Fonts turn it on so you can review their edits.
+- **Step 3.2 Cross-references** (v1.6.1) — *Link Mentions* turns "Table 2.5-1" / "表 2.4-1" in the text into live references to the captions, and "(Smith et al., 2020)" into links to the reference list (run 3.1 Bookmarks first); one pair of parentheses may hold several citations and each is linked separately (v1.6.2); unclear cases are highlighted for 3.3 Highlights and never-cited reference entries are counted (spelling-mismatch detector). *Update All Fields* refreshes TOC and references in one click. Highlights is now 3.3 and the TOC 3.4.
 - **JP 目次** (v1.6.0) — lists the document title, X.X.1 and X.X.1.1 exactly like hhkk's 2.5, with the 目次/表一覧/図一覧 titles themselves as level 1.
 
 ## Introduction
