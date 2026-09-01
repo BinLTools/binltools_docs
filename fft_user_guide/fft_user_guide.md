@@ -19,6 +19,8 @@
 - **Step 2.5 Scientific Typography** (v1.7.0, JP region only) — one pass applies the hhkk conventions to the body text: citations become "Rosenberg et al. 2016, Topalian et al. 2012" (comma separators, "et al." decided from the reference list), *in vivo* / *in vitro* and similar terms turn italic, EC50 / T1/2 / Cmax / AUC0-x get their subscripts, and ～ in the English reference list becomes a hyphen. Tables are never touched; unclear spots are highlighted cyan. Run it before cross-reference linking.
 - **Finalize reordered** (v1.7.0) — the Finalize tab now reads 3.1 Highlights / 3.2 Bookmarks / 3.3 Cross-references / 3.4 TOC: clear the highlighted items from Step 2.5 first, then link — linking works best on corrected text. Run the Highlights walk again after 3.3 for its unclear cases.
 - **Link Sections** (v1.7.0, JP region only, Finalize 3.3) — section mentions follow the hhkk convention automatically: a section of the same document becomes a blue live link, a section of another M2/M3 file turns blue and gets ［ ］ (the real link is made at eCTD publishing), and M4/M5 mentions stay black.
+- **Highlights loads in seconds** (v1.7.1) — Finalize 3.1 used to take about a minute on a long document; the scan is now batched and finishes in a few seconds.
+- **JP finishing-steps reminder** (v1.7.1) — after Add TOC (FFT's last step) in a JP document, the pane reminds you of the two steps that happen outside the add-in: paste the document into a fresh SWIFTeS shell copy, then run the page-grid script on that file so every section gets the 44 chars × 38 lines grid.
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in designed to improve efficiency, consistency, and accuracy when formatting documents for health authority submissions. 
