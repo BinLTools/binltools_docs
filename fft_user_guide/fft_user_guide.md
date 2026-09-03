@@ -21,6 +21,10 @@
 - **Link Sections** (v1.7.0, JP region only, Finalize 3.3) — section mentions follow the hhkk convention automatically: a section of the same document becomes a blue live link, a section of another M2/M3 file turns blue and gets ［ ］ (the real link is made at eCTD publishing), and M4/M5 mentions stay black.
 - **Highlights loads in seconds** (v1.7.1) — Finalize 3.1 used to take about a minute on a long document; the scan is now batched and finishes in a few seconds.
 - **JP finishing-steps reminder** (v1.7.1) — after Add TOC (FFT's last step) in a JP document, the pane reminds you of the two steps that happen outside the add-in: paste the document into a fresh SWIFTeS shell copy, then run the page-grid script on that file so every section gets the 44 chars × 38 lines grid.
+- **Step 2.5 does more** (v1.8.0, JP) — besides citations, italics and subscripts, it now converts numeric ranges that carry a unit (1-75 mg/kg → 1～75 mg/kg), repairs legacy Symbol-font characters (μ, α, γ, ∞) that Word shows as blanks, sets the reference list blue, and turns stray blue study numbers in tables back to black. Subscripts and italics are now applied **inside tables too** — formatting only; table text is never rewritten. Everything that changes wording is a tracked change, so **check Track Changes before accepting**.
+- **Section references carry the M prefix** (v1.8.0, JP) — cross-document references are written ［M2.5.4］ in blue, and "第4部（モジュール4）4.2.1.1" becomes "M4.2.1.1" in black, matching the partner's house style.
+- **JP page header is 10 pt** and **JP table cells are vertically centred** (v1.8.0). Needs a fresh Step 1 document for the header change to appear.
+- **One finishing script** (v1.8.0) — after Add TOC, run `jp_finalize.py` on the finished file. It writes the page grid (38 lines per page) into every section and frees the caption prefixes from the wrong East-Asian font, two things a Word add-in cannot do.
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in designed to improve efficiency, consistency, and accuracy when formatting documents for health authority submissions. 
