@@ -1,65 +1,68 @@
 ## Introduction
-File Formatting Tool (FFT) is a Microsoft Word add-in designed to improve efficiency, consistency, and accuracy when formatting documents for health authority submissions.
+File Formatting Tool (FFT) is a Microsoft Word add-in that formats regulatory documents for health authority submissions.
 
-This section describes the one-time deployment process required to install FFT on a local machine and required two steps: Installing a trusted certificate on the local machine, and Sideloading the add-in manifest into Microsoft Word.
+Installing it is **one step**: add the FFT manifest to Word. No certificate, no VPN — FFT runs at `https://binltools.com/fft/` behind a normal public certificate. Then create your FFT account inside the pane (once per person).
 
-The deployment process is required only once per device. After deployment, users may proceed directly to the FFT User Guide for daily use.
+The installation is required only once per device. After that, use the FFT User Guide for daily work.
+
+> **Upgrading from the old office-network FFT?** The certificate and VPN are no longer needed. Do "Remove the old version" at the bottom first.
 
 ## Get Started
 ### 0. Prerequisites
-1. A machine (iPad, desktop, laptop, VM...) 🙃
-2. Microsoft Word (2016 or later) / Microsoft Word Web
+1. A machine (desktop, laptop, VM, iPad…) 🙃
+2. Microsoft Word 2016 or later (desktop). Word for the web works with the same manifest through your organization's add-in catalog.
+3. A work e-mail address (for the FFT account).
 
-### 1. Download the Certificate and Manifest
-1. Click [001. Certificate and Manifest](https://topalliancebiousa.sharepoint.com/:f:/r/sites/TopallianceRA/Regulatory%20Tools/File%20Formatting%20Tool%20(FFT)/001.%20Certificate%20and%20Manifest?csf=1&web=1&e=d0JQOL) to download.
-2. Save the certificate and manifest in a folder.
-   
+### 1. Download the manifest
+1. Download **<https://binltools.com/fft/manifest_fft.xml>** (right-click → Save link as…; if it opens in the browser, press Ctrl + S).
+2. Save it in a new folder `C:\Users\<your-username>\FFT-manifest`.
 
-### 2. Import the Certificate to the Local Machine
-1. **MacOS**
-   1. Download the CA cert `rootCA.pem`.
-   2. Double-click `rootCA.pem`. This will open "Keychain Access".
-   3. Select "System" keychain (top left).
-   4. Right-click the certificate you just downloaded -> Click "Get Info".
-   5. Expand "Trust" -> Set When using this certificate to "Always Trust".
+   *(Your username: Win + R → `cmd` → Enter → type `whoami` — the part after the `\`.)*
 
+### 2. Add FFT to Word
+1. **Windows**
+   1. Find your PC name: Win + R → `cmd` → Enter → `hostname` → Enter.
+   2. Word → **File → Options → Trust Center → Trust Center Settings… → Trusted Add-in Catalogs**.
+   3. In **Catalog Url** enter `\\<your-PC-name>\Users\<your-username>\FFT-manifest` → **Add catalog** → tick **Show in Menu** → OK → OK.
 
-2. **Windows**
-   1. Double-click the cert and select "Install Certificate".
-
-      ![1](/fft_deployment/images/6.png)  
-      
-   2. Select current user / Local Machine (access to all the users).
-   3. Select "Place all certificates in the following store". -> Browse -> "Trusted Root Certification Authorities" -> Ok
-      ![1](/fft_deployment/images/7.png)  
-   4. Pop-up window: "The import was successful".
-
-
-### 3. Sideload the Manifest
-1. **MacOS / iPadOS**:
-   1. Use Finder to sideload the manifest file -> Open Finder and then enter `Cmd+Shift+G` to open the Go to folder dialog.
-   2. Enter `/Users/<username>/Library/Containers/com.microsoft.Word/Data/Documents/wef`.
-   3. If the wef folder doesn't exist on your computer, create it.
-
-
-2. **Windows**: 
-   *Reference: [this page](https://learn.microsoft.com/en-us/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins).*
-   1. select the new folder with saved manifest.
-   2. Right click -> Show more options -> Give access to -> Specific people
-   3. Select the owner -> Share -> Done. 
-   
-      ![1](/fft_deployment/images/1.png)
-   
-   4. Right Click saved manifest -> Sharing -> Copy the text under "Network Path"
-   
-      ![2](/fft_deployment/images/2.png)
-
-   5. Open Word Options -> Trust Center -> Trust Center Setting -> Trusted Add-in Catalogs
-   
-   6. Paste the text into "Catalog Url" -> Add catalog -> Check "Show in Menu" -> OK
-   
       ![3](/fft_deployment/images/3.png)
-   
-   7. Restart the Word -> Open File -> Home -> Add-ins -> Advanced -> "Contoso Task Pane" -> Add -> Show Task Pane
-   
+
+      *(This uses the `Users` share Windows provides by itself. Do not use the folder "Share…" wizard; it often fails silently.)*
+   4. Close all Word windows, reopen Word.
+   5. **Insert → Add-ins (My Add-ins) → SHARED FOLDER** → **FFT** → **Add**.
+
       ![4](/fft_deployment/images/4.png)
+
+   6. The **FFT** button appears on the Home ribbon. Click it to open the task pane.
+
+2. **macOS / iPadOS**
+   1. Finder → Cmd + Shift + G → `/Users/<username>/Library/Containers/com.microsoft.Word/Data/Documents/wef` (create `wef` if it does not exist).
+   2. Copy `manifest_fft.xml` into it.
+   3. Restart Word → **Insert → Add-ins → My Add-ins** → **FFT**.
+
+### 3. Create your FFT account (once per person)
+1. Open the FFT pane. It shows **Sign in**.
+2. Click **Create account**, enter your work e-mail and a password (8 characters or more), click **Create**.
+3. A 6-digit code arrives from fft@binltools.com (check junk the first time). Type it and click **Confirm**.
+4. TopAlliance colleagues are activated at once. Partner users see **Awaiting approval** until TopAlliance activates the account — the pane updates by itself.
+
+You stay signed in on that computer. On a shared PC, sign out from Settings when you are done.
+
+**Check it worked:** the top of the pane shows `Ver. x.y.z · <build time>` and, once signed in, your e-mail and organization.
+
+## Remove the old version (only if you installed the office-network FFT)
+1. Close all Word windows.
+2. Word → Trusted Add-in Catalogs (step 2.1.2): remove the old catalog entry; delete the old manifest from your local FFT folder.
+3. Clear Word's add-in cache: Win + R → `%LOCALAPPDATA%\Microsoft\Office\16.0\Wef` → Enter → delete the contents of the folder.
+4. *(Optional)* The old server's certificate is no longer used: Win + R → `certmgr.msc` → Trusted Root Certification Authorities → Certificates → delete the `ratools.topalliancebio.com` entry.
+5. Continue with step 1.
+
+## Troubleshooting
+
+| Symptom | Fix |
+|---|---|
+| Task pane is blank / "ADD-IN ERROR" | Clear Word's add-in cache (Remove the old version, item 3), then fully close and reopen Word |
+| FFT not listed under Shared Folder | Catalog path wrong or "Show in Menu" unticked — redo step 2.1.2–2.1.4. Paste the path into Win + R: it must open a folder that contains the manifest |
+| Pane looks out of date | Check the build stamp next to the version; if older than the latest release, clear the Wef cache and restart Word |
+| No sign-in code | See FAQ #7 |
+| "Awaiting approval" | See FAQ #8 |

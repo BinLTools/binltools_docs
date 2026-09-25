@@ -1,419 +1,554 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**; check "What's new" below for features added after the screenshots were taken.
-
-## What's new since January 2026
-
-- **Step 1.0 Region selector** — choose **US / EU / JP** before picking a document. The category and module lists, page size, fonts, and caption language all follow the region. JP covers the NDA Module 2 set (表/図 captions, 目次, A4).
-- **New style keys** — <kbd>u</kbd> (3rd-level bullet ▪) and <kbd>y</kbd> (3rd-level numbering i.), with matching buttons in Step 2.
-- **Re-run Step 1 to renumber** — loading a different module number on an already-formatted document now updates the heading numbers in place.
-- **Self-healing styles** — if a style is missing from your document, FFT imports it automatically when you press the key (brief "importing…" notice). No fresh document needed.
-- **Step 2.4 Clean Leftover CN Fonts** (JP region only; moved from Finalize to Format in v1.5.1) — strips Chinese fonts (DengXian, SimSun, YaHei…) and stray theme fonts stuck on translated text so the template's fonts apply. Body text only; Track Changes pauses during the pass.
-- **USPI/SmPC** — Step 1 offers a section-skeleton toggle: ON for a new document, OFF when reformatting an existing one.
-- **Step 1.3 Product and Company** (v1.6.0) — two boxes under the module picker; what you type is printed into the page header (US/EU: company + product lines; JP: the 【Product Name】 slot) and remembered on your computer.
-- **Step 2.4 never touches tables or figures** (v1.6.0) — only body paragraphs and captions are cleaned; it switches Track Changes on so you can review. The pane header now shows a build stamp next to the version — if it is older than the latest update, close Word and clear the Office add-in cache.
-- **Shortcut pill is now a button** (v1.6.2) — click the green/grey "Shortcut On/Off" pill at the top of the pane to switch the style keys on or off; it no longer follows where you last clicked. Your choice is remembered. Since v1.6.3 it starts **Off** on a new computer — click it once to turn the keys on.
-- **Shortcut pill pauses in the document** (v1.6.4) — while you type in the document the pill shows amber "Shortcut Paused" (the keys are inactive there); it turns green again by itself when you click back into the pane. Only clicking the pill changes your On/Off choice.
-- **Smarter TOC lists** (v1.6.3) — a document with no figures no longer gets an empty 図一覧 / List of Figures (the pane tells you when one is skipped), and in JP documents the 目次 / 表一覧 / 図一覧 titles themselves now appear in the 目次 with page numbers, matching the reference sample. JP heading numbers also no longer turn italic when the heading text is italicized.
-- **Track Changes handling** (v1.6.2) — Step 1 turns tracking off while it loads (structural churn is not review content); Normalize Symbols and Clean CN Fonts turn it on so you can review their edits.
-- **Step 3.2 Cross-references** (v1.6.1) — *Link Mentions* turns "Table 2.5-1" / "表 2.4-1" in the text into live references to the captions, and "(Smith et al., 2020)" into links to the reference list (run 3.1 Bookmarks first); one pair of parentheses may hold several citations and each is linked separately (v1.6.2); unclear cases are highlighted for 3.3 Highlights and never-cited reference entries are counted (spelling-mismatch detector). *Update All Fields* refreshes TOC and references in one click. Highlights is now 3.3 and the TOC 3.4.
-- **JP 目次** (v1.6.0) — lists the document title, X.X.1 and X.X.1.1 exactly like hhkk's 2.5, with the 目次/表一覧/図一覧 titles themselves as level 1.
-- **Step 2.5 Scientific Typography** (v1.7.0, JP region only) — one pass applies the hhkk conventions to the body text: citations become "Rosenberg et al. 2016, Topalian et al. 2012" (comma separators, "et al." decided from the reference list), *in vivo* / *in vitro* and similar terms turn italic, EC50 / T1/2 / Cmax / AUC0-x get their subscripts, and ～ in the English reference list becomes a hyphen. Tables are never touched; unclear spots are highlighted cyan. Run it before cross-reference linking.
-- **Finalize reordered** (v1.7.0) — the Finalize tab now reads 3.1 Highlights / 3.2 Bookmarks / 3.3 Cross-references / 3.4 TOC: clear the highlighted items from Step 2.5 first, then link — linking works best on corrected text. Run the Highlights walk again after 3.3 for its unclear cases.
-- **Link Sections** (v1.7.0, JP region only, Finalize 3.3) — section mentions follow the hhkk convention automatically: a section of the same document becomes a blue live link, a section of another M2/M3 file turns blue and gets ［ ］ (the real link is made at eCTD publishing), and M4/M5 mentions stay black.
-- **Highlights loads in seconds** (v1.7.1) — Finalize 3.1 used to take about a minute on a long document; the scan is now batched and finishes in a few seconds.
-- **JP finishing-steps reminder** (v1.7.1) — after Add TOC (FFT's last step) in a JP document, the pane reminds you of the two steps that happen outside the add-in: paste the document into a fresh SWIFTeS shell copy, then run the page-grid script on that file so every section gets the 44 chars × 38 lines grid.
-- **Running indicator, quieter toasts, all highlight colours** (v1.8.3) — long steps (Step 1, 2.3–2.5, 3.1–3.4) show a blue "running…" bar with a spinner until their result appears; green success messages disappear after 3 seconds; and 3.1 Highlights now lists every highlighted spot in any colour, not only FFT's cyan, so a reviewer's own yellow marks are walked too.
-- **目次 levels** (v1.8.3, JP) — the 目次 / 表一覧 / 図一覧 titles now sit at the same level as 略語一覧 and the document title, in the 目次 and in the Navigation pane (partner request). Regenerate the 目次 on an existing document to apply it.
-- **English ranges and unit products** (v1.8.3, JP) — 2.5 now writes ranges in English text and table cells with an en dash (68 pM-6.8 µM → 68 pM – 6.8 µM; the reference list keeps its hyphens), writes unit products with a middle dot (μg•h/mL, mg*h/mL, mg・h/mL → μg·h/mL), and no longer misses a Japanese range whose unit uses the micro sign µ. All tracked changes.
-- **Step 2.5 works in every region** (v1.8.2) — the two rules every scientific document shares now run for US, EU and JP alike: *in vivo* / *in vitro* and similar terms turn italic, and EC50 / T1/2 / Cmax / AUC0-x / MRT0-last / AUC0→∞ get their subscripts, inside tables too. The JP conventions (citations, ranges, wave dashes, reference list) stay JP-only; US and EU will get their own rules as they are agreed. Run 2.5 **after** 2.2 Fix Tables — styling a cell drops an italic that covers the whole cell, and 2.5 puts it back.
-- **Number–unit spaces** (v1.8.2, JP) — 2.5 also inserts the missing space between a number and its unit (0.68nM → 0.68 nM), in body text and in table cells, as a tracked change. Percentages and Japanese units (24時間) are left alone. Numeric ranges in English table cells keep their source " – "; ～ is now used in Japanese body text only.
-- **Tables keep their italics and repeat their header row** (v1.8.2) — 2.2 Fix Tables no longer clears italics in cells, and the header row count you give it now repeats that row on every page of a long table. Cross-document section references are blue including the ［M…］ brackets, and an English "Module 4.2.3.2" left by translation becomes M4.2.3.2.
-- **Greek letters in Times New Roman** (v1.8.2, JP) — `jp_finalize.py` now removes the East-Asian font hint from every run, so μ, α, γ, ∞ and → stop rendering in ＭＳ 明朝. Run it last, as before.
-- **Wave dashes unified** (v1.8.1, JP) — Step 2.5 now also turns 〜 and ~ in Japanese text into the full-width ～ the partner asked for, and no longer mistakes a half-life label like T1/2-7 days for a range. Link Sections drops a redundant "第2部（モジュール2）" in front of ［M2.5.4］.
-- **Reference list script** (v1.8.1, JP) — `reformat_references.py` rewrites EndNote-style entries into "Authors. Title. Journal, Year, Vol(Issue): pages." It can run before or after FFT (bookmarks and the blue colour survive) and reports the hand-typed entries it leaves for you. `jp_finalize.py` now also clears theme-based East-Asian fonts from captions.
-- **Step 2.5 does more** (v1.8.0, JP) — besides citations, italics and subscripts, it now converts numeric ranges that carry a unit (1-75 mg/kg → 1～75 mg/kg), repairs legacy Symbol-font characters (μ, α, γ, ∞) that Word shows as blanks, sets the reference list blue, and turns stray blue study numbers in tables back to black. Subscripts and italics are now applied **inside tables too** — formatting only; table text is never rewritten. Everything that changes wording is a tracked change, so **check Track Changes before accepting**.
-- **Section references carry the M prefix** (v1.8.0, JP) — cross-document references are written ［M2.5.4］ in blue, and "第4部（モジュール4）4.2.1.1" becomes "M4.2.1.1" in black, matching the partner's house style.
-- **JP page header is 10 pt** and **JP table cells are vertically centred** (v1.8.0). Needs a fresh Step 1 document for the header change to appear.
-- **One finishing script** (v1.8.0) — after Add TOC, run `jp_finalize.py` on the finished file. It writes the page grid (38 lines per page) into every section and frees the caption prefixes from the wrong East-Asian font, two things a Word add-in cannot do.
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.1** (September 2026).
 
 ## Introduction
-File Formatting Tool (FFT) is a Microsoft Word add-in designed to improve efficiency, consistency, and accuracy when formatting documents for health authority submissions. 
+File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
 
-FFT is helpful for regulatory documents that:
-- Under eCTD structure
-- Contain extensive tables, figures, and cross-references
-- Frequent revisions and re-formatting
+FFT is made for documents that:
+- Follow the eCTD structure
+- Contain many tables, figures and cross-references
+- Are revised and re-formatted often
 
-Three Advantages:
+Three advantages:
 - Works directly inside Word
--  Applies to any Word documents
--  Keyboard-driven shortcuts
+- Works on any Word document
+- Keyboard-driven: one key per paragraph
+
+FFT supports three regions. Pick the region first, and the page size, fonts, captions and document list follow:
+- **US** — eCTD Modules 1–3, USPI, General / SOP
+- **EU** — SmPC, General / SOP
+- **JP** — NDA Module 2, Module 1 (1.6 translated labels), General
 
 Once FFT is opened in Word, it appears as a task pane on the right side of the document.
 
-## Icons
-Before diving into the FFT, let's take a step into the pane discovery.
+## Sign In (since v2.0)
+![48](/fft_user_guide/images/48.png)
 
-### Announcements 
+FFT asks you to sign in the first time on a computer.
+
+1. Click **Create account**, enter your work e-mail and a password (8 characters or more), click **Create**.
+2. A 6-digit code arrives by e-mail from fft@binltools.com (check junk the first time). Read it at your own pace — the pane waits.
+3. Type the code and click **Confirm**.
+
+- TopAlliance colleagues are activated at once. Anyone else sees **Awaiting approval** until TopAlliance activates the account; the pane updates by itself.
+- You stay signed in on that computer. The top of the pane shows your e-mail and organization, and the days left when the licence has 30 days or fewer.
+- **Sign out**: Settings → Sign out. **Forgot password**: on the sign-in screen, enter your e-mail, type the code from the e-mail, choose a new password.
+- Licences belong to an organization (TopAlliance, a partner company). When a licence expires the pane says so and Step 1 stops loading styles; contact TopAlliance to renew.
+
+Two web pages use the same account: **binltools.com/fft/finalize.html** runs the JP finishing script and the label scripts on an uploaded file (no Python needed; the file is processed in memory and not stored), and the administrator's page manages accounts and announcements.
+
+## The Pane
+Before formatting, get to know the pane.
+
+### Announcements
 ![11](/fft_user_guide/images/11.png)
-Updated information will be posted in the announcements section, including version updates, issues detected/solved, new feature releases, etc.
 
-### Shortcuts Status 
-![12](/fft_user_guide/images/12.png)
-Visual check for the Shortcuts function. The details of the Shortcuts function will be covered in section 2.1.
+Version updates, known issues and new features are posted here.
 
-### Settings 
+### Shortcut Pill
+![12](/fft_user_guide/images/12.png) ![13](/fft_user_guide/images/13.png) ![44](/fft_user_guide/images/44.png)
+
+The pill at the top of the pane shows whether the style keys are active. It has three states:
+
+| Pill | Meaning |
+|---|---|
+| Grey **Shortcut Off** | Keys are off. Click the pill to turn them on. |
+| Green **Shortcut On** | Keys are on. Click a paragraph, press a key. |
+| Amber **Shortcut Paused** | You are typing in the document. Keys are inactive there. Click back into the pane and the pill turns green again. |
+
+- Only clicking the pill changes On / Off. Your choice is remembered on this computer.
+- On a new computer the pill starts **Off**. Click it once.
+- Every key also exists as a button, so the pill is never required.
+
+### Settings
 ![14](/fft_user_guide/images/14.png)
-Designed to help users get oriented, access documentation, and get in touch with the shortcut function before applying any formatting. 
-Click the Settings icon in the top-right corner of the FFT pane. 
 
-From here, users can manage:
-- About - check documentation (User Guide), version and contact developer
-- Notification - enable or disable the notification for each action
-- Shortcuts - customize shortcut keys based on preference or reset to default. See 2.1 for more details
+Click the gear icon in the top-right corner of the pane.
 
-💡 Tips: 
-- Clear all the track changes and comments before formatting: File → Info → Check for Issues → Inspect Document → Remove All (Comments, Revisions, and Versions)
+- **About** — version number and a **Documentation** button (opens How It Works).
+- **Notifications** — how long messages stay on screen (seconds), and whether to show success / warning / error messages.
+- **Shortcuts** — click a key box, press the new key, then **Save**. **Reset to Defaults** restores the original keys. See 2.1 for the default keys.
 
-### Configure, Format and Generate
-Configure, Format, and Generate are the three fundamental processes of FFT, which help a document go from disorderly to ready for submission.
+💡 Tips:
+- Heading keys **1–6** are fixed and cannot be changed.
 
+### Version and Build Stamp
+The pane header shows `Ver. 2.1.1 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+
+### Running Bar and Result Messages
+Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
+
+![36](/fft_user_guide/images/36.png) ![49](/fft_user_guide/images/49.png)
+
+### Three Tabs: Configure, Format, Finalize
 ![15](/fft_user_guide/images/15.png)
 
+The tab bar at the bottom of the pane has three tabs, worked left to right. **Format** and **Finalize** unlock after Step 1 is submitted.
+
+## Before You Start
+- **Remove tracked changes and comments** from the document: File → Info → Check for Issues → Inspect Document → Remove All (Comments, Revisions and Versions).
+- **Translated documents: translate first, format last.** Translation tools break Word fields. Run FFT on the final translated text.
+- **Tag the document title as Heading 1 first** in a new document. The heading numbers hang off it.
+- **Changing the region** of an already formatted document needs a fresh document, because styles already in the document win over newly loaded ones. **Changing the module** does not — just re-run Step 1.
 
 ## Step 1 Configure
-Step 1 Configure defines how FFT will prepare the document before formatting begins. 
-This step allows users to load a predefined FFT template, control layout elements, and set page margins.
+Step 1 tells FFT what the document is. FFT then loads the styles, sets the page and margins, and writes the header and footer.
 
 ![16](/fft_user_guide/images/16.png)
 
-### 1.1 Select Module
-At the top of Step 1, select the appropriate module or category from the dropdown list (for example, Module 2.5 – Clinical Overview).
-The predefined styles are automatically added to the document and are ready for use in the following steps.
+### 1.0 Select Region
+Choose where the document will be submitted: **US**, **EU** or **JP**. The region is remembered on this computer.
 
-### 1.2 Set Up Layout
-Provided flexibility in the template load and document layout setup.
+### 1.1 Choose Module Category
+The list depends on the region:
 
-#### 1.2.1 Load Templates
-The principle of FFT template configuration is to deploy the preset styles (named "FFT XXX" in the Styles) and field into a Word document, and it only needs to be deployed once. 
-The document needs to be opened several times for editing, but users do not have to deploy the FFT styles each time. 
-Therefore, the design of the Load Templates helps the users decide whether to reload the template.
+| Region | Categories |
+|---|---|
+| US | General · Module 1 · Module 1 Regional · Module 2 · Module 3 |
+| EU | General · EU Regional |
+| JP | General · Module 1 · Module 2 |
+
+"General" means non-CTD documents.
+
+### 1.2 Choose Specific Module
+Pick the exact document.
+
+| Category | Documents |
+|---|---|
+| General (US / EU) | regular_1, regular_1.0, SOP |
+| General (JP) | regular_1, regular_1.0 (A4, 25 mm, Japanese styles; no SOP) |
+| US Module 1 | 1.6.1, 1.6.2, 1.9.4, 1.12.14, 1.20 |
+| US Module 1 Regional | USPI |
+| EU Regional | SmPC |
+| US Module 2 | 2.2, 2.3.S, 2.3.P, 2.3.A, 2.4, 2.5, 2.6.1–2.6.7, 2.7.1–2.7.4 |
+| US Module 3 | every 3.2.S.x, 3.2.P.x and 3.2.A.x document |
+| JP Module 2 | 2.2, 2.3.S, 2.3.P, 2.3.A, 2.3.R, 2.4, 2.5, 2.6.1–2.6.7, 2.7.1–2.7.6 |
+| JP Module 1 | 1.6 — translated foreign labels (see the JP chapter) |
+
+- regular_1 numbers headings 1 / 1.1 / 1.1.1. regular_1.0 starts at 1.0.
+- CTD modules number headings with the module prefix: 2.5 → 2.5.1 → 2.5.1.1.
+- USPI and SmPC keep their fixed, typed section numbers (FDA PLR / EMA QRD). FFT never auto-numbers them.
+
+### 1.3 Product and Company
+Type the product name and the company name. They are printed in the page header and remembered on this computer. Company defaults to TopAlliance Biosciences. Leave Product empty and the header keeps its placeholder.
+
+### Layout
+Open the **Layout** section to control what Step 1 loads.
 
 ![17](/fft_user_guide/images/17.png)
 
-- ON (recommended for first use):
-   Loads FFT-defined header, footer, and styles
-   Initializes the document with the selected module template
+#### Load Template
+FFT styles (named "FFT …" in the Styles pane) only need to be loaded once per document.
 
-- OFF (recommended when reopening documents):
-   Keeps the existing FFT configuration
-   Allows users to proceed directly to Step 2
+- **ON** (first time): loads the FFT styles, header and footer for the selected module.
+- **OFF** (reopening a formatted document): keeps what is there and lets you go straight to Step 2.
 
-💡 Tips: 
-- If the document already contains an FFT template, turning this option OFF prevents unnecessary reloading
-- If a wrong FFT template been deployed in the document, users need to delete all the FFT Styles manually in Styles. (Styles - Manage Styles - Import/Export - Select all the FFT Styles - Delete)
-
-#### 1.2.2 Load Header / Load Footer
-These options allow fine control over whether FFT should overwrite existing headers and footers.
-
+#### Load Header / Load Footer
 ![18](/fft_user_guide/images/18.png) ![19](/fft_user_guide/images/19.png)
 
-- Load Header
-   ON: FFT applies the predefined header from the selected module
-   OFF: Keeps the document’s existing header unchanged
+- **ON**: FFT writes the predefined header / footer for the module.
+- **OFF**: the document's existing header / footer is kept.
 
-- Load Footer
-   ON: FFT applies the predefined footer from the selected module
-   OFF: Keeps the document’s existing footer unchanged
+Turn these OFF when the document already has an approved header / footer.
 
-💡 Tips: 
+#### Insert Section Skeleton (USPI and SmPC only)
+![37](/fft_user_guide/images/37.png)
 
-Turn OFF these options if
-- The document already contains an approved or validated header/footer
-- Users are working on a late-stage document and want to preserve layout
+- **ON** for a new document: inserts the fixed section list (FDA PLR sections 1–17 / EMA QRD sections 1–10).
+- **OFF** when reformatting an existing document.
 
-#### 1.2.3 Page Margin Settings
-Users can manually define page margins (in inches):
-- Top Margin (default: 1)
-- Bottom Margin (default: 0.67)
-- Left Margin (default: 1.1)
-- Right Margin (default: 0.9)
+#### Margins
+Margins fill in automatically when you pick a module. You can still edit them before Submit.
 
-The specified margins will be applied when formatting begins.
+| Document | Margins |
+|---|---|
+| US CTD modules | 1 / 0.67 / 1.1 / 0.9 in (top / bottom / left / right) |
+| USPI | 1 in all round |
+| SmPC | EMA QRD preset (0.79 in top/bottom, 0.98 in left/right) |
+| JP | 25 mm all round, A4 page |
+| JP 1.6 labels | Page, margins, header and footer stay as in the source |
 
-
-
-## Step 2 Format
-Step 2 Format is where FFT applies formatting to document content.
-This step becomes available only after Step 1 Configure has been completed and submitted.
-
-Step 2 contains three independent formatting sections:
-- 2.1 Styles – headings and paragraphs
-- 2.2 Fix Tables – table cell formatting
-- 2.3 Fix Symbols – symbol normalization
-
-All actions in Step 2 can be undone using Ctrl + Z.
-
-### 2.1 Styles
-Section 2.1 is used to apply predefined FFT styles to headings and paragraphs.
-
-![20](/fft_user_guide/images/20.png)
-
-Each style is mapped to:
-- A button in the FFT pane
-- A keyboard shortcut, shown in grey parentheses on the button
-
-Both methods apply identical formatting.
-
-#### 2.1.1 Available Styles
-- Normal [X] – Body text, justified
-- Normal 2 [C] – Body text, left-aligned
-- Heading 1–5 [1–5] – Section headings
-- NoNum Heading [6] – Heading that does not contain numbers at the front
-- Table Title [T] – Table captions
-- Table Note [E] – Table Note
-- Figure Title [F] – Figure captions
-- Bullet Point [B] – Bulleted lists
-- Sub Bullet Point [H] – Sub Bulleted lists
-- Numbering [V] – Numbered lists
-- Sub Numbering [G] – Sub Numbered lists
-- Checkpoint [ctrl + CC] – Blue Highlight for the selected text, refer to 3.2 Checks for review instruction
-
-Shortcuts that do not appear as buttons:
-
-- Bold [Shift + B] – Bold the selected text
-- Italic [Shift + I] – Italic the selected text
-- Underline [Shift + U] – underline the selected text
-
-#### 2.1.2 Method A – Formatting Using Keyboard Shortcuts (Recommended)
-The Keyboard-driven shortcuts is one of the most powerful features of FFT. 
-It allows users to format paragraph entirely by keyboard, significantly improve efficiency and eliminate repetitive formatting tasks.
-
-Three Key principles:
-- Pre-defined Word Styles
-
-   all shortcuts applied one key to one style, and aligned with health authority eCTD expectations
-
-- Sequential Traversal
-
-   one paragraph at a time, auto-skip all the table and figure, focus on plain-text only
-
-- Shortcut Mode 
-   active only when the floating window is in green with "Shortcut On" and apply only to the navigated paragraph
-
-   ![12](/fft_user_guide/images/12.png) ![13](/fft_user_guide/images/13.png)
-
-#### Step-by-Step Paragraph Formatting
-#### 1. Place the Cursor ####
-   Click anywhere inside the paragraph that needs to be formatted. The cursor must be inside plain text, not inside a table or figure.
-
-   ![21](/fft_user_guide/images/21.png)
-
-#### 2. Activate Shortcut Mode ####
-   Move the cursor to the FFT pane and click once. The floating indicator will change from: “Shortcut Off” (grey) → “Shortcut On” (green) 
-   This confirms that shortcuts are active.
-
-   ![13](/fft_user_guide/images/13.png)
-
-#### 3. Navigate to the current paragraph ####
-   Press [N] on the keyboard. (Think about "Navigate"). FFT will select the paragraph containing the cursor and highlight it in grey.
-
-   ![22](/fft_user_guide/images/22.png)
-
-#### 4. Apply the Desired Style ####
-   Press the shortcut key corresponding to the target style (as shown in grey parentheses on the style buttons). 
-   The style is applied immediately, and the selection remains on the same paragraph.
-
-   ![23](/fft_user_guide/images/23.png)
-
-#### 5. Move to the Next paragraph ####
-
-   Press [→] / customized key to move to the next paragraph. Repeat step 4 and 5 until the entire document is formatted.
-
-#### Default Shortcuts Not Included in the Styles Pane
-- [N] – Navigate to the currently selected location
-- [←] - Move to the previous paragraph
-- [→] - Move to the next paragraph
+### Submit
+Click **Submit**. FFT loads the styles, sets the page and margins, and writes the header and footer. Track Changes is switched off while it loads (a template load is not review content).
 
 💡 Tips:
-- FFT automatically skips tables and figures during shortcut navigation
-- Shortcuts Keys can be customized in the Settings
+- **Wrong module number?** Re-run Step 1 with the right module. Headings renumber in place.
+- **Wrong region?** Start from a fresh document.
+- **Wrong template loaded?** Delete the FFT styles (Styles → Manage Styles → Import/Export → select all FFT styles → Delete), then run Step 1 again.
 
-#### 2.1.2 Method B – Formatting Using Style Buttons
-Users may also format content using the mouse:
-- Select a paragraph using the cursor
-- Click the desired style button in the FFT pane
+## Step 2 Format
+Step 2 formats the content. It opens after Step 1 is submitted.
 
-Example: Select a table caption and click Table Title to apply the predefined table title style.
+Step 2 has five sections:
+- 2.1 Styles — headings and paragraphs
+- 2.2 Table Cells — tables, in one click or by rectangle
+- 2.3 Normalize Symbols — full-width symbols → English (not for JP)
+- 2.4 Clean Leftover CN Fonts — Chinese fonts on translated text (JP only)
+- 2.5 Scientific Typography — italics, subscripts and (JP) house-style text fixes
 
-   ![24](/fft_user_guide/images/24.png)
+**Work in this order: 2.1 → 2.2 → 2.3 / 2.4 → 2.5.** 2.5 restores an italic that covers a whole cell after 2.2, and Step 3 cross-references need 2.5's corrected text.
 
-### 2.2 Fix Tables
-Section 2.2 is designed specifically for table formatting. Tables are excluded from shortcut traversal because:
-- Table structures vary significantly between documents
-- Accurate formatting requires explicit user-defined scope
+💡 Tips:
+- A style key can be undone with Ctrl + Z.
+- 2.3, 2.4 and 2.5 change the whole document. Their text edits land as **tracked changes** — review them in Track Changes rather than undoing.
 
-#### 2.2.1 Table Formatting Principle
-Users define an area within a table by selecting:
-- The top-left cell (area "a")
-- The bottom-right cell (area "b")
+### 2.1 Styles
+![20](/fft_user_guide/images/20.png)
 
-Header in purple, Data in orange
+Each style has a button and a key (shown in grey on the button). Both do the same thing.
 
-   ![25](/fft_user_guide/images/25.png)
+#### Available Styles
 
-FFT will format the cells in the defined area by choosing the category of the cells (header, text or numeral).
+| Key | Style | Use for |
+|---|---|---|
+| X | Normal | Body text |
+| C | Normal 2 | Body text, second form (JP: without first-line indent) |
+| 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …) |
+| 6 | NoNum Heading | Heading without a number; still appears in the TOC |
+| T | Table Title | Table caption — inserts the prefix and auto-number |
+| E | Table Note | Note line under a table |
+| F | Figure Title | Figure caption — inserts the prefix and auto-number |
+| B / H / U | Bullet / Sub Bullet / 3rd Bullet | Bullet lists (• → o → ▪) |
+| V / G / Y | Numbering / Sub Numbering / 3rd Numbering | Numbered lists (US: 1. → a. → i. · JP: （1） → 1） → a)) |
+| Shift + H | Highlight | Cyan highlight on the selected text — marks a spot to check in 3.1 |
 
-   ![26](/fft_user_guide/images/26.png)
+The same key applies the correct regional style: **1** is FFT Heading 1 in a US document and FFT JP Heading 1 in a JP document.
 
-#### 2.2.2 Cell Style Options
-Cells without indentation (more reliable)
-- Header Cells
-- Data Cells (Text)
-- Data Cells (Numerals)
+Keys without a button:
 
-This option fully normalizes formatting, including indentation.
+| Key | Action |
+|---|---|
+| N | Navigate — select the paragraph under the cursor |
+| → / ← | Next / previous paragraph |
+| Backspace | Delete the selected paragraph |
+| Shift + B / I / U | Bold / italic / underline the selected text |
+| Shift + → / ← | Next / previous highlight (Step 3.1) |
 
-Cells with indentation
-- Header Cells
-- Data Cells (Text)
-- Data Cells (Numerals)
+All keys except 1–6 can be changed in Settings.
 
-This option preserves existing indentation and is recommended for hierarchical tables.
+#### Method A — Keyboard (Recommended)
+Format the whole document without touching the mouse.
 
-Example:
+Three principles:
+- One key = one style.
+- One paragraph at a time. Tables and figures are skipped.
+- Keys work only while the pill is green **Shortcut On** and only on the selected paragraph.
 
-Use “Cells with indentation” when indentation conveys hierarchy or categorization.
+![12](/fft_user_guide/images/12.png) ![13](/fft_user_guide/images/13.png)
 
-#### 2.2.3 Step-by-Step Table Formatting
-#### 1. Define the Start of the Area ####
-Select the top-left cell of the target area.
-   
-![27](/fft_user_guide/images/27.png) 
+#### 1. Place the cursor ####
+Click inside the paragraph to format. Plain text only — not a table or figure.
 
-Click Submit.
+![21](/fft_user_guide/images/21.png)
+
+#### 2. Turn shortcuts on ####
+Click the pill so it shows green **Shortcut On**. Click once inside the pane if the pill shows **Paused**.
+
+![13](/fft_user_guide/images/13.png)
+
+#### 3. Navigate to the paragraph ####
+Press **N**. FFT selects the paragraph under the cursor.
+
+![22](/fft_user_guide/images/22.png)
+
+#### 4. Apply the style ####
+Press the key of the style. The style is applied at once and the selection stays on the paragraph.
+
+![23](/fft_user_guide/images/23.png)
+
+#### 5. Move to the next paragraph ####
+Press **→**. Repeat steps 4 and 5 to the end of the document.
+
+#### Method B — Buttons
+- Click inside a paragraph.
+- Click the style button in the pane.
+
+![24](/fft_user_guide/images/24.png)
+
+#### Captions and Auto-Numbering
+**T** and **F** insert the caption prefix and a live number in front of the title:
+
+| Region / document | Table caption |
+|---|---|
+| US CTD module | Table 2.5-1 |
+| USPI / SmPC | Table 1: |
+| General / SOP | Table 1 |
+| JP | 表 2.5-1. |
+
+- Inserting a caption in the middle of the document renumbers the ones after it.
+- Table captions go above the table, figure captions below the figure.
+- Bold, indents or list numbers inherited from the surrounding text are removed when the key is pressed.
+- The lists of tables and figures (3.4) collect captions by their number field. A number typed by hand will not appear in the lists.
+
+#### Style Not Applying?
+- The paragraph still carries direct formatting from its source (common in translated text). Click in it and press **Ctrl + Space** in the document.
+- If a style is missing from the document, FFT imports it when you press the key (brief "importing…" notice). No fresh document needed.
+- Heading indents still wrong? See FAQ #2.
+
+### 2.2 Table Cells
+Tables are skipped by the paragraph walk. They are formatted here — a whole table in one click, or a block of cells by rectangle.
+
+![45](/fft_user_guide/images/45.png)
+
+Set the **Font** (type "Ti" and pick Times New Roman from the list; the box previews the font) and **Size** (default 10 pt) first. The box sets the Latin font only; in JP documents Japanese text keeps ＭＳ 明朝 from the FFT JP table style.
+
+#### Whole table (recommended)
+1. Click inside any cell of the table.
+2. Set **Header rows** (default 1; use 2 for a two-row header).
+3. Click **Format whole table**.
+
+What FFT does:
+- Header rows → **Header** cells (bold, centred) and repeat on every page.
+- First column and cells with long text → **Text** (left).
+- Everything else → **Numerals** (centred): numbers, ranges, "30 mg/kg", "43.4% (23/53)".
+- Keeps what the source meant: indents that show hierarchy (Sex → Female / Male), typed leading spaces, bullets inside cells, bold on key values, italics.
+- Merged cells are handled from the table's own grid. Cells that Word refuses, nested tables and rows it cannot read are listed under the button, not guessed.
+- Track Changes is switched on. Every cell's text is compared before and after; if anything differs the pane names the cell (2.2 never edits text — Ctrl + Z undoes a run).
+
+The result list under the button shows the cells per type and the checks.
+
+#### Manual: a block of cells
+For tables the automatic roles do not fit (a label-and-value table, an odd layout):
+
+![46](/fft_user_guide/images/46.png)
+
+#### 1. Start of the block ####
+Click in the top-left cell and click **Submit**.
+
+![27](/fft_user_guide/images/27.png)
 
 ![28](/fft_user_guide/images/28.png)
 
-#### 2. Define the End of the Area ####
-Click inside the bottom-right cell of the target area.
+#### 2. End of the block ####
+Click in the bottom-right cell.
 
 ![29](/fft_user_guide/images/29.png)
-   
-Set the desired Text Size (default: 10Pt).
 
-![30](/fft_user_guide/images/30.png)
-
-#### 3. Apply Style ####
-Choose the appropriate cell type, then the defined area will auto-format.
+#### 3. Apply ####
+Click **Header**, **Text** or **Numerals**. The rectangle is taken in grid columns, so a merged cell inside it is formatted once. A Header block that starts at the first row also sets the repeat-on-every-page flag.
 
 ![31](/fft_user_guide/images/31.png)
 
 ![32](/fft_user_guide/images/32.png)
 
-#### 2.2.4 Pre-set Table Style in Microsoft Word
+💡 Tips:
+- Bold is left as found in Text and Numerals cells (crucial values often are bold in the source); only Header forces bold. Use Word to clear bold where you do not want it.
+- JP: every cell is centred vertically; US / EU text cells sit at the top.
+- Run 2.2 before 2.5.
 
+#### 2.2.4 Table Style in Word
 ![33](/fft_user_guide/images/33.png)
 
-Microsoft Word has several preset table styles to choose from. The following are the reference steps:
+- Click in the table → **Table Design** → choose a style. **Table Grid** is recommended for most tables.
 
-- Create or select a table in the document
-- Select Table Design on the top right of the document
-- Under Table Style, choose the appropriate format that meets the table design
-
-Table Grid is recommended for common table.
-
-#### 2.2.5 Set up Table Layout in Microsoft Word
-In addition to table design, the layout can also be edited directly in Table Layout. The following are the common use options:
-
-- Alignment → Cell Margins: customized cell margins and spacing between cells
+#### 2.2.5 Table Layout in Word
+- Alignment → Cell Margins: cell padding and spacing.
 
 ![34](/fft_user_guide/images/34.png)
 
-- Data → Repeat Header Rows
-
 ### 2.3 Normalize Symbols
-Section 2.3 normalizes full-width (Chinese) symbols into ASCII (half-width) symbols. One click for the entire document.
+![38](/fft_user_guide/images/38.png)
 
-Examples:
+One click converts full-width symbols in the whole document to English ones:
 - （ ） → ( )
 - ， → ,
 - 。 → .
 - ： → :
 
-This action applies to the entire document and cannot be limited to a selected range.
+- Changes are tracked. Review them in Track Changes.
+- Disabled for JP: Japanese full-width punctuation is correct and must stay.
 
+### 2.4 Clean Leftover CN Fonts (JP only)
+![39](/fft_user_guide/images/39.png)
+
+Translated text often keeps Chinese fonts (DengXian, SimSun, YaHei, 游明朝…) from the source. One click removes them from body paragraphs and captions so the Japanese template fonts apply.
+
+- Tables and figures are never touched.
+- Changes are tracked. Paragraphs FFT cannot edit (inside tables, field results) are reported as skipped.
+- Greyed out outside JP.
+
+### 2.5 Scientific Typography
+![40](/fft_user_guide/images/40.png)
+
+One click fixes scientific typography in the whole document. **Run it after 2.2 and before 3.3.**
+
+Every region:
+- *in vivo*, *in vitro*, *ex vivo*, *in situ*, *in silico*, *de novo* → italic
+- EC50, T1/2, Cmax, Vd, AUC0-168h, MRT0-last, AUC0→∞ → subscripts
+- Inside tables too
+
+JP adds the partner's house style:
+- Citations → "Rosenberg et al. 2016, Topalian et al. 2012"
+- Ranges with a unit in Japanese text → 1～75 mg/kg; every wave dash → ～
+- Ranges in English text and table cells → en dash (68 pM – 6.8 µM); reference list keeps hyphens
+- Missing space between number and unit → 0.68 nM (also in tables)
+- Unit products → middle dot (μg·h/mL)
+- ～ in the English reference list → hyphen; reference list blue; stray blue study numbers in tables back to black
+- Legacy Symbol-font Greek letters (μ, α, γ, ∞) repaired
+
+What you see afterwards:
+- **Text edits are tracked changes.** Review them before accepting.
+- **Italic, subscript and colour are not tracked** — Word does not record formatting made by an add-in. The list under the button names every word FFT italicised or subscripted.
+- Anything FFT is unsure about is highlighted cyan for 3.1.
 
 ## Step 3 Finalize
-Step 3 Finalize is the final stage of FFT.
-It is used to generate document-wide reference structures, including bookmarks and tables of contents.
+Step 3 builds the document-wide structures. Work the four sections in order; the TOC is always last.
 
-Step 3 contains two sections:
-- 3.1 Bookmarks – Auto-add bookmarks based on the references
-- 3.2 Checks - jump menu for reviewing all the checks that are highlighted in blue
-- 3.3 TOC – Auto-generate the Table of Contents, Table of Figures, and Table of Tables
+Before you start: Steps 1 and 2 are complete for the whole document.
 
-### 3.1 Bookmarks
-Section 3.1 automatically creates bookmarks for references with a single click.
-This function is designed to simplify cross-referencing literature references within the document.
-
-FFT will:
-- Identify the “References” section (typically the last section of the document)
-- Automatically add bookmarks for each reference entry
-- Assign each bookmark a standardized name (first-author-name_year, such as Ying_2022)
-
-These bookmarks will appear in Word → Insert → Bookmark, allowing users to easily locate and reference them.
-
-#### Step-by-Step Adding Bookmarks
-1. Confirm the Reference section is formatted with FFT Heading in Styles
-2. Navigate to Step 3 Finalize
-3. Under 3.1 Bookmarks, click Add Bookmarks
-4. FFT scans the References section and creates bookmarks automatically.
-
-#### Create a Cross-Reference in the Paragraph
-1. Select the text in the paragraph where the reference should appear
-2. Go to Word → Insert → Cross-reference
-3. Choose Bookmark as the reference type
-4. Select the appropriate name_year bookmark
-
-#### Important Distinction: Bookmarks vs Figures/Tables
-Bookmarks are used for literature references only.
-Figures and tables are cross-referenced using Word fields, not bookmarks.
-
-Figure and table fields are automatically created when users apply Figure Title and Table Title in Step 2 Format → 2.1 Styles.
-
-To cross-reference figures or tables:
-- Use Word → Insert → Cross-reference
-- Select Figure or Table as the reference type
-
-💡 Tips:
-- FFT prevents duplicate creation if “Add Bookmarks” is clicked multiple times
-- Adding Bookmarks can be undone with a single Ctrl + Z
-
-### 3.2 Checks
-Section 3.2 Checks provides a visual pane for the user to review all the text highlighted in blue in section 2.1. 
-
-#### Step-by-Step reviewing the text with a blue highlight
-- Click "Load Checks" for FFT to detect all the highlighted checks in the document
-- Select the checks by clicking in the visual pane
-- Move between different checks by using Shift + → or Shift + ←
-
+### 3.1 Highlights
 ![35](/fft_user_guide/images/35.png)
 
-### 3.3 TOC (Table of Contents)
-Section 3.3 generates the structural tables required for health authority submissions.
-With a single click, FFT will generate Table of Contents, Table of Figures and Table of Tables based on the FFT headings.
+Lists every highlighted spot in the document — FFT's cyan marks and any colour a reviewer added by hand.
 
-#### Step-by-Step Adding TOC
-- Confirm all the headings equipped with FFT Heading in Styles
-- Navigate to Step 3 Finalize
-- Under 3.3 TOC, click Add TOC
-- FFT inserts all three tables at the cursor position.
+- Click **Load Highlights**. The counter shows "n / N".
+- Click an item to jump to it, or use **Previous / Next** (Shift + ← / Shift + → while shortcuts are on).
+- Fix or clear each spot.
+
+Run 3.1 **before 3.3** (clears the marks from 2.5) and **again after 3.3** (its unclear cases).
+
+### 3.2 Bookmarks
+![47](/fft_user_guide/images/47.png)
+
+One click creates a bookmark for every entry in the reference list. Cross-references to literature use these bookmarks.
+
+FFT:
+- Finds the heading **References** / 参考文献 / 引用文献 / 文献 (any FFT Heading or NoNum Heading style). The list ends at the next heading.
+- Bookmarks every entry as **FirstAuthor_Year** (for example Ying_2022). Duplicates get _2, _3.
+
+#### Step by Step
+1. Make sure the References heading uses an FFT Heading style.
+2. Finalize → 3.2 → **Add Bookmarks**.
+3. The pane reports how many bookmarks were created ("no reference list" if none was found).
 
 💡 Tips:
-- Do Not Update FFT TOC Manually
+- Clicking twice does not create duplicates. Ctrl + Z undoes it.
+- The bookmarks appear in Word → Insert → Bookmark.
+- Literature is linked by bookmarks; tables and figures are linked by their caption fields. 3.3 handles both.
 
-   If users edit headings after generating the TOC - right-click the TOC and choose Update Field, Word will apply its default TOC format and overwrite the FFT-defined structure.
-   
-   If This Happens, delete the entire TOC, Table of Figures, and Table of Tables, and click Add TOC again.
+### 3.3 Cross-references
+![41](/fft_user_guide/images/41.png)
 
-Once Step 3 is complete, the document is ready for cross-reference verification, final QC review and submission export (eCTD / PDF).
+Three buttons.
+
+#### Link Mentions
+Turns typed mentions in the body text into live links:
+
+| You wrote | Becomes |
+|---|---|
+| "Table 2.5-1", "表 2.4-1" | A reference to the caption. Renumbers if captions move. |
+| "(Smith et al., 2020)", "（Bray et al., 2024）" | A link to the reference entry (run 3.2 first). Your text stays as typed. |
+
+- One pair of parentheses can hold several citations; each is linked separately.
+- Unclear cases (no matching caption, two entries for the same author and year) are highlighted cyan for 3.1.
+- Reference entries never cited in the text are counted — a quick way to find a spelling mismatch.
+- Body text only: never tables, captions, the TOC or the reference list. Changes are tracked.
+
+Manual equivalents in Word: Insert → Cross-reference → Table / Figure → Only label and number; Insert → Link → Place in this document → the Author_Year bookmark.
+
+#### Link Sections
+Turns section mentions ("2.5.4", "5.3.5.3") into links, following the region's convention:
+
+| Mention | US / EU | JP |
+|---|---|---|
+| A section of this document (e.g. 2.5.4 inside the 2.5) | Blue live link to the heading | Blue live link to the heading |
+| A section of another document | Number turns blue; the link is made in docuBridge at publishing | M2 / M3: written [M2.7.4], brackets black, M + number blue. M4 / M5: stays black, written M4.2.1.1 |
+
+- Needs a numeric module from Step 1. USPI, SmPC and SOP show a warning.
+- Only mentions with three or more segments are linked ("2.5" alone could be a dose).
+
+#### Update All Fields
+Refreshes every field in one click: cross-references, caption numbers and the TOC.
+
+💡 Tips:
+- Numbered (Vancouver) reference lists: make the list a numbered list (**V**) and use Word → Insert → Cross-reference → Numbered item. Link Mentions is for author-date citations.
+- If the TOC loses its FFT look after an update, delete the three lists and click **Add TOC** again (3.4).
+
+### 3.4 Table of Contents
+![42](/fft_user_guide/images/42.png)
+
+One click builds the **Table of Contents**, **List of Tables** and **List of Figures** from the FFT headings and captions.
+
+#### Step by Step
+1. All headings and captions carry FFT styles.
+2. Put the cursor where the lists should go.
+3. Finalize → 3.4 → **Add TOC**.
+
+- A list with nothing to list is skipped (the pane says so).
+- JP: the 目次 / 表一覧 / 図一覧 titles appear in the 目次 at the same level as 略語一覧, and the 目次 runs margin to margin. On an older document, delete the 目次 and add it again to get this.
+- JP: after Add TOC the pane reminds you of the finishing script (see the JP chapter).
+
+💡 Tips:
+- **Do not right-click → Update Field on the TOC.** Word rebuilds it in its default look. Delete the three lists and click **Add TOC** again instead.
+
+Once Step 3 is complete the document is ready for final QC and submission export (eCTD / PDF).
+
+## Region Quick Reference
+
+| | US | EU | JP |
+|---|---|---|---|
+| Documents | CTD Modules 1–3, USPI, General / SOP | SmPC, General / SOP | CTD Module 2, Module 1 → 1.6 labels, General |
+| Page | Letter | A4, EMA QRD margins | A4, 25 mm margins, 38 lines per page |
+| Fonts | Times New Roman 12 pt | Times New Roman 11 pt (SmPC) | Times New Roman + ＭＳ 明朝 / ゴシック 10.5 pt |
+| Captions | Table 2.5-1 (bold) | Table 1: | 表 2.5-1. (not bold) |
+| Heading numbers | Auto; USPI typed (FDA PLR) | Typed (EMA QRD) | Auto; 1.6 labels typed |
+| 2.3 Normalize Symbols | Yes | Yes | Disabled |
+| 2.4 Clean CN Fonts | — | — | Yes |
+| 2.5 Typography | Italics + subscripts | Italics + subscripts | + citations, ranges, units |
+| After the pane | — | — | jp_finalize.py |
+
+## JP Workflow End to End
+![43](/fft_user_guide/images/43.png)
+
+1. **Translate first, format last.** Run FFT on the final Japanese text.
+2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header.
+3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables → 2.4 Clean CN Fonts → 2.5 Typography.
+4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
+5. **Finishing script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP finalize**, drop the file, click **Run**, download the result. (Locally with Python: `python jp_finalize.py FILE.docx`.)
+
+It does what a Word add-in cannot: writes the 38-line page grid into every section, frees the caption prefixes from the wrong East-Asian font, puts Greek letters back in Times New Roman, and sets the 略語一覧 table to 10.5 pt on the grid. It writes `FILE_final.docx` next to the input (`--in-place` overwrites and keeps a .bak).
+
+Optional, for EndNote reference lists:
+
+```
+python reformat_references.py FILE.docx --apply
+```
+
+Rewrites entries into "Authors. Title. Journal, Year, Vol(Issue): pages." and lists the hand-typed entries it left alone. Works before or after FFT.
+
+### JP 1.6 — Translated Foreign Labels
+Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Module 1 → 1.6. Their section numbers are FDA's / EMA's / NMPA's own, with gaps, so they stay typed:
+- Keys 1–3 restyle the heading without numbering it; T / F apply the caption style only.
+- Step 1 leaves page size, margins, header and footer as in the source.
+- The bulk formatting of a whole label is done before the pane pass: **binltools.com/fft/finalize.html** → **Label format (M1.6)** (profile smpc / uspi / nmpa), then Step 1 → 2.5 → 3.1 in the pane, then **Label page → M2.4** on the same page. Contact RA before formatting a label.
+
+## Good to Know
+- **Sign-in**: once per computer. The pane shows your e-mail at the top; Settings → Sign out on a shared PC.
+- **Track Changes**: Step 1 switches it off. 2.3, 2.4, 2.5 and 3.3 switch it on and leave it on.
+- **Formatting is not tracked**: italics, subscripts and colours made by 2.5 do not show as revisions. Read the list under the button.
+- **Text boxes** are not reached by 2.5. Fix them by hand.
+- **Pane looks old after an update**: check the build stamp, then FAQ #1.
+- **Style will not apply**: Ctrl + Space in the document, then the key again.
+
+## Version History
+- **v2.1.1** (Sep 25, 2026) — 2.2 font box: type-ahead list with preview; JP hint (Latin font only).
+- **v2.1.0** (Sep 25, 2026) — 2.2 rebuilt: **Format whole table** (header rows, first column and long text left, numbers centred, header repeat), merged cells read from the table grid, indents / bullets / bold kept, three-button manual mode, Track Changes on, text guard.
+- **v2.0.1** (Sep 23, 2026) — sign-in code screen no longer resets while you read the e-mail.
+- **v2.0.0** (Sep 23, 2026) — accounts and licences: sign in once per computer, organizations with seats and expiry, templates served to licensed accounts; finalize page (JP finishing script and label scripts without Python); administrator page.
+- **v1.9.4** (Sep 18, 2026) — 2.5 counts only exact-text hits; a converted ～ no longer hides a remaining ~.
+- **v1.9.3** (Sep 17, 2026) — 2.5 result under the button is a bulleted list, one line per change type.
+- **v1.9.2** (Sep 17, 2026) — 2.5 lists every word it italicised or subscripted (formatting is not tracked).
+- **v1.9.1** (Sep 17, 2026) — every button shows the running bar and ends with a result message, including "nothing to do".
+- **v1.9.0** (Sep 17, 2026) — JP 1.6 translated labels (typed-number heading styles); 2.5 converts a repeated wave dash once.
+- **v1.8.6** (Sep 16, 2026) — General is region-aware: JP regular_1 / regular_1.0 load the JP base; no SOP under JP.
+- **v1.8.5** (Sep 11, 2026) — Link Sections for US and EU: same-document sections link, other documents turn blue for docuBridge.
+- **v1.8.4** (Sep 11, 2026) — JP 目次 margin to margin; 略語一覧 table 10.5 pt in the finishing script; [M2.6.3.1] black brackets, blue number.
+- **v1.8.3** (Sep 10, 2026) — running bar, self-clearing success messages, 3.1 lists every highlight colour; JP 目次 titles at the 略語一覧 level; English ranges → en dash, unit products → middle dot, µ fix.
+- **v1.8.2** (Sep 9, 2026) — 2.5 runs in every region (italics + subscripts); JP number–unit spaces; 2.2 keeps italics; Greek letters in TNR via the finishing script.
+- **v1.8.1** (Sep 8, 2026) — JP wave dashes unified; reformat_references.py.
+- **v1.8.0** (Sep 3, 2026) — 2.5 ranges, Symbol-font repair, reference list blue; [M…] section references; jp_finalize.py; JP header 10 pt, cells centred.
+- **v1.7.0 – v1.7.8** (Sep 1, 2026) — 2.5 Scientific Typography (JP); Link Sections (JP); Finalize reordered to 3.1 Highlights / 3.2 Bookmarks / 3.3 Cross-references / 3.4 TOC; fast Highlights; Previous / Next buttons in 3.1; JP finishing reminder; shorter pane texts.
+- **v1.6.3 – v1.6.4** (Aug 27, 2026) — pill starts Off on a new computer and pauses while you type in the document; empty figure list skipped.
+- **v1.6.2** (Aug 20, 2026) — pill is a button; Track Changes off during Step 1; several citations per parenthesis.
+- **v1.6.0 – v1.6.1** (Aug 19, 2026) — Step 1.3 Product and Company; one base template per document family, module number written at Step 1; 2.4 never touches tables; build stamp in the header; Link Mentions and Update All Fields.
+- **v1.5.1 – v1.5.3** (Aug 13–18, 2026) — 2.4 Clean Leftover CN Fonts moved from Finalize to Format; JP template fixes.
+- **v1.5.0** (Aug 7, 2026) — Step 1.0 Region selector (US / EU / JP); keys U and Y; re-run Step 1 to renumber; self-healing styles; USPI / SmPC skeleton toggle.
