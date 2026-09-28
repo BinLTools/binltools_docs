@@ -60,3 +60,8 @@
 #### 10. 2.2 reports "rows skipped" or a text-guard message. ####
    - "Rows skipped (shape could not be read)": the table has a merge Word and FFT cannot reconcile in that row. Format that block with the manual steps (a / b) instead.
    - "TEXT GUARD: content changed at row r, cell c": FFT found a difference between the cell text before and after. Press Ctrl + Z to undo the run and send the table to TopAlliance RA — 2.2 never edits text, so this should not happen.
+
+#### 11. A heading or caption turned cyan after I pressed the key. ####
+   - The number typed in the text differs from the number FFT assigned (for example you typed 2.4.3.2.3 but the heading level makes it 2.4.3.2.2, or the caption order gives a different table number).
+   - Fix the level or the order, delete the typed number, then remove the highlight (Home → Text Highlight Color → No Color). When the typed number matches, FFT removes it by itself.
+

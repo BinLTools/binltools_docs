@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.1** (September 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.4** (September 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -72,7 +72,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.1.1 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.1.4 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -202,7 +202,7 @@ Each style has a button and a key (shown in grey on the button). Both do the sam
 |---|---|---|
 | X | Normal | Body text |
 | C | Normal 2 | Body text, second form (JP: without first-line indent) |
-| 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …) |
+| 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …). A number typed in the text that equals the automatic one is removed; a different one is highlighted cyan |
 | 6 | NoNum Heading | Heading without a number; still appears in the TOC |
 | T | Table Title | Table caption — inserts the prefix and auto-number |
 | E | Table Note | Note line under a table |
@@ -276,7 +276,9 @@ Press **→**. Repeat steps 4 and 5 to the end of the document.
 
 - Inserting a caption in the middle of the document renumbers the ones after it.
 - Table captions go above the table, figure captions below the figure.
-- Bold, indents or list numbers inherited from the surrounding text are removed when the key is pressed.
+- Bold, indents, list numbers and font colour inherited from the surrounding text are removed when the key is pressed (a caption typed after a blue link no longer stays blue).
+- **Typed prefix:** if the title already starts with the same label and number FFT inserts — "表 2.4-4：" or "Table 2.4-4:" — the typed prefix is removed for you. A different number stays and the caption is highlighted cyan for 3.1: it usually means the caption order is not what you expected.
+- JP: the caption paragraph is also freed of a Japanese font inherited from the heading above (表 in ＭＳ ゴシック), as long as Track Changes is off at that moment; with tracking on, 2.4 and the finishing script do it later.
 - The lists of tables and figures (3.4) collect captions by their number field. A number typed by hand will not appear in the lists.
 
 #### Style Not Applying?
@@ -300,7 +302,7 @@ What FFT does:
 - Header rows → **Header** cells (bold, centred) and repeat on every page.
 - First column and cells with long text → **Text** (left).
 - Everything else → **Numerals** (centred): numbers, ranges, "30 mg/kg", "43.4% (23/53)".
-- Keeps what the source meant: indents that show hierarchy (Sex → Female / Male), typed leading spaces, bullets inside cells, bold on key values, italics.
+- Keeps what the source meant: indents that show hierarchy (Sex → Female / Male), typed leading spaces, bullets inside cells, and bold, italic, underline and colour — also when they cover the whole cell.
 - Merged cells are handled from the table's own grid. Cells that Word refuses, nested tables and rows it cannot read are listed under the button, not guessed.
 - Track Changes is switched on. Every cell's text is compared before and after; if anything differs the pane names the cell (2.2 never edits text — Ctrl + Z undoes a run).
 
@@ -331,7 +333,7 @@ Click **Header**, **Text** or **Numerals**. The rectangle is taken in grid colum
 ![32](/fft_user_guide/images/32.png)
 
 💡 Tips:
-- Bold is left as found in Text and Numerals cells (crucial values often are bold in the source); only Header forces bold. Use Word to clear bold where you do not want it.
+- Bold, italic, underline and colour are left as found in Text and Numerals cells (crucial values often are bold in the source); only Header forces bold. Use Word to clear formatting where you do not want it.
 - JP: every cell is centred vertically; US / EU text cells sit at the top.
 - Run 2.2 before 2.5.
 
@@ -528,8 +530,12 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Text boxes** are not reached by 2.5. Fix them by hand.
 - **Pane looks old after an update**: check the build stamp, then FAQ #1.
 - **Style will not apply**: Ctrl + Space in the document, then the key again.
+- **Cyan after a heading or caption key**: the number you typed differs from the automatic one. Check the level or the caption order, then clear the highlight.
 
 ## Version History
+- **v2.1.4** (Sep 28, 2026) — JP: heading and caption keys free the paragraph of a Japanese font inherited from the paragraph above (Track Changes off); finishing script recognises 略語及び略号一覧.
+- **v2.1.3** (Sep 28, 2026) — 2.2 keeps bold, italic, underline and colour that cover a whole cell; heading and caption keys remove a typed number that equals the automatic one, cyan when it differs.
+- **v2.1.2** (Sep 28, 2026) — heading and caption keys reset the font colour to the style (no more blue captions after a link).
 - **v2.1.1** (Sep 25, 2026) — 2.2 font box: type-ahead list with preview; JP hint (Latin font only).
 - **v2.1.0** (Sep 25, 2026) — 2.2 rebuilt: **Format whole table** (header rows, first column and long text left, numbers centred, header repeat), merged cells read from the table grid, indents / bullets / bold kept, three-button manual mode, Track Changes on, text guard.
 - **v2.0.1** (Sep 23, 2026) — sign-in code screen no longer resets while you read the e-mail.
