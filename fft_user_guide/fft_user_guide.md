@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.4** (September 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.6** (September 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -72,7 +72,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.1.4 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.1.6 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -503,11 +503,11 @@ Once Step 3 is complete the document is ready for final QC and submission export
 
 1. **Translate first, format last.** Run FFT on the final Japanese text.
 2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header.
-3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables → 2.4 Clean CN Fonts → 2.5 Typography.
+3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables (**skip 2.2** when the tables are already laid out as in the English source — the partner's rule since Sep 2026) → 2.4 Clean CN Fonts → 2.5 Typography.
 4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
 5. **Finishing script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP finalize**, drop the file, click **Run**, download the result. (Locally with Python: `python jp_finalize.py FILE.docx`.)
 
-It does what a Word add-in cannot: writes the 38-line page grid into every section, frees the caption prefixes from the wrong East-Asian font, puts Greek letters back in Times New Roman, and sets the 略語一覧 table to 10.5 pt on the grid. It writes `FILE_final.docx` next to the input (`--in-place` overwrites and keeps a .bak).
+It does what a Word add-in cannot: writes the 38-line page grid into every section, frees the caption prefixes from the wrong East-Asian font and puts Greek letters in the body text back in Times New Roman. **Tables are left exactly as they are** unless you tick *Also change tables* (略語一覧 at 10.5 pt on the grid, Greek letters inside tables) — ask the partner first. The log ends with a numbered **What changed** list; paste it into the delivery e-mail. It writes `FILE_final.docx` next to the input (`--in-place` overwrites and keeps a .bak).
 
 Optional, for EndNote reference lists:
 
@@ -533,6 +533,8 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading or caption key**: the number you typed differs from the automatic one. Check the level or the caption order, then clear the highlight.
 
 ## Version History
+- **v2.1.6** (Sep 30, 2026) — finishing script leaves tables untouched unless *Also change tables* is ticked, and ends with a "What changed" summary; the install guide's manifest download link works again.
+- **v2.1.5** (Sep 29, 2026) — JP: the heading keys attach their list again (the 2.1.4 font clean-up now runs on caption keys only).
 - **v2.1.4** (Sep 28, 2026) — JP: heading and caption keys free the paragraph of a Japanese font inherited from the paragraph above (Track Changes off); finishing script recognises 略語及び略号一覧.
 - **v2.1.3** (Sep 28, 2026) — 2.2 keeps bold, italic, underline and colour that cover a whole cell; heading and caption keys remove a typed number that equals the automatic one, cyan when it differs.
 - **v2.1.2** (Sep 28, 2026) — heading and caption keys reset the font colour to the style (no more blue captions after a link).

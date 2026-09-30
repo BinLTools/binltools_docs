@@ -19,6 +19,8 @@ The installation is required only once per device. After that, use the FFT User 
 
    *(Your username: Win + R → `cmd` → Enter → type `whoami` — the part after the `\`.)*
 
+   *(Company-managed PC where Word's Trust Center settings are locked? Your Microsoft 365 admin can deploy the same manifest to you centrally — Microsoft 365 admin center → Settings → Integrated apps → Upload custom apps. Then skip step 2 and go to step 3.)*
+
 ### 2. Add FFT to Word
 1. **Windows**
    1. Find your PC name: Win + R → `cmd` → Enter → `hostname` → Enter.
