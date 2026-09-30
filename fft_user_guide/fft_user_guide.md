@@ -507,7 +507,25 @@ Once Step 3 is complete the document is ready for final QC and submission export
 4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
 5. **Finishing script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP finalize**, drop the file, click **Run**, download the result. (Locally with Python: `python jp_finalize.py FILE.docx`.)
 
-It does what a Word add-in cannot: writes the 38-line page grid into every section, frees the caption prefixes from the wrong East-Asian font and puts Greek letters in the body text back in Times New Roman. **Tables are left exactly as they are** unless you tick *Also change tables* (略語一覧 at 10.5 pt on the grid, Greek letters inside tables) — ask the partner first. The log ends with a numbered **What changed** list; paste it into the delivery e-mail. It writes `FILE_final.docx` next to the input (`--in-place` overwrites and keeps a .bak).
+It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input (`--in-place` overwrites and keeps a .bak).
+
+#### What the finishing script changes
+
+| # | Change | Where | Default |
+|---|---|---|---|
+| 1 | Page grid: 38 lines per page (行数だけを指定する), written into every section. The source's own grid settings on mid-document section breaks are replaced. | Whole document | Always |
+| 2 | Caption prefixes (表 2.4-1, 図 2.4-1): the 表 / 図 character loses a directly applied Japanese font so the caption style's ＭＳ 明朝 applies. | Captions only | Always (untick *Page grid only* to skip) |
+| 3 | Greek letters and symbols (μ, α, ≥, →, ∞ …) are shown in Times New Roman instead of the Japanese font. | Body text only | Always (tick *Keep East Asian hints* to skip) |
+| 4 | The same Greek/symbol font change inside tables. | Tables | **Only with *Also change tables*** |
+| 5 | 略語一覧 table set to 10.5 pt, single spacing, rows aligned to the line grid; table text in the whole document is allowed to align to the grid. | 略語一覧 table (grid setting: all tables) | **Only with *Also change tables*** |
+| 6 | Any other change to tables — font, size, spacing, alignment. | — | **Never** |
+| 7 | Built-in Normal style set to 10.5 pt. | Styles | Only with the 44 chars × 38 lines grid |
+
+The script never adds, deletes or reorders text.
+
+**Tables:** leave *Also change tables* unticked unless the partner has asked for the 略語一覧 treatment (rows 4–5). With it unticked every table stays byte-for-byte as in the input — the rule since September 2026, when table rows grew and the 略語一覧 table shrank in a delivered 2.4.
+
+**Tell the partner what was done:** the log ends with a numbered **What changed** list for that file (counts included). Paste it into the delivery e-mail.
 
 Optional, for EndNote reference lists:
 
