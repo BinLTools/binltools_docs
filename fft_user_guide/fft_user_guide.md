@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.6** (September 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.7** (September 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -72,7 +72,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.1.6 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.1.7 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -300,8 +300,9 @@ Set the **Font** (type "Ti" and pick Times New Roman from the list; the box prev
 
 What FFT does:
 - Header rows → **Header** cells (bold, centred) and repeat on every page.
-- First column and cells with long text → **Text** (left).
-- Everything else → **Numerals** (centred): numbers, ranges, "30 mg/kg", "43.4% (23/53)".
+- Cells that hold only a value → **Numerals** (centred): "27.7", "1.75 ± 3.5", "23.7–42.43", "98%", "n=4", "NC".
+- Cells the source already centres → **Numerals** (centred), so the layout follows the English.
+- Everything else → **Text** (left): words, study numbers ("2352-13085"), values with words ("3 Male, 3 Female", "100 mg/kg, Q2W").
 - Keeps what the source meant: indents that show hierarchy (Sex → Female / Male), typed leading spaces, bullets inside cells, and bold, italic, underline and colour — also when they cover the whole cell.
 - Merged cells are handled from the table's own grid. Cells that Word refuses, nested tables and rows it cannot read are listed under the button, not guessed.
 - Track Changes is switched on. Every cell's text is compared before and after; if anything differs the pane names the cell (2.2 never edits text — Ctrl + Z undoes a run).
@@ -551,6 +552,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading or caption key**: the number you typed differs from the automatic one. Check the level or the caption order, then clear the highlight.
 
 ## Version History
+- **v2.1.7** (Sep 30, 2026) — Format whole table: alignment follows the source — only pure values and cells the source centres are centred; study numbers and short text stay left (the Sep 25 rule centred them).
 - **v2.1.6** (Sep 30, 2026) — finishing script leaves tables untouched unless *Also change tables* is ticked, and ends with a "What changed" summary; the install guide's manifest download link works again.
 - **v2.1.5** (Sep 29, 2026) — JP: the heading keys attach their list again (the 2.1.4 font clean-up now runs on caption keys only).
 - **v2.1.4** (Sep 28, 2026) — JP: heading and caption keys free the paragraph of a Japanese font inherited from the paragraph above (Track Changes off); finishing script recognises 略語及び略号一覧.
