@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/code/artifact/ebcf931d-0423-48f6-aeb5-3bbee7563f82) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.7** (September 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.8** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -29,12 +29,14 @@ FFT asks you to sign in the first time on a computer.
 2. A 6-digit code arrives by e-mail from fft@binltools.com (check junk the first time). Read it at your own pace — the pane waits.
 3. Type the code and click **Confirm**.
 
-- TopAlliance colleagues are activated at once. Anyone else sees **Awaiting approval** until TopAlliance activates the account; the pane updates by itself.
+- TopAlliance colleagues and pre-registered partner users are activated at once. Anyone else sees **Awaiting approval** until TopAlliance activates the account; the pane updates by itself.
 - You stay signed in on that computer. The top of the pane shows your e-mail and organization, and the days left when the licence has 30 days or fewer.
 - **Sign out**: Settings → Sign out. **Forgot password**: on the sign-in screen, enter your e-mail, type the code from the e-mail, choose a new password.
 - Licences belong to an organization (TopAlliance, a partner company). When a licence expires the pane says so and Step 1 stops loading styles; contact TopAlliance to renew.
 
-Two web pages use the same account: **binltools.com/fft/finalize.html** runs the JP finishing script and the label scripts on an uploaded file (no Python needed; the file is processed in memory and not stored), and the administrator's page manages accounts and announcements.
+Two web pages use the same account:
+- **[binltools.com/fft/finalize.html](https://binltools.com/fft/finalize.html)** runs the JP finishing script and the label scripts on an uploaded file. No Python needed; the result downloads by itself; the file is processed in memory and not stored.
+- **[binltools.com/fft/admin.html](https://binltools.com/fft/admin.html)** is the administrator's page: accounts, organizations, seats and announcements.
 
 ## The Pane
 Before formatting, get to know the pane.
@@ -72,7 +74,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.1.7 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.1.8 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -506,7 +508,7 @@ Once Step 3 is complete the document is ready for final QC and submission export
 2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header.
 3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables (**skip 2.2** when the tables are already laid out as in the English source — the partner's rule since Sep 2026) → 2.4 Clean CN Fonts → 2.5 Typography.
 4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
-5. **Finishing script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP finalize**, drop the file, click **Run**, download the result. (Locally with Python: `python jp_finalize.py FILE.docx`.)
+5. **Finishing script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP finalize**, drop the file, click **Run**. The result downloads by itself and the page scrolls to the log. (Locally with Python: `python jp_finalize.py FILE.docx`.)
 
 It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input (`--in-place` overwrites and keeps a .bak).
 
@@ -552,6 +554,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading or caption key**: the number you typed differs from the automatic one. Check the level or the caption order, then clear the highlight.
 
 ## Version History
+- **v2.1.8** (Oct 5, 2026) — finalize page: the result downloads by itself and the page scrolls to the log; the hint under Format whole table matches the 2.1.7 rule; How It Works lists the install, finalize and admin links; the install guide has a screenshot for every step.
 - **v2.1.7** (Sep 30, 2026) — Format whole table: alignment follows the source — only pure values and cells the source centres are centred; study numbers and short text stay left (the Sep 25 rule centred them).
 - **v2.1.6** (Sep 30, 2026) — finishing script leaves tables untouched unless *Also change tables* is ticked, and ends with a "What changed" summary; the install guide's manifest download link works again.
 - **v2.1.5** (Sep 29, 2026) — JP: the heading keys attach their list again (the 2.1.4 font clean-up now runs on caption keys only).
