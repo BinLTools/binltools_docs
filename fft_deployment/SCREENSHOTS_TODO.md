@@ -3,11 +3,11 @@
 Not published (directory.json lists pages, not files). Delete when done.
 Save every file as `images/<n>.png`. Retakes keep their old number.
 
-Placed 2026-10-05 from Pictures/Screenshots: 1 (Save link as), 2 (FFT-manifest folder),
-3 (Properties → Sharing network path), 4 (Office Add-ins SHARED FOLDER), 5 (cmd hostname,
-fallback), 6 (Trust Center button), 7 (Insert → Add-ins → Advanced…), 8 (pane Sign in),
+Placed 2026-10-05 from Pictures/Screenshots: 2 (FFT-manifest folder),
+3 (Properties → Sharing network path), 4 (Office Add-ins SHARED FOLDER),
+6 (Trust Center button), 7 (Insert → Add-ins → Advanced…), 8 (pane Sign in),
 10 (Create account), 12 (code e-mail), 13 (pane header), 15 (Wef folder).
-Deleted: old 1, 2, 6, 7 (share wizard + certificate from the office-network install).
+Removed the same day (user: the text is enough): 1 (Save link as), 5 (cmd hostname).
 
 ## Retake (file exists, content is out of date)
 

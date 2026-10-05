@@ -15,9 +15,6 @@ The installation is required only once per device. After that, use the FFT User 
 
 ### 1. Download the manifest
 1. Right-click **<https://binltools.com/fft/manifest_fft.xml>** → **Save link as…** (if it opens in the browser instead, press Ctrl + S).
-
-   ![1](/fft_deployment/images/1.png)
-
 2. Save it in a new folder, e.g. `C:\Users\<your-username>\FFT-manifest`, or any other folder of your choice inside your user folder (Desktop, Documents, …).
 
    ![2](/fft_deployment/images/2.png)
@@ -27,10 +24,6 @@ The installation is required only once per device. After that, use the FFT User 
    1. Find the folder's network path: right-click the folder → **Properties → Sharing** → copy the **Network Path** (`\\<your-PC-name>\Users\<your-username>\FFT-manifest`).
 
       ![3](/fft_deployment/images/3.png)
-
-      *(The Sharing tab says "Not Shared"? Do not use the "Share…" button — it often fails silently. Type the path by hand instead: `\\<your-PC-name>\Users\<your-username>\FFT-manifest`. Your PC name: Win + R → `cmd` → Enter → `hostname` → Enter.)*
-
-      ![5](/fft_deployment/images/5.png)
 
    2. Word → **File → Options → Trust Center → Trust Center Settings…**
 
@@ -90,6 +83,7 @@ You stay signed in on that computer. On a shared PC, sign out from Settings when
 |---|---|
 | Task pane is blank / "ADD-IN ERROR" | Clear Word's add-in cache (Remove the old version, item 3), then fully close and reopen Word |
 | FFT not listed under Shared Folder | Catalog path wrong or "Show in Menu" unticked — redo step 2.1.1–2.1.4. Paste the path into Win + R: it must open a folder that contains the manifest |
+| The Sharing tab says "Not Shared" | The folder is outside your user folder. Move it to `C:\Users\<your-username>\…` and open Properties → Sharing again. Do not use the "Share…" button — it often fails silently |
 | Trust Center settings are greyed out | Company-managed PC. Ask your Microsoft 365 admin to deploy the manifest centrally (Microsoft 365 admin center → Settings → Integrated apps → Upload custom apps), then continue with step 3 |
 | Pane looks out of date | Check the build stamp next to the version; if older than the latest release, clear the Wef cache and restart Word |
 | No sign-in code | See FAQ #7 |
