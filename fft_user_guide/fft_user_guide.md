@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.8** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.9** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -66,7 +66,7 @@ The pill at the top of the pane shows whether the style keys are active. It has 
 
 Click the gear icon in the top-right corner of the pane.
 
-- **About** — version number and a **Documentation** button (opens How It Works).
+- **About** — version number, **Sign out** and a **Documentation** button (opens the guide list on binltools.com: install guide, this user guide, FAQ).
 - **Notifications** — how long messages stay on screen (seconds), and whether to show success / warning / error messages.
 - **Shortcuts** — click a key box, press the new key, then **Save**. **Reset to Defaults** restores the original keys. See 2.1 for the default keys.
 
@@ -74,7 +74,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.1.8 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.1.9 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -567,6 +567,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading or caption key**: the number you typed differs from the automatic one. Check the level or the caption order, then clear the highlight.
 
 ## Version History
+- **v2.1.9** (Oct 5, 2026) — Settings: the Documentation button opens the guide list on binltools.com; Sign out and Documentation sit side by side.
 - **v2.1.8** (Oct 5, 2026) — finalize page: the result downloads by itself and the page scrolls to the log; the hint under Format whole table matches the 2.1.7 rule; How It Works lists the install, finalize and admin links; the install guide has a screenshot for every step.
 - **v2.1.7** (Sep 30, 2026) — Format whole table: alignment follows the source — only pure values and cells the source centres are centred; study numbers and short text stay left (the Sep 25 rule centred them).
 - **v2.1.6** (Sep 30, 2026) — finishing script leaves tables untouched unless *Also change tables* is ticked, and ends with a "What changed" summary; the install guide's manifest download link works again.
