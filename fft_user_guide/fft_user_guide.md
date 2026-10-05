@@ -506,7 +506,7 @@ Once Step 3 is complete the document is ready for final QC and submission export
 
 1. **Translate first, format last.** Run FFT on the final Japanese text.
 2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header.
-3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables (**skip 2.2** when the tables are already laid out as in the English source — the partner's rule since Sep 2026) → 2.4 Clean CN Fonts → 2.5 Typography.
+3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables (run it or skip it — see **Tables: two ways** below) → 2.4 Clean CN Fonts → 2.5 Typography.
 4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
 5. **Finishing script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP finalize**, drop the file, click **Run**. The result downloads by itself and the page scrolls to the log. (Locally with Python: `python jp_finalize.py FILE.docx`.)
 
@@ -526,7 +526,20 @@ It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input
 
 The script never adds, deletes or reorders text.
 
-**Tables:** leave *Also change tables* unticked unless the partner has asked for the 略語一覧 treatment (rows 4–5). With it unticked every table stays byte-for-byte as in the input — the rule since September 2026, when table rows grew and the 略語一覧 table shrank in a delivered 2.4.
+#### Tables: two ways
+
+Decide once per document, before Step 2, and keep to the same column through the finishing script.
+
+| | A · Tables stay as they are | B · Tables get the FFT format |
+|---|---|---|
+| **When** | The tables are already laid out the way the receiver wants — typically the same layout as the English source | The tables need formatting: newly translated, pasted from another source, or inconsistent with each other |
+| **2.2 Table Cells** | Skip | **Format whole table** on every table (manual mode for unusual ones) |
+| **2.5 Typography** | Run. It still corrects text inside tables: subscripts, unit spaces, ranges, Greek letters | Run, after 2.2 |
+| **Finishing script** | *Also change tables* **unticked** — every table stays byte-for-byte as in the input | *Also change tables* **ticked** — 略語一覧 at 10.5 pt, table rows on the line grid (rows 4–5 above) |
+
+- The two steps in a column belong together: the approved look for B needs both 2.2 and the tick.
+- Not sure which one applies? Ask whoever receives the file before you start.
+- Applied a Word table style afterwards (Table Design)? It resets the cell alignment and the repeating header row — run 2.2 on that table again.
 
 **Tell the partner what was done:** the log ends with a numbered **What changed** list for that file (counts included). Paste it into the delivery e-mail.
 
