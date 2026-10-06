@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.10** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.11** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.1.10 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.1.11 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -462,6 +462,7 @@ Turns section mentions ("2.5.4", "5.3.5.3") into links, following the region's c
 
 - Needs a numeric module from Step 1. USPI, SmPC and SOP show a warning.
 - Only mentions with three or more segments are linked ("2.5" alone could be a dose).
+- Figure and table numbers are not section mentions: in "図 2.6.1-1" or "Table 2.6.1-3" the number belongs to Link Mentions, so it gets one link, to the caption (v2.1.11).
 
 #### Update All Fields
 Refreshes every field in one click: cross-references, caption numbers and the TOC.
@@ -569,6 +570,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading or caption key**: the number you typed differs from the automatic one. Check the level or the caption order, then clear the highlight.
 
 ## Version History
+- **v2.1.11** (Oct 6, 2026) — Link Sections no longer links the module number inside a figure or table mention ("図 2.6.1-1" linked to section 2.6.1 as well as the figure).
 - **v2.1.10** (Oct 5, 2026) — Announcements: a red dot on the bell marks an unread announcement; the board re-reads every time it is opened.
 - **v2.1.9** (Oct 5, 2026) — Settings: the Documentation button opens the guide list on binltools.com; Sign out and Documentation sit side by side.
 - **v2.1.8** (Oct 5, 2026) — finalize page: the result downloads by itself and the page scrolls to the log; the hint under Format whole table matches the 2.1.7 rule; How It Works lists the install, finalize and admin links; the install guide has a screenshot for every step.
