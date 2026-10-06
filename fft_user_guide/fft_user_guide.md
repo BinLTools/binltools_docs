@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.16** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.17** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -35,7 +35,7 @@ FFT asks you to sign in the first time on a computer.
 - Licences belong to an organization (TopAlliance, a partner company). When a licence expires the pane says so and Step 1 stops loading styles; contact TopAlliance to renew.
 
 Two web pages use the same account:
-- **[binltools.com/fft/finalize.html](https://binltools.com/fft/finalize.html)** runs the JP finishing script and the label scripts on an uploaded file. No Python needed; the result downloads by itself; the file is processed in memory and not stored.
+- **[binltools.com/fft/finalize.html](https://binltools.com/fft/finalize.html)** runs the JP finishing script and the label scripts on uploaded files, one or several at a time. No Python needed; each result downloads by itself; files are processed in memory and not stored.
 - **[binltools.com/fft/admin.html](https://binltools.com/fft/admin.html)** is the administrator's page: accounts, organizations, seats and announcements.
 
 ## The Pane
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.1.16 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.1.17 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -511,7 +511,7 @@ Once Step 3 is complete the document is ready for final QC and submission export
 2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header.
 3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables (run it or skip it — see **Tables: two ways** below) → 2.4 Clean CN Fonts → 2.5 Typography.
 4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
-5. **Finishing script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP finalize**, drop the file, click **Run**. The result downloads by itself and the page scrolls to the log. (Locally with Python: `python jp_finalize.py FILE.docx`.)
+5. **Finishing script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP finalize**, drop the file — or all the modules of a round at once, the options apply to every file — and click **Run**. Each result downloads by itself (the browser asks once to allow several downloads) and the page scrolls to the log, one block per file. (Locally with Python: `python jp_finalize.py FILE.docx`.)
 
 It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input (`--in-place` overwrites and keeps a .bak).
 
@@ -570,6 +570,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.1.17** (Oct 6, 2026) — Finalize page: drop several files in one run, one download each; a file that fails is listed and the others still finish.
 - **v2.1.16** (Oct 6, 2026) — Header and footer right-hand text sits on the right margin of every section, landscape pages included (the JP header used to keep the portrait position on a landscape 2.6.3 page; 2.1.15 shipped the template change, 2.1.16 the pane change that let it take effect). Re-run Step 1 on an existing document to pick it up.
 - **v2.1.14** (Oct 6, 2026) — Link Mentions reads the whole caption number: "図 2.6.2-13" used to be linked to figure 1 with a stray "3" left behind. Link Sections no longer links "2.5.4" inside "2.5.41".
 - **v2.1.13** (Oct 6, 2026) — 3.1 Load Highlights reads the document once instead of asking Word for every paragraph; a long document with one highlight used to take a minute, now seconds.
