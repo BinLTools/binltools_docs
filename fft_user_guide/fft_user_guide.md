@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.11** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.12** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.1.11 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.1.12 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -281,7 +281,7 @@ Press **→**. Repeat steps 4 and 5 to the end of the document.
 - Inserting a caption in the middle of the document renumbers the ones after it.
 - Table captions go above the table, figure captions below the figure.
 - Bold, indents, list numbers and font colour inherited from the surrounding text are removed when the key is pressed (a caption typed after a blue link no longer stays blue).
-- **Typed prefix:** if the title already starts with the same label and number FFT inserts — "表 2.4-4：" or "Table 2.4-4:" — the typed prefix is removed for you. A different number stays and the caption is highlighted cyan for 3.1: it usually means the caption order is not what you expected.
+- **Typed prefix:** if the title already starts with its own label — "表 2.4-4：" or "Table 2.4-4:" — the typed prefix is removed for you, whatever number it carries (v2.1.12). The live number is the one FFT inserts; it moves when a caption is added before it. When the typed number was different, the toast says so ("Typed 図 2.6.2-1 removed — now numbered 2"): check the mentions of that figure in the text, 3.3 links them to the new number.
 - JP: the caption paragraph is also freed of a Japanese font inherited from the heading above (表 in ＭＳ ゴシック), as long as Track Changes is off at that moment; with tracking on, 2.4 and the finishing script do it later.
 - The lists of tables and figures (3.4) collect captions by their number field. A number typed by hand will not appear in the lists.
 
@@ -567,9 +567,10 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Text boxes** are not reached by 2.5. Fix them by hand.
 - **Pane looks old after an update**: check the build stamp, then FAQ #1.
 - **Style will not apply**: Ctrl + Space in the document, then the key again.
-- **Cyan after a heading or caption key**: the number you typed differs from the automatic one. Check the level or the caption order, then clear the highlight.
+- **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.1.12** (Oct 6, 2026) — Caption keys remove a typed label whatever its number (a typed 図 2.6.2-1 under a live 2 used to stay cyan and could not be cleaned by a second key press); the toast reports a changed number.
 - **v2.1.11** (Oct 6, 2026) — Link Sections no longer links the module number inside a figure or table mention ("図 2.6.1-1" linked to section 2.6.1 as well as the figure).
 - **v2.1.10** (Oct 5, 2026) — Announcements: a red dot on the bell marks an unread announcement; the board re-reads every time it is opened.
 - **v2.1.9** (Oct 5, 2026) — Settings: the Documentation button opens the guide list on binltools.com; Sign out and Documentation sit side by side.
