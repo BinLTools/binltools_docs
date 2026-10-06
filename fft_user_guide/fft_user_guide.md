@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.15** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.16** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.1.15 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.1.16 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -570,7 +570,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
-- **v2.1.15** (Oct 6, 2026) — Header and footer right-hand text sits on the right margin of every section, landscape pages included (the JP header used to keep the portrait position on a landscape 2.6.3 page). Re-run Step 1 on an existing document to pick it up.
+- **v2.1.16** (Oct 6, 2026) — Header and footer right-hand text sits on the right margin of every section, landscape pages included (the JP header used to keep the portrait position on a landscape 2.6.3 page; 2.1.15 shipped the template change, 2.1.16 the pane change that let it take effect). Re-run Step 1 on an existing document to pick it up.
 - **v2.1.14** (Oct 6, 2026) — Link Mentions reads the whole caption number: "図 2.6.2-13" used to be linked to figure 1 with a stray "3" left behind. Link Sections no longer links "2.5.4" inside "2.5.41".
 - **v2.1.13** (Oct 6, 2026) — 3.1 Load Highlights reads the document once instead of asking Word for every paragraph; a long document with one highlight used to take a minute, now seconds.
 - **v2.1.12** (Oct 6, 2026) — Caption keys remove a typed label whatever its number (a typed 図 2.6.2-1 under a live 2 used to stay cyan and could not be cleaned by a second key press); the toast reports a changed number.
