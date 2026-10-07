@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.2.0** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.2.1** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.2.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.2.1 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -580,6 +580,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.2.1** (Oct 7, 2026) — Keyboard navigation (← →) now steps across a section break, e.g. the first page reserved for the 目次 with Layout → Breaks → Next Page. 3.3 Link Mentions: a 表 / 図 link keeps the formatting of the sentence it sits in; it used to copy the caption's run formatting, which turned one link into a non-Japanese font.
 - **v2.2.0** (Oct 7, 2026) — JP page-grid script: new *All other tables to N pt* option and the 略語一覧 table is found on a file that has not been through the pane, so the script can run first; Step 1 reports the line grid. 2.2: **Table type** presets (Standard, 略語一覧, Custom with line spacing and space before/after). 2.5: a subscript faked by shrinking the digits is restored to the surrounding size first; KD added; existing subscripts no longer re-counted.
 - **v2.1.17** (Oct 6, 2026) — Finalize page: drop several files in one run, one download each; a file that fails is listed and the others still finish.
 - **v2.1.16** (Oct 6, 2026) — Header and footer right-hand text sits on the right margin of every section, landscape pages included (the JP header used to keep the portrait position on a landscape 2.6.3 page; 2.1.15 shipped the template change, 2.1.16 the pane change that let it take effect). Re-run Step 1 on an existing document to pick it up.
