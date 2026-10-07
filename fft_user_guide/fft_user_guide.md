@@ -556,13 +556,6 @@ Decide once per document, before Step 2, and keep to the same column through the
 
 **Tell the partner what was done:** the log ends with a numbered **What changed** list for that file (counts included). Paste it into the delivery e-mail.
 
-Optional, for EndNote reference lists:
-
-```
-python reformat_references.py FILE.docx --apply
-```
-
-Rewrites entries into "Authors. Title. Journal, Year, Vol(Issue): pages." and lists the hand-typed entries it left alone. Works before or after FFT.
 
 ### JP 1.6 — Translated Foreign Labels
 Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Module 1 → 1.6. Their section numbers are FDA's / EMA's / NMPA's own, with gaps, so they stay typed:
