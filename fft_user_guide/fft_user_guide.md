@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.2.1** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.3.0** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -35,7 +35,7 @@ FFT asks you to sign in the first time on a computer.
 - Licences belong to an organization (TopAlliance, a partner company). When a licence expires the pane says so and Step 1 stops loading styles; contact TopAlliance to renew.
 
 Two web pages use the same account:
-- **[binltools.com/fft/finalize.html](https://binltools.com/fft/finalize.html)** runs the JP finishing script and the label scripts on uploaded files, one or several at a time. No Python needed; each result downloads by itself; files are processed in memory and not stored.
+- **[binltools.com/fft/script.html](https://binltools.com/fft/script.html)** — the **FFT Script** page — runs the JP page-grid script and the label scripts on uploaded files, one or several at a time (the old finalize.html address redirects). No Python needed; each result downloads by itself; files are processed in memory and not stored.
 - **[binltools.com/fft/admin.html](https://binltools.com/fft/admin.html)** is the administrator's page: accounts, organizations, seats and announcements.
 
 ## The Pane
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.2.1 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.3.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -517,7 +517,7 @@ Once Step 3 is complete the document is ready for final QC and submission export
 2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header.
 3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables (run it or skip it — see **Tables: two ways** below) → 2.4 Clean CN Fonts → 2.5 Typography.
 4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
-5. **Page grid & tables script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP page grid & tables**, drop the file — or all the modules of a round at once, the options apply to every file — and click **Run**. Each result downloads by itself (the browser asks once to allow several downloads) and the page scrolls to the log, one block per file. (Locally with Python: `python jp_finalize.py FILE.docx`.)
+5. **Page grid & tables script**: open **binltools.com/fft/script.html** (FFT Script), sign in with your FFT account, choose **JP** then **Page grid & tables**, drop the file — or all the modules of a round at once, the options apply to every file — and click **Run**. Each result downloads by itself (the browser asks once to allow several downloads) and the page scrolls to the log, one block per file. (Locally with Python: `python jp_finalize.py FILE.docx`.)
 
 **Before or after the pane?** Both work. Since the October 2026 training the partner runs it **first**, on the translated file: tick *略語一覧 table* and *All other tables to 10 pt*, run, then open the result in Word and start at Step 1 — Step 1 prints "Line grid: 38 lines kept in all N section(s)" so you know the grid survived. Run the script **once more after the 目次** only if the caption fonts need the fix (row 2 below), with both table boxes **unticked**, so the 9 / 8 pt exceptions you made by hand stay.
 
@@ -568,7 +568,7 @@ Rewrites entries into "Authors. Title. Journal, Year, Vol(Issue): pages." and li
 Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Module 1 → 1.6. Their section numbers are FDA's / EMA's / NMPA's own, with gaps, so they stay typed:
 - Keys 1–3 restyle the heading without numbering it; T / F apply the caption style only.
 - Step 1 leaves page size, margins, header and footer as in the source.
-- The bulk formatting of a whole label is done before the pane pass: **binltools.com/fft/finalize.html** → **Label format (M1.6)** (profile smpc / uspi / nmpa), then Step 1 → 2.5 → 3.1 in the pane, then **Label page → M2.4** on the same page. Contact RA before formatting a label.
+- The bulk formatting of a whole label is done before the pane pass: **binltools.com/fft/script.html** → JP → **Label format** (label: detect / EU SmPC / US PI / NMPA), then Step 1 → 2.5 → 3.1 in the pane, then **Label page → M2.4** on the same page. Contact RA before formatting a label.
 
 ## Good to Know
 - **Sign-in**: once per computer. The pane shows your e-mail at the top; Settings → Sign out on a shared PC.
@@ -580,6 +580,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.3.0** (Oct 7, 2026) — The finalize page is now **FFT Script** at binltools.com/fft/script.html (the old address redirects): pick the country, then the script, then its options; every script card says in plain words what it does and when to run it; the rarely used JP switches (page grid only, keep Normal size, keep East Asian hints) are gone. Day / night look by the time of day, with a ☀ / ☾ switch; the admin page matches.
 - **v2.2.1** (Oct 7, 2026) — Keyboard navigation (← →) now steps across a section break, e.g. the first page reserved for the 目次 with Layout → Breaks → Next Page. 3.3 Link Mentions: a 表 / 図 link keeps the formatting of the sentence it sits in; it used to copy the caption's run formatting, which turned one link into a non-Japanese font.
 - **v2.2.0** (Oct 7, 2026) — JP page-grid script: new *All other tables to N pt* option and the 略語一覧 table is found on a file that has not been through the pane, so the script can run first; Step 1 reports the line grid. 2.2: **Table type** presets (Standard, 略語一覧, Custom with line spacing and space before/after). 2.5: a subscript faked by shrinking the digits is restored to the surrounding size first; KD added; existing subscripts no longer re-counted.
 - **v2.1.17** (Oct 6, 2026) — Finalize page: drop several files in one run, one download each; a file that fails is listed and the others still finish.
