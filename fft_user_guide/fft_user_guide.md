@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.1.17** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.2.0** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.1.17 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.2.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -295,7 +295,12 @@ Tables are skipped by the paragraph walk. They are formatted here — a whole ta
 
 ![45](/fft_user_guide/images/45.png)
 
-Set the **Font** (type "Ti" and pick Times New Roman from the list; the box previews the font) and **Size** (default 10 pt) first. The box sets the Latin font only; in JP documents Japanese text keeps ＭＳ 明朝 from the FFT JP table style.
+**Table type** (above the font box, since v2.2.0) fills the boxes for you:
+- **Standard table** — 10 pt; font and size stay editable.
+- **略語一覧** (JP) — 10.5 pt, single spacing, 0 before / 0 after: the approved layout of the abbreviations table. The boxes are locked. Its alignment to the line grid cannot be set from the pane — the JP page-grid script does that (see the JP workflow).
+- **Custom…** — font, size, **line spacing** (12 = single), **space before** and **after**. One table that needs 9 pt: pick Custom, type 9. An empty box leaves that setting to the FFT table style.
+
+Set the **Font** (type "Ti" and pick Times New Roman from the list; the box previews the font) and **Size** (default 10 pt) next. The box sets the Latin font only; in JP documents Japanese text keeps ＭＳ 明朝 from the FFT JP table style.
 
 #### Whole table (recommended)
 1. Click inside any cell of the table.
@@ -380,8 +385,9 @@ One click fixes scientific typography in the whole document. **Run it after 2.2 
 
 Every region:
 - *in vivo*, *in vitro*, *ex vivo*, *in situ*, *in silico*, *de novo* → italic
-- EC50, T1/2, Cmax, Vd, AUC0-168h, MRT0-last, AUC0→∞ → subscripts
+- EC50, T1/2, Cmax, Vd, KD, AUC0-168h, MRT0-last, AUC0→∞ → subscripts
 - Inside tables too
+- A subscript the translator faked by shrinking the digits ("50" at 6.5 pt, not a real subscript) is first restored to the size of the text around it, so it no longer comes out tiny. Subscripts that already exist are left alone and counted separately ("Already sub/superscript, left alone").
 
 JP adds the partner's house style:
 - Citations → "Rosenberg et al. 2016, Topalian et al. 2012"
@@ -511,7 +517,9 @@ Once Step 3 is complete the document is ready for final QC and submission export
 2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header.
 3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables (run it or skip it — see **Tables: two ways** below) → 2.4 Clean CN Fonts → 2.5 Typography.
 4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
-5. **Finishing script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP finalize**, drop the file — or all the modules of a round at once, the options apply to every file — and click **Run**. Each result downloads by itself (the browser asks once to allow several downloads) and the page scrolls to the log, one block per file. (Locally with Python: `python jp_finalize.py FILE.docx`.)
+5. **Page grid & tables script**: open **binltools.com/fft/finalize.html**, sign in with your FFT account, choose **JP page grid & tables**, drop the file — or all the modules of a round at once, the options apply to every file — and click **Run**. Each result downloads by itself (the browser asks once to allow several downloads) and the page scrolls to the log, one block per file. (Locally with Python: `python jp_finalize.py FILE.docx`.)
+
+**Before or after the pane?** Both work. Since the October 2026 training the partner runs it **first**, on the translated file: tick *略語一覧 table* and *All other tables to 10 pt*, run, then open the result in Word and start at Step 1 — Step 1 prints "Line grid: 38 lines kept in all N section(s)" so you know the grid survived. Run the script **once more after the 目次** only if the caption fonts need the fix (row 2 below), with both table boxes **unticked**, so the 9 / 8 pt exceptions you made by hand stay.
 
 It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input (`--in-place` overwrites and keeps a .bak).
 
@@ -523,9 +531,10 @@ It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input
 | 2 | Caption prefixes (表 2.4-1, 図 2.4-1): the 表 / 図 character loses a directly applied Japanese font so the caption style's ＭＳ 明朝 applies. | Captions only | Always (untick *Page grid only* to skip) |
 | 3 | Greek letters and symbols (μ, α, ≥, →, ∞ …) are shown in Times New Roman instead of the Japanese font. | Body text only | Always (tick *Keep East Asian hints* to skip) |
 | 4 | The same Greek/symbol font change inside tables. | Tables | **Only with *Also change tables*** |
-| 5 | 略語一覧 table set to 10.5 pt, single spacing, rows aligned to the line grid; table text in the whole document is allowed to align to the grid. | 略語一覧 table (grid setting: all tables) | **Only with *Also change tables*** |
-| 6 | Any other change to tables — font, size, spacing, alignment. | — | **Never** |
-| 7 | Built-in Normal style set to 10.5 pt. | Styles | Only with the 44 chars × 38 lines grid |
+| 5 | 略語一覧 table set to 10.5 pt, single spacing, rows aligned to the line grid; table text in the whole document is allowed to align to the grid. Found by its FFT heading, or — on a file that has not been through the pane — by the 略語…一覧 heading directly above it. | 略語一覧 table (grid setting: all tables) | **Only with *略語一覧 table*** |
+| 6 | Every other table's text set to one size (default 10 pt): every cell, header rows and notes inside the table included. Only the size changes; fonts, spacing, alignment and row heights stay. Make the 9 / 8 pt exceptions afterwards, by hand or with 2.2 Custom. | All tables except 略語一覧 | **Only with *All other tables to N pt*** |
+| 7 | Any other change to tables — font, spacing, alignment, row height. | — | **Never** |
+| 8 | Built-in Normal style set to 10.5 pt. | Styles | Only with the 44 chars × 38 lines grid |
 
 The script never adds, deletes or reorders text.
 
@@ -536,11 +545,12 @@ Decide once per document, before Step 2, and keep to the same column through the
 | | A · Tables stay as they are | B · Tables get the FFT format |
 |---|---|---|
 | **When** | The tables are already laid out the way the receiver wants — typically the same layout as the English source | The tables need formatting: newly translated, pasted from another source, or inconsistent with each other |
-| **2.2 Table Cells** | Skip | **Format whole table** on every table (manual mode for unusual ones) |
+| **2.2 Table Cells** | Skip | **Format whole table** on every table with Table type **Standard**, the **略語一覧** preset on that one (manual mode for unusual ones) |
 | **2.5 Typography** | Run. It still corrects text inside tables: subscripts, unit spaces, ranges, Greek letters | Run, after 2.2 |
-| **Finishing script** | *Also change tables* **unticked** — every table stays byte-for-byte as in the input | *Also change tables* **ticked** — 略語一覧 at 10.5 pt, table rows on the line grid (rows 4–5 above) |
+| **Page grid & tables script** | both table boxes **unticked** — every table stays byte-for-byte as in the input | *略語一覧 table* **ticked**, and *All other tables to 10 pt* when the script runs before the pane (rows 4–6 above) |
 
-- The two steps in a column belong together: the approved look for B needs both 2.2 and the tick.
+- The two steps in a column belong together: the approved look for B needs both 2.2 and the ticks.
+- Script first, then 2.2 on the 略語一覧 table? That first 2.2 pass resets the table's grid alignment — run the script once more at the end with only *略語一覧 table* ticked.
 - Not sure which one applies? Ask whoever receives the file before you start.
 - Applied a Word table style afterwards (Table Design)? It resets the cell alignment and the repeating header row — run 2.2 on that table again.
 
@@ -570,6 +580,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.2.0** (Oct 7, 2026) — JP page-grid script: new *All other tables to N pt* option and the 略語一覧 table is found on a file that has not been through the pane, so the script can run first; Step 1 reports the line grid. 2.2: **Table type** presets (Standard, 略語一覧, Custom with line spacing and space before/after). 2.5: a subscript faked by shrinking the digits is restored to the surrounding size first; KD added; existing subscripts no longer re-counted.
 - **v2.1.17** (Oct 6, 2026) — Finalize page: drop several files in one run, one download each; a file that fails is listed and the others still finish.
 - **v2.1.16** (Oct 6, 2026) — Header and footer right-hand text sits on the right margin of every section, landscape pages included (the JP header used to keep the portrait position on a landscape 2.6.3 page; 2.1.15 shipped the template change, 2.1.16 the pane change that let it take effect). Re-run Step 1 on an existing document to pick it up.
 - **v2.1.14** (Oct 6, 2026) — Link Mentions reads the whole caption number: "図 2.6.2-13" used to be linked to figure 1 with a stray "3" left behind. Link Sections no longer links "2.5.4" inside "2.5.41".
