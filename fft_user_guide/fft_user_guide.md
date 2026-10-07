@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.4.0** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.4.1** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.4.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.4.1 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -580,6 +580,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.4.1** (Oct 7, 2026) — USPI: Step 1 keeps the page setup as in the source (margins, the two-column Highlights page); it used to force 1-inch margins and Word collapsed the Highlights into one column.
 - **v2.4.0** (Oct 7, 2026) — Step 1.3 is now the page header with four boxes: company and product on the left, two right-hand lines that fill in from the module and can be overwritten, so protocols and ICFs get "Company / Informed Consent Form" over "Protocol no. / Version, Date".
 - **v2.3.0** (Oct 7, 2026) — The finalize page is now **FFT Script** at binltools.com/fft/script.html (the old address redirects): pick the country, then the script, then its options; every script card says in plain words what it does and when to run it; the rarely used JP switches (page grid only, keep Normal size, keep East Asian hints) are gone. Day / night look by the time of day, with a ☀ / ☾ switch; the admin page matches.
 - **v2.2.1** (Oct 7, 2026) — Keyboard navigation (← →) now steps across a section break, e.g. the first page reserved for the 目次 with Layout → Breaks → Next Page. 3.3 Link Mentions: a 表 / 図 link keeps the formatting of the sentence it sits in; it used to copy the caption's run formatting, which turned one link into a non-Japanese font.
