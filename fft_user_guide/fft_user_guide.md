@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.4.3** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.5.0** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.4.3 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.5.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -219,7 +219,7 @@ Each style has a button and a key (shown in grey on the button). Both do the sam
 | E | Table Note | Note line under a table |
 | F | Figure Title | Figure caption — inserts the prefix and auto-number |
 | B / H / U | Bullet / Sub Bullet / 3rd Bullet | Bullet lists (• → o → ▪) |
-| V / G / Y | Numbering / Sub Numbering / 3rd Numbering | Numbered lists (US: 1. → a. → i. · JP: （1） → 1） → a)) |
+| V / G / Y | Numbering / Sub Numbering / 3rd Numbering | Numbered lists (US: 1. → a. → i. · JP: （1） → 1） → a)). A marker typed in the text ("(1) ", "1. ") is removed; the count starts at 1 again after a heading and continues otherwise |
 | Shift + H | Highlight | Cyan highlight on the selected text — marks a spot to check in 3.1 |
 
 The same key applies the correct regional style: **1** is FFT Heading 1 in a US document and FFT JP Heading 1 in a JP document.
@@ -580,6 +580,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.5.0** (Oct 7, 2026) — Bullet and numbering keys remove the marker typed in the text ("(1) ", "1. ", "• ") so it is not shown next to the live one; a numbered list starts at 1 again after a heading and continues otherwise. All regions.
 - **v2.4.3** (Oct 7, 2026) — US/EU General: Protocol and ICF document types with the page header preset for them; announcement text keeps its line breaks.
 - **v2.4.2** (Oct 7, 2026) — The four header boxes work under JP as well; a second header line is written only when its right box is filled.
 - **v2.4.1** (Oct 7, 2026) — USPI: Step 1 keeps the page setup as in the source (margins, the two-column Highlights page); it used to force 1-inch margins and Word collapsed the Highlights into one column.
