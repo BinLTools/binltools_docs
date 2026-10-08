@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.5.1** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.5.2** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.5.1 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.5.2 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -541,7 +541,7 @@ It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input
 | 2 | Caption prefixes (表 2.4-1, 図 2.4-1): the 表 / 図 character loses a directly applied Japanese font so the caption style's ＭＳ 明朝 applies. | Captions only | Always (untick *Page grid only* to skip) |
 | 3 | Greek letters and symbols (μ, α, ≥, →, ∞ …) are shown in Times New Roman instead of the Japanese font. | Body text only | Always (tick *Keep East Asian hints* to skip) |
 | 4 | The same Greek/symbol font change inside tables. | Tables | **Only with *Also change tables*** |
-| 5 | 略語一覧 table set to 10.5 pt, single spacing, rows aligned to the line grid; table text in the whole document is allowed to align to the grid. Found by its FFT heading, or — on a file that has not been through the pane — by the 略語…一覧 heading directly above it. | 略語一覧 table (grid setting: all tables) | **Only with *略語一覧 table*** |
+| 5 | 略語一覧 table set to 10.5 pt, single spacing, rows aligned to the line grid; every other table is pinned off the grid, so only this table changes. Found by its FFT heading, or — on a file that has not been through the pane — by the 略語…一覧 heading directly above it. | 略語一覧 table (grid setting: all tables) | **Only with *略語一覧 table*** |
 | 6 | Every other table's text set to one size (default 10 pt): every cell, header rows and notes inside the table included. Only the size changes; fonts, spacing, alignment and row heights stay. Make the 9 / 8 pt exceptions afterwards, by hand or with 2.2 Custom. | All tables except 略語一覧 | **Only with *All other tables to N pt*** |
 | 7 | Any other change to tables — font, spacing, alignment, row height. | — | **Never** |
 | 8 | Built-in Normal style set to 10.5 pt. | Styles | Only with the 44 chars × 38 lines grid |
@@ -583,6 +583,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.5.2** (Oct 8, 2026) — FFT Script, 略語一覧 option: every other table is pinned off the line grid, so the option is safe on files whose tables were not formatted by 2.2 (their rows used to grow).
 - **v2.5.1** (Oct 7, 2026) — Shift+H+H removes any highlight on the selection (yellow too) and adds the cyan flag only where there is none; new Layout switch "Footer: Page N of M".
 - **v2.5.0** (Oct 7, 2026) — Bullet and numbering keys remove the marker typed in the text ("(1) ", "1. ", "• ") so it is not shown next to the live one; a numbered list starts at 1 again after a heading and continues otherwise. All regions.
 - **v2.4.3** (Oct 7, 2026) — US/EU General: Protocol and ICF document types with the page header preset for them; announcement text keeps its line breaks.
