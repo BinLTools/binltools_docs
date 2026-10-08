@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.5.2** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.5.3** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.5.2 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.5.3 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -140,7 +140,7 @@ Four boxes, laid out like the header itself:
 | Company | Line 1 — for CTD modules "Module 2 Common Technical Document Summaries", for a protocol or ICF type the document title, e.g. *Informed Consent Form* |
 | Product / protocol number | Line 2 — for CTD modules "2.5 Clinical Overview", for a protocol or ICF type e.g. *Version: 1.0, Date: October 20, 2025* |
 
-The right boxes are refilled with the module defaults whenever you change the module, so a CTD document needs no typing. **Protocol** presets "[Protocol No.]" over "Version: 0.1; Date: Month DD, YYYY" and **ICF** presets "Informed Consent Form" over "version number: 1.0, version date: Month DD, YYYY" — edit the number and date, type the protocol number; the left boxes show an example as a hint. The footer is always "Confidential … Page N". JP: line 1 is Product and the module title (the partner's one-line header, unchanged); line 2 (Company and your right-hand text) is added only when you fill its right box.
+The right boxes are refilled with the module defaults whenever you change the module, so a CTD document needs no typing. **Protocol** presets "[Protocol No.]" over "Version: 0.1; Date: Month DD, YYYY" and **ICF** presets "Informed Consent Form" over "version number: 1.0, version date: Month DD, YYYY" — edit the number and date, type the protocol number; the left boxes show an example as a hint. The footer is always "Confidential … Page N". JP: the boxes change to match the partner's header — line 1 is **Product** and the **module title** (unchanged), the company is not shown, and line 2 (a free left text and a right text) is written only when you fill one of its boxes.
 
 ### Layout
 Open the **Layout** section to control what Step 1 loads.
@@ -583,6 +583,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.5.3** (Oct 8, 2026) — Step 1.3 header boxes sit where the text lands in every region; under JP the Product box comes first and Company is hidden, as in the partner's header; grey hints corrected.
 - **v2.5.2** (Oct 8, 2026) — FFT Script, 略語一覧 option: every other table is pinned off the line grid, so the option is safe on files whose tables were not formatted by 2.2 (their rows used to grow).
 - **v2.5.1** (Oct 7, 2026) — Shift+H+H removes any highlight on the selection (yellow too) and adds the cyan flag only where there is none; new Layout switch "Footer: Page N of M".
 - **v2.5.0** (Oct 7, 2026) — Bullet and numbering keys remove the marker typed in the text ("(1) ", "1. ", "• ") so it is not shown next to the live one; a numbered list starts at 1 again after a heading and continues otherwise. All regions.
