@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.5.6** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.5.7** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.5.6 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.5.7 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -583,6 +583,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.5.7** (Oct 9, 2026) — List keys (b h u, v g y): less flicker. The item used to run through bullets and every number level before it settled on the right one; the pressed level is now written last, and a list that already has the right format is not rewritten. Word still redraws between writes, so a short cycle can remain. The result was always correct.
 - **v2.5.6** (Oct 9, 2026) — Caption keys (Table / Figure title), all regions: the label FFT inserts used to take the run formatting of the paragraph above it; on a protocol a hidden spacer line (0 pt, 0 % width, black shading) made "Figure 5" a black bar. The caption paragraph is now checked and cleaned after the number is inserted. Fix an existing one by selecting the label and pressing Ctrl+Space.
 - **v2.5.5** (Oct 8, 2026) — FFT Script: every OOXML script parses the document before writing it, so a file Word cannot open is never produced.
 - **v2.5.4** (Oct 8, 2026) — 2.2 Table type presets: the font size and line spacing are written after the style, so the 略語一覧 preset's 10.5 pt and single spacing now hold.
