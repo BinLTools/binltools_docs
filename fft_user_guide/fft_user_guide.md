@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.0** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.1** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.6.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.6.1 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -217,6 +217,7 @@ Each style has a button and a key (shown in grey on the button). Both do the sam
 | X | Normal | Body text |
 | C | Normal 2 | Body text, second form (JP: without first-line indent) |
 | 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …). A number typed in the text that equals the automatic one is removed; a different one is highlighted cyan |
+| A | Appendix Heading | Same look as NoNum Heading, no number, listed in the TOC (US/EU at level 1; JP like NoNum Heading). Older document? Re-run Step 1 first |
 | 6 | NoNum Heading | Heading without a number. JP: in the TOC. US/EU: not in the TOC |
 | T | Table Title | Table caption — inserts the prefix and auto-number |
 | E | Table Note | Note line under a table |
@@ -583,6 +584,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.6.1** (Oct 12, 2026) — New key **A**, Appendix Heading: the NoNum Heading look (no number, same font) but included in the TOC, at level 1 under US/EU and like the NoNum Heading under JP. The bubble sits before NoNum Heading in 2.1. A document formatted before this version needs Step 1 run again to receive the style.
 - **v2.6.0** (Oct 12, 2026) — List keys (b h u, v g y) do their formatting with Track Changes off and switch it back on afterwards, so Word no longer shows "56. 45. •" while an item moves from the source list to the FFT list; removing a typed marker is a text edit and stays tracked. Bubbles renamed Bulletpoint1–3 and Numbering1–3; the Highlight bubble is gone (Shift+H+H still works). 2.1 hint: click a paragraph, press N to navigate, apply a style.
 - **v2.5.9** (Oct 12, 2026) — Numbering keys (v g y) no longer restart a list after a heading: a numbered item continues FFT's list. To start a section at 1, tag the whole list, then right-click its first item and choose Restart at 1. The automatic check (2.5.0–2.5.8) cost a wait on long documents and guessed wrong too often, so it was removed by decision.
 - **v2.5.8** (Oct 12, 2026) — List keys: a paragraph that still carried the source document's own numbering stayed on that list after the key ("b" showed "35."); the key now clears that numbering first, so the FFT list takes over. The restart check (list starts at 1 after a heading) looks back 40 paragraphs instead of reading the whole document, so v answers at once; a list farther from its heading continues, and you restart it by hand: tag the whole list, then right-click the first item → Restart at 1.
