@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.3** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.4** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.6.3 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.6.4 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -217,8 +217,8 @@ Each style has a button and a key (shown in grey on the button). Both do the sam
 | X | Normal | Body text |
 | C | Normal 2 | Body text, second form (JP: without first-line indent) |
 | 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …). A number typed in the text that equals the automatic one is removed; a different one is highlighted cyan |
-| A | Appendix Heading | Same look as NoNum Heading, no number, listed in the TOC (US/EU at level 1; JP like NoNum Heading). Older document? Re-run Step 1 first |
-| 6 | NoNum Heading | Heading without a number. JP: in the TOC. US/EU: not in the TOC |
+| A | Appendix Heading | Same look as NoNum Heading, no number, listed in the TOC (US/EU at level 1; JP at the title level — use it for 略語及び略号一覧). Older document? Re-run Step 1 first |
+| 6 | NoNum Heading | Heading without a number, never in the TOC (all regions since v2.6.4) |
 | T | Table Title | Table caption — inserts the prefix and auto-number |
 | E | Table Note | Note line under a table |
 | F | Figure Title | Figure caption — inserts the prefix and auto-number |
@@ -584,6 +584,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.6.4** (Oct 13, 2026) — Key 6 (NoNum Heading) is out of the TOC under JP as well; key A (Appendix Heading) is the unnumbered heading that is listed, so 略語及び略号一覧 is tagged with A. On a JP document formatted earlier, retag that heading, delete the 目次 and the lists, click Add TOC again. JP page header: the module title used to stop mid-page on landscape sections because the base template's header style kept a portrait-width tab; fixed in the template, and the page-grid script on the FFT Script page repairs older documents (style and header paragraphs).
 - **v2.6.3** (Oct 13, 2026) — Caption keys also remove a plain typed label such as "表 2：" or "Table 1:" (no module number): in a 2.7.1 document it used to stay next to the new "表 2.7.1-2." and a second key press could not clean it. The label is now recognised by its word (表/Table, 図/Figure/Fig.), with or without a module number.
 - **v2.6.2** (Oct 12, 2026) — Appendix headings are listed in the TOC: the TOC field names the style explicitly (Word ignored their outline level next to the style map). On a document whose TOC was built earlier, delete the TOC and the lists and click Add TOC again. Page header: the second line now sits on the right margin of a landscape A4 page as well (it used to stop 0.7 inch short); re-run Step 1 on a document formatted earlier.
 - **v2.6.1** (Oct 12, 2026) — New key **A**, Appendix Heading: the NoNum Heading look (no number, same font) but included in the TOC, at level 1 under US/EU and like the NoNum Heading under JP. The bubble sits before NoNum Heading in 2.1. A document formatted before this version needs Step 1 run again to receive the style.
