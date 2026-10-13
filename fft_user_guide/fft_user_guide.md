@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.2** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.3** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.6.2 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.6.3 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -292,7 +292,7 @@ Press **→**. Repeat steps 4 and 5 to the end of the document.
 - Inserting a caption in the middle of the document renumbers the ones after it.
 - Table captions go above the table, figure captions below the figure.
 - Bold, indents, list numbers and font colour inherited from the surrounding text are removed when the key is pressed (a caption typed after a blue link no longer stays blue).
-- **Typed prefix:** if the title already starts with its own label — "表 2.4-4：" or "Table 2.4-4:" — the typed prefix is removed for you, whatever number it carries (v2.1.12). The live number is the one FFT inserts; it moves when a caption is added before it. When the typed number was different, the toast says so ("Typed 図 2.6.2-1 removed — now numbered 2"): check the mentions of that figure in the text, 3.3 links them to the new number.
+- **Typed prefix:** if the title already starts with its own label — "表 2.4-4：", "Table 2.4-4:", or a plain "表 2：" / "Table 1:" without a module number — the typed prefix is removed for you, whatever number it carries (v2.1.12, plain labels v2.6.3). The live number is the one FFT inserts; it moves when a caption is added before it. When the typed number was different, the toast says so ("Typed 図 2.6.2-1 removed — now numbered 2"): check the mentions of that figure in the text, 3.3 links them to the new number.
 - JP: the caption paragraph is also freed of a Japanese font inherited from the heading above (表 in ＭＳ ゴシック), as long as Track Changes is off at that moment; with tracking on, 2.4 and the finishing script do it later.
 - The lists of tables and figures (3.4) collect captions by their number field. A number typed by hand will not appear in the lists.
 
@@ -584,6 +584,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.6.3** (Oct 13, 2026) — Caption keys also remove a plain typed label such as "表 2：" or "Table 1:" (no module number): in a 2.7.1 document it used to stay next to the new "表 2.7.1-2." and a second key press could not clean it. The label is now recognised by its word (表/Table, 図/Figure/Fig.), with or without a module number.
 - **v2.6.2** (Oct 12, 2026) — Appendix headings are listed in the TOC: the TOC field names the style explicitly (Word ignored their outline level next to the style map). On a document whose TOC was built earlier, delete the TOC and the lists and click Add TOC again. Page header: the second line now sits on the right margin of a landscape A4 page as well (it used to stop 0.7 inch short); re-run Step 1 on a document formatted earlier.
 - **v2.6.1** (Oct 12, 2026) — New key **A**, Appendix Heading: the NoNum Heading look (no number, same font) but included in the TOC, at level 1 under US/EU and like the NoNum Heading under JP. The bubble sits before NoNum Heading in 2.1. A document formatted before this version needs Step 1 run again to receive the style.
 - **v2.6.0** (Oct 12, 2026) — List keys (b h u, v g y) do their formatting with Track Changes off and switch it back on afterwards, so Word no longer shows "56. 45. •" while an item moves from the source list to the FFT list; removing a typed marker is a text edit and stays tracked. Bubbles renamed Bulletpoint1–3 and Numbering1–3; the Highlight bubble is gone (Shift+H+H still works). 2.1 hint: click a paragraph, press N to navigate, apply a style.
