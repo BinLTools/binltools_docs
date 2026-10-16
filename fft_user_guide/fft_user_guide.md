@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.7** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.8** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.6.7 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.6.8 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -300,6 +300,7 @@ Press **→**. Repeat steps 4 and 5 to the end of the document.
 - The paragraph still carries direct formatting from its source (common in translated text). Click in it and press **Ctrl + Space** in the document.
 - If a style is missing from the document, FFT imports it when you press the key (brief "importing…" notice). No fresh document needed.
 - Heading indents still wrong? See FAQ #2.
+- Heading style applied but no number (no "2.7.2", "2.7.2.1")? Since v2.6.8 the key rebuilds the heading list itself and reports "Heading list rebuilt — N heading(s) numbered". If it still happens, see FAQ #12.
 
 ### 2.2 Table Cells
 Tables are skipped by the paragraph walk. They are formatted here — a whole table in one click, or a block of cells by rectangle.
@@ -575,6 +576,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - The bulk formatting of a whole label is done before the pane pass: **binltools.com/fft/script.html** → JP → **Label format** (label: detect / EU SmPC / US PI / NMPA), then Step 1 → 2.5 → 3.1 in the pane, then **Label page → M2.4** on the same page. Contact RA before formatting a label.
 
 ## Good to Know
+- **Work on a local copy**: download the file from SharePoint and open it with AutoSave off before Step 1. A document open from the SharePoint site is merged by co-authoring while FFT works, and such a merge once dropped the heading list (October 2026).
 - **Sign-in**: once per computer. The pane shows your e-mail at the top; Settings → Sign out on a shared PC.
 - **Track Changes**: Step 1 switches it off. 2.3, 2.4, 2.5 and 3.3 switch it on and leave it on.
 - **Formatting is not tracked**: italics, subscripts and colours made by 2.5 do not show as revisions. Read the list under the button.
@@ -584,6 +586,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.6.8** (Oct 16, 2026) — Heading keys: when a document's FFT heading styles have lost their list (the style applied but no "2.7.2" appeared; a merge while the file was open from SharePoint dropped it), the key rebuilds the heading list and numbers every tagged heading, with the toast "Heading list rebuilt". Heading keys are faster on long documents: the list is found once per session instead of reading every paragraph on every key. The admin events log keeps failures only.
 - **v2.6.7** (Oct 13, 2026) — Page header: v2.6.6 inserted the header texts once per section that shares the same header (the product name appeared three times). Fixed; re-run Step 1.
 - **v2.6.6** (Oct 13, 2026) — Page header, second fix: v2.6.5's repair was silently ignored by Word, so the right-hand title still did not appear after Step 1. The header template now carries the margin-aligned tab itself and Step 1 only fills in the words, every region. Re-run Step 1 on an affected document.
 - **v2.6.5** (Oct 13, 2026) — Page header: the right-hand title (module title, or your right-hand box) now ends on the right margin of every section, portrait and landscape, in every region. Since v2.1.15 it was positioned by a tab stop beyond the page edge, which Word never draws, so the title was missing on some documents and mid-page on landscape pages of older ones. Re-run Step 1 on an affected document; a JP file is also repaired by the page-grid script on the FFT Script page.

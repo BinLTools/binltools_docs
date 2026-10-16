@@ -65,3 +65,7 @@
    - The number typed in the text differs from the number FFT assigned (for example you typed 2.4.3.2.3 but the heading level makes it 2.4.3.2.2, or the caption order gives a different table number).
    - Fix the level or the order, delete the typed number, then remove the highlight (Home → Text Highlight Color → No Color). When the typed number matches, FFT removes it by itself.
 
+#### 12. I pressed a heading key, the style applied, but there is no number. ####
+   - The document's FFT heading styles have lost their list. It happened on a file open straight from the SharePoint site: co-authoring merged the document while FFT worked and dropped the list.
+   - Since v2.6.8 the heading key rebuilds the list by itself and shows "Heading list rebuilt — N heading(s) numbered". Press the key again on any heading that still has no number.
+   - Prevent it: download a local copy, open it with AutoSave off, run FFT, then upload.
