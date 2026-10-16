@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.8** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.9** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.6.8 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.6.9 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -586,6 +586,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.6.9** (Oct 16, 2026) — → / ← keys: on a paragraph whose cross-reference field begins in the paragraph above (a translation-tool artefact), Word pulled the selection back over the paragraph mark and → kept landing on the same paragraph. The walk now starts from the far edge of the selection and steps over anything it still covers.
 - **v2.6.8** (Oct 16, 2026) — Heading keys: when a document's FFT heading styles have lost their list (the style applied but no "2.7.2" appeared; a merge while the file was open from SharePoint dropped it), the key rebuilds the heading list and numbers every tagged heading, with the toast "Heading list rebuilt". Heading keys are faster on long documents: the list is found once per session instead of reading every paragraph on every key. The admin events log keeps failures only.
 - **v2.6.7** (Oct 13, 2026) — Page header: v2.6.6 inserted the header texts once per section that shares the same header (the product name appeared three times). Fixed; re-run Step 1.
 - **v2.6.6** (Oct 13, 2026) — Page header, second fix: v2.6.5's repair was silently ignored by Word, so the right-hand title still did not appear after Step 1. The header template now carries the margin-aligned tab itself and Step 1 only fills in the words, every region. Re-run Step 1 on an affected document.
