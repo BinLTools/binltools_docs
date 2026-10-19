@@ -69,3 +69,8 @@
    - The document's FFT heading styles have lost their list. It happened on a file open straight from the SharePoint site: co-authoring merged the document while FFT worked and dropped the list.
    - Since v2.6.8 the heading key rebuilds the list by itself and shows "Heading list rebuilt — N heading(s) numbered". Press the key again on any heading that still has no number.
    - Prevent it: download a local copy, open it with AutoSave off, run FFT, then upload.
+
+#### 13. A reviewer sees the Japanese text (TOC, body) in a Gothic font, not ＭＳ 明朝. ####
+   - Word on a non-Japanese Windows stores ＭＳ 明朝 / ＭＳ ゴシック under their English names, "MS Mincho" / "MS Gothic", when the template is loaded and again on every save. Most Japanese Word installations map the names back; some do not and fall back to Yu Gothic.
+   - Step 1 prints a "Font names" line when a file carries the English names.
+   - Run the file through **FFT Script → JP → Page grid & tables** with *Japanese font names* ticked (it is on by default, since v2.7.0). The result carries ＭＳ 明朝 / ＭＳ ゴシック again. The PDF is never affected; only people reviewing the .docx are.

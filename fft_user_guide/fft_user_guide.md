@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.6.9** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.0** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.6.9 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.7.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -409,6 +409,8 @@ JP adds the partner's house style:
 - Unit products → middle dot (μg·h/mL)
 - ～ in the English reference list → hyphen; reference list blue; stray blue study numbers in tables back to black
 - Legacy Symbol-font Greek letters (μ, α, γ, ∞) repaired
+- "ug/mL", "ug/kg", "ug/L" typed for µ → µg/… (never after a letter: "drug/mL" is left alone)
+- The sign after CD4 / CD8 / CD3 / CD95 set plain — never superscript, the partner's 2.4 standard (also in tables; "CD4+/CD8+ signs set plain: N" in the list)
 
 What you see afterwards:
 - **Text edits are tracked changes.** Review them before accepting.
@@ -476,7 +478,7 @@ Turns section mentions ("2.5.4", "5.3.5.3") into links, following the region's c
 | Mention | US / EU | JP |
 |---|---|---|
 | A section of this document (e.g. 2.5.4 inside the 2.5) | Blue live link to the heading | Blue live link to the heading |
-| A section of another document | Number turns blue; the link is made in docuBridge at publishing | M2 / M3: written [M2.7.4], brackets black, M + number blue. M4 / M5: stays black, written M4.2.1.1 |
+| A section of another document | Number turns blue; the link is made in docuBridge at publishing | M2 / M3: written [M2.7.4], brackets black, M + number blue. A mention already typed as "M2.7.4" keeps its M and becomes [M2.7.4] (v2.7.0; it used to come out as M[M2.7.4]). M4 / M5: stays black, written M4.2.1.1 |
 
 - Needs a numeric module from Step 1. USPI, SmPC and SOP show a warning.
 - Only mentions with three or more segments are linked ("2.5" alone could be a dose).
@@ -526,7 +528,7 @@ Once Step 3 is complete the document is ready for final QC and submission export
 ![43](/fft_user_guide/images/43.png)
 
 1. **Translate first, format last.** Run FFT on the final Japanese text.
-2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header.
+2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header. Heading sizes follow the number's depth (v2.7.0): in a three-part module (2.6.1, 2.6.2, 2.6.3, 2.7.x) the heading styles come one step smaller than in 2.4 — 12 pt not bold / 11.5 / 11 / 10.5 — so "2.6.2.1" looks like "2.4.2.1"; the result line under Submit says which ladder was set. Step 1 also prints a **Font names** line: on a non-Japanese Windows, Word stores ＭＳ 明朝 / ＭＳ ゴシック as "MS Mincho" / "MS Gothic" — the FFT Script step (row 9 below) writes the Japanese names back.
 3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables (run it or skip it — see **Tables: two ways** below) → 2.4 Clean CN Fonts → 2.5 Typography.
 4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
 5. **Page grid & tables script**: open **binltools.com/fft/script.html** (FFT Script), sign in with your FFT account, choose **JP** then **Page grid & tables**, drop the file — or all the modules of a round at once, the options apply to every file — and click **Run**. Each result downloads by itself (the browser asks once to allow several downloads) and the page scrolls to the log, one block per file. (Locally with Python: `python jp_finalize.py FILE.docx`.)
@@ -547,6 +549,7 @@ It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input
 | 6 | Every other table's text set to one size (default 10 pt): every cell, header rows and notes inside the table included. Only the size changes; fonts, spacing, alignment and row heights stay. Make the 9 / 8 pt exceptions afterwards, by hand or with 2.2 Custom. | All tables except 略語一覧 | **Only with *All other tables to N pt*** |
 | 7 | Any other change to tables — font, spacing, alignment, row height. | — | **Never** |
 | 8 | Built-in Normal style set to 10.5 pt. | Styles | Only with the 44 chars × 38 lines grid |
+| 9 | Japanese font names: every "MS Mincho" / "MS Gothic" (the English names Word writes on a non-Japanese Windows, on import and on every save) becomes ＭＳ 明朝 / ＭＳ ゴシック, font table included. A reviewer's Word that cannot find the English name falls back to another font (Yu Gothic) — this is what the partner saw on the 2.6.2 TOC. The PDF is unaffected; only .docx reviewers are. | Styles, text, headers, footers | Always (untick *Japanese font names* to skip) |
 
 The script never adds, deletes or reorders text.
 
@@ -586,6 +589,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.7.0** (Oct 19, 2026) — Partner round 8 on 2.2 / 2.4 / 2.6.1 / 2.6.2 / 2.6.3. JP heading sizes follow the number's depth: in a three-part module (2.6.x) Step 1 sets the heading styles one step smaller than in 2.4 (12 pt not bold / 11.5 / 11 / 10.5), so "2.6.2.1" looks like "2.4.2.1"; re-run Step 1 on an older 2.6.x document to get it. FFT Script, new option **Japanese font names** (on by default): writes ＭＳ 明朝 / ＭＳ ゴシック back where Word on a non-Japanese Windows had saved "MS Mincho" / "MS Gothic" — the partner's Word showed the 2.6.2 TOC in Yu Gothic; Step 1 now prints a Font names line so you know a file needs the script. Link Sections keeps a typed M ("M2.6.6" → [M2.6.6]; it used to produce M[M2.6.6]). 2.5 JP: the sign after CD4 / CD8 / CD3 / CD95 is set plain, and "ug/mL" typed for µ becomes µg/mL.
 - **v2.6.9** (Oct 16, 2026) — → / ← keys: on a paragraph whose cross-reference field begins in the paragraph above (a translation-tool artefact), Word pulled the selection back over the paragraph mark and → kept landing on the same paragraph. The walk now starts from the far edge of the selection and steps over anything it still covers.
 - **v2.6.8** (Oct 16, 2026) — Heading keys: when a document's FFT heading styles have lost their list (the style applied but no "2.7.2" appeared; a merge while the file was open from SharePoint dropped it), the key rebuilds the heading list and numbers every tagged heading, with the toast "Heading list rebuilt". Heading keys are faster on long documents: the list is found once per session instead of reading every paragraph on every key. The admin events log keeps failures only.
 - **v2.6.7** (Oct 13, 2026) — Page header: v2.6.6 inserted the header texts once per section that shares the same header (the product name appeared three times). Fixed; re-run Step 1.
