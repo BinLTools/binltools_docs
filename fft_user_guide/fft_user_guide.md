@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.0** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.1** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.7.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.7.1 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -589,6 +589,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.7.1** (Oct 19, 2026) — 2.5 citations (JP): when the reference entry itself ends in "et al." (an EndNote export such as "Curiel TJ, W. S., et. al. (2003)"), the paper counts as having many authors and the citation becomes "Curiel et al. 2003"; the 2.4 used to get "Curiel 2003". No other change for users.
 - **v2.7.0** (Oct 19, 2026) — Partner round 8 on 2.2 / 2.4 / 2.6.1 / 2.6.2 / 2.6.3. JP heading sizes follow the number's depth: in a three-part module (2.6.x) Step 1 sets the heading styles one step smaller than in 2.4 (12 pt not bold / 11.5 / 11 / 10.5), so "2.6.2.1" looks like "2.4.2.1"; re-run Step 1 on an older 2.6.x document to get it. FFT Script, new option **Japanese font names** (on by default): writes ＭＳ 明朝 / ＭＳ ゴシック back where Word on a non-Japanese Windows had saved "MS Mincho" / "MS Gothic" — the partner's Word showed the 2.6.2 TOC in Yu Gothic; Step 1 now prints a Font names line so you know a file needs the script. Link Sections keeps a typed M ("M2.6.6" → [M2.6.6]; it used to produce M[M2.6.6]). 2.5 JP: the sign after CD4 / CD8 / CD3 / CD95 is set plain, and "ug/mL" typed for µ becomes µg/mL.
 - **v2.6.9** (Oct 16, 2026) — → / ← keys: on a paragraph whose cross-reference field begins in the paragraph above (a translation-tool artefact), Word pulled the selection back over the paragraph mark and → kept landing on the same paragraph. The walk now starts from the far edge of the selection and steps over anything it still covers.
 - **v2.6.8** (Oct 16, 2026) — Heading keys: when a document's FFT heading styles have lost their list (the style applied but no "2.7.2" appeared; a merge while the file was open from SharePoint dropped it), the key rebuilds the heading list and numbers every tagged heading, with the toast "Heading list rebuilt". Heading keys are faster on long documents: the list is found once per session instead of reading every paragraph on every key. The admin events log keeps failures only.
