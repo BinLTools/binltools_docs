@@ -68,7 +68,9 @@
 #### 12. I pressed a heading key, the style applied, but there is no number. ####
    - The document's FFT heading styles have lost their list. It happened on a file open straight from the SharePoint site: co-authoring merged the document while FFT worked and dropped the list.
    - Since v2.6.8 the heading key rebuilds the list by itself and shows "Heading list rebuilt — N heading(s) numbered". Press the key again on any heading that still has no number.
-   - Prevent it: download a local copy, open it with AutoSave off, run FFT, then upload.
+   - If the pane says **"Heading list could not be rebuilt"** instead (seen 2026-10-19 on a file open from the OneDrive Desktop with AutoSave on): close the file in Word, open **binltools.com/fft/script.html → Heading list repair** (JP or US), type the module number you chose in Step 1 (e.g. `2.7.2`), drop the file and run. The result `…_numfix.docx` has the FFT Heading styles linked to the number ladder again; every heading already tagged shows its number, and the keys number from then on. Nothing else in the file changes.
+   - By hand in Word, if you prefer: Home → Multilevel List → *Define New Multilevel List* → *More*, then for each level link it to the style (Level 1 → FFT JP Heading 1, number style "(none)", text `2.7.2`; Level 2 → FFT JP Heading 2, text `2.7.2.` + Level 2 number; and so on). It is slow and easy to get wrong; the script does the same in one step.
+   - Prevent it: work on a copy in a folder that is **not synced** (your Desktop and Documents are OneDrive folders — the AutoSave switch at the top left of Word tells you), with AutoSave off; upload when done.
 
 #### 13. A reviewer sees the Japanese text (TOC, body) in a Gothic font, not ＭＳ 明朝. ####
    - Word on a non-Japanese Windows stores ＭＳ 明朝 / ＭＳ ゴシック under their English names, "MS Mincho" / "MS Gothic", when the template is loaded and again on every save. Most Japanese Word installations map the names back; some do not and fall back to Yu Gothic.
