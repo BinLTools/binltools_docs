@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.3** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.4** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.7.3 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.7.4 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -402,7 +402,7 @@ Every region:
 - A subscript the translator faked by shrinking the digits ("50" at 6.5 pt, not a real subscript) is first restored to the size of the text around it, so it no longer comes out tiny. Subscripts that already exist are left alone and counted separately ("Already sub/superscript, left alone").
 
 JP adds the partner's house style:
-- Citations → "Rosenberg et al. 2016, Topalian et al. 2012"
+- Citations → "Rosenberg et al. 2016, Topalian et al. 2012" — "et al." for every paper with two or more authors (read from the reference list), a single author bare; the two-author form "Zou and Chen 2008" is no longer used (partner rule, Oct 20, 2026)
 - Ranges with a unit in Japanese text → 1～75 mg/kg; every wave dash → ～
 - Ranges in English text and table cells → en dash (68 pM – 6.8 µM); reference list keeps hyphens
 - Missing space between number and unit → 0.68 nM (also in tables)
@@ -558,6 +558,7 @@ It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input
 | 6 | Every other table's text set to one size (default 10 pt): every cell, header rows and notes inside the table included. Only the size changes; fonts, spacing, alignment and row heights stay. Make the 9 / 8 pt exceptions afterwards, by hand or with 2.2 Custom. | All tables except 略語一覧 | **Only with *All other tables to N pt*** |
 | 7 | Any other change to tables — font, spacing, alignment, row height. | — | **Never** |
 | 8 | Built-in Normal style set to 10.5 pt. | Styles | Only with the 44 chars × 38 lines grid |
+| 9 | 目次 entries that sit on Word's plain TOC styles (a table of contents updated outside FFT, e.g. Word's own *Update Table*) are moved to the FFT JP TOC styles: 10.5 pt, blue, hanging indents. The entries' text is not changed. | 目次 | Always (nothing happens when the 目次 came from 3.4) |
 | 9 | Japanese font names: every "MS Mincho" / "MS Gothic" (the English names Word writes on a non-Japanese Windows, on import and on every save) becomes ＭＳ 明朝 / ＭＳ ゴシック, font table included. A reviewer's Word that cannot find the English name falls back to another font (Yu Gothic) — this is what the partner saw on the 2.6.2 TOC. The PDF is unaffected; only .docx reviewers are. | Styles, text, headers, footers | Always (untick *Japanese font names* to skip) |
 
 The script never adds, deletes or reorders text.
@@ -598,6 +599,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.7.4** (Oct 20, 2026) — 2.5 citations (JP): "Surname et al." for every paper with two or more authors; the two-author form "Zou and Chen 2008" is gone (partner rule). FFT Script *Page grid & tables*: a 目次 that was updated outside FFT and sits on Word's plain TOC styles is moved to the FFT JP TOC styles (row 9 in the table above). Reference lists: the partner wants every author named — an entry that arrived abbreviated from EndNote ("Curiel TJ, W. S., et al.") has to be completed by hand from the paper; FFT cannot.
 - **v2.7.3** (Oct 19, 2026) — FFT Script, new script **Heading list repair** (JP and US): when the heading keys apply the style but no number appears and the pane says "Heading list could not be rebuilt", run the file through it with the module number from Step 1; the FFT Heading styles are linked to the number ladder again (FAQ 12). The pane's own rebuild now tries twice and names the reason in the message. Cause, both times it happened: the file was open from a OneDrive / SharePoint folder with AutoSave on, and Word's merge dropped the list behind the styles.
 - **v2.7.2** (Oct 19, 2026) — 3.2 Bookmarks drops accents from the author's name ("Lázár-Molnár" → `Lazar_Molnar_2008`), so 3.3 Link Mentions can link the citation "Lazar-Molnar et al. 2008" (it used to produce `L_z_r_Moln_r_2008`, which never matched). 3.2 also removes bookmarks from the old naming without an underscore ("Petroff2003") that a re-run left behind; nothing links to them. See **Linking a citation by hand** under 3.3 for the one case FFT cannot solve: a surname misspelt in the reference list.
 - **v2.7.1** (Oct 19, 2026) — 2.5 citations (JP): when the reference entry itself ends in "et al." (an EndNote export such as "Curiel TJ, W. S., et. al. (2003)"), the paper counts as having many authors and the citation becomes "Curiel et al. 2003"; the 2.4 used to get "Curiel 2003". No other change for users.
