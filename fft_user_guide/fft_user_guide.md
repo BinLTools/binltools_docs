@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.6** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.7** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.7.6 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.7.7 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -216,7 +216,7 @@ Each style has a button and a key (shown in grey on the button). Both do the sam
 |---|---|---|
 | X | Normal | Body text |
 | C | Normal 2 | Body text, second form (JP: without first-line indent) |
-| 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …). A number typed in the text that equals the automatic one, or is its tail ("3.2" under 2.7.2.3.2, a source numbered inside its module), is removed; a different one is highlighted cyan |
+| 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …). A number typed in the text that equals the automatic one — also without its dots ("27313" under 2.7.3.1.3) — or is its tail ("3.2" under 2.7.2.3.2, a source numbered inside its module), is removed once the number is attached; a different one is highlighted cyan |
 | A | Appendix Heading | Same look as NoNum Heading, no number, listed in the TOC (US/EU at level 1; JP at the title level — use it for 略語及び略号一覧). Older document? Re-run Step 1 first |
 | 6 | NoNum Heading | Heading without a number, never in the TOC (all regions since v2.6.4) |
 | T | Table Title | Table caption — inserts the prefix and auto-number |
@@ -445,7 +445,7 @@ FFT:
 #### Step by Step
 1. Make sure the References heading uses an FFT Heading style.
 2. Finalize → 3.2 → **Add Bookmarks**.
-3. The pane reports how many bookmarks were created ("no reference list" if none was found).
+3. The pane reports how many bookmarks were created and verified ("no reference list" if none was found). If it says some were **not found afterwards**, save a local copy with AutoSave off and run 3.2 again — 3.3 cannot link citations without them.
 
 💡 Tips:
 - Clicking twice does not create duplicates. Ctrl + Z undoes it.
@@ -467,6 +467,7 @@ Turns typed mentions in the body text into live links:
 
 - One pair of parentheses can hold several citations; each is linked separately.
 - Unclear cases (no matching caption, two entries for the same author and year) are highlighted cyan for 3.1.
+- "No reference bookmarks in the document" in the result means 3.2 was not run on this file (or did not take): run 3.2, then Link Mentions again.
 - Reference entries never cited in the text are counted — a quick way to find a spelling mismatch.
 - Body text only: never tables, captions, the TOC or the reference list. Changes are tracked.
 
@@ -599,6 +600,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.7.7** (Oct 26, 2026) — Heading keys remove the typed number after the automatic one is attached (it stayed when the heading list had to be rebuilt) and also a number typed without dots ("27313" under 2.7.3.1.3). 2.5 citations: a group that occurs twice in one paragraph is no longer doubled; initials before "et al." are dropped ("Kodama H et al. 2024" → "Kodama et al. 2024"). 3.2 verifies its bookmarks and reports any that did not take; 3.3 says "run 3.2 first" when the document has none.
 - **v2.7.6** (Oct 21, 2026) — Step 1: the Region / Category / Module boxes open their list on a direct click again (a quick click used to pick the entry under the pointer; only the arrow worked).
 - **v2.7.5** (Oct 20, 2026) — Heading keys: a typed number that is the tail of the automatic one ("3.2" under 2.7.2.3.2, "4" under 2.7.2.4, a source numbered inside its module) is removed like an exact match; any other mismatch still turns cyan. FFT Script *Page grid & tables*: row 9 now covers the 表一覧 / 図一覧 too and drops the fonts the field copied from the headings.
 - **v2.7.4** (Oct 20, 2026) — 2.5 citations (JP): "Surname et al." for every paper with two or more authors; the two-author form "Zou and Chen 2008" is gone (partner rule). FFT Script *Page grid & tables*: a 目次 that was updated outside FFT and sits on Word's plain TOC styles is moved to the FFT JP TOC styles (row 9 in the table above). Reference lists: the partner wants every author named — an entry that arrived abbreviated from EndNote ("Curiel TJ, W. S., et al.") has to be completed by hand from the paper; FFT cannot.
