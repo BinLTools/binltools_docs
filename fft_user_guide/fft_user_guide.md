@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.7** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.8** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.7.7 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.7.8 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -440,7 +440,7 @@ One click creates a bookmark for every entry in the reference list. Cross-refere
 
 FFT:
 - Finds the heading **References** / 参考文献 / 引用文献 / 文献 (any FFT Heading or NoNum Heading style). The list ends at the next heading.
-- Bookmarks every entry as **FirstAuthor_Year** (for example Ying_2022). Duplicates get _2, _3.
+- Bookmarks every entry as **FirstAuthor_Year** (for example Ying_2022). Duplicates get _2, _3. The year is the first standalone year in the entry; digits inside a trial name such as GEM20110714 are ignored (v2.7.8).
 
 #### Step by Step
 1. Make sure the References heading uses an FFT Heading style.
@@ -600,6 +600,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.7.8** (Oct 26, 2026) — 3.2 and the 2.5 reference index take a standalone year from each reference entry, never the digits inside a trial name ("Hong S … GEM20110714 … (2021)" used to become Hong_2011). 2.5 keeps the initial before "et al." when two entries share a surname and year ("Yang Y et al. 2021" / "Yang H et al. 2021").
 - **v2.7.7** (Oct 26, 2026) — Heading keys remove the typed number after the automatic one is attached (it stayed when the heading list had to be rebuilt) and also a number typed without dots ("27313" under 2.7.3.1.3). 2.5 citations: a group that occurs twice in one paragraph is no longer doubled; initials before "et al." are dropped ("Kodama H et al. 2024" → "Kodama et al. 2024"). 3.2 verifies its bookmarks and reports any that did not take; 3.3 says "run 3.2 first" when the document has none.
 - **v2.7.6** (Oct 21, 2026) — Step 1: the Region / Category / Module boxes open their list on a direct click again (a quick click used to pick the entry under the pointer; only the arrow worked).
 - **v2.7.5** (Oct 20, 2026) — Heading keys: a typed number that is the tail of the automatic one ("3.2" under 2.7.2.3.2, "4" under 2.7.2.4, a source numbered inside its module) is removed like an exact match; any other mismatch still turns cyan. FFT Script *Page grid & tables*: row 9 now covers the 表一覧 / 図一覧 too and drops the fonts the field copied from the headings.
