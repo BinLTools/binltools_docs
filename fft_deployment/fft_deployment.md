@@ -1,45 +1,31 @@
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in designed to improve efficiency, consistency, and accuracy when formatting documents for health authority submissions.
 
-This section describes the one-time deployment process required to install FFT on a local machine and required two steps: Installing a trusted certificate on the local machine, and Sideloading the add-in manifest into Microsoft Word.
+This section describes the one-time deployment process required to install FFT on a local machine. It is now a single step: sideloading the add-in manifest into Microsoft Word.
 
 The deployment process is required only once per device. After deployment, users may proceed directly to the FFT User Guide for daily use.
+
+> **Previously installed FFT from the office-network server?** That version
+> required installing a certificate and connecting a VPN. Neither is needed any
+> more. See "Removing an older installation" at the bottom first.
 
 ## Get Started
 ### 0. Prerequisites
 1. A machine (iPad, desktop, laptop, VM...) 🙃
 2. Microsoft Word (2016 or later) / Microsoft Word Web
 
-### 1. Download the Certificate and Manifest
-1. Click [001. Certificate and Manifest](https://topalliancebiousa.sharepoint.com/:f:/r/sites/TopallianceRA/Regulatory%20Tools/File%20Formatting%20Translator%20(FFT)/001.%20Certificate%20and%20Manifest?csf=1&web=1&e=uYJVga) to download.
-2. Save the certificate and manifest in a folder.
-   
+### 1. Download the Manifest
+1. Download the manifest: [manifest_fft.xml](https://binltools.com/fft/manifest_fft.xml)
+   (right-click → "Save link as…"; if it opens in the browser instead, press `Ctrl+S`).
+2. Save it in a folder you will keep — for example `C:\Users\<username>\FFT-manifest`
+   on Windows.
 
-### 2. Import the Certificate to the Local Machine
-1. **MacOS**
-   1. Click [here]() to download the CA cert `rootCA.pem`.
-   2. Double-click `rootCA.pem`. This will open "Keychain Access".
-   3. Select "System" keychain (top left).
-   4. Right-click the certificate you just downloaded -> Click "Get Info".
-   5. Expand "Trust" -> Set When using this certificate to "Always Trust".
-
-
-2. **Windows**
-   1. Double-click the cert and select "Install Certificate".
-
-      ![1](/fft_deployment/images/6.png)  
-      
-   2. Select current user / Local Machine (access to all the users).
-   3. Select "Place all certificates in the following store". -> Browse -> "Trusted Root Certification Authorities" -> Ok
-      ![1](/fft_deployment/images/7.png)  
-   4. Pop-up window: "The import was successful".
-
-
-### 3. Sideload the Manifest
+### 2. Sideload the Manifest
 1. **MacOS / iPadOS**:
    1. Use Finder to sideload the manifest file -> Open Finder and then enter `Cmd+Shift+G` to open the Go to folder dialog.
    2. Enter `/Users/<username>/Library/Containers/com.microsoft.Word/Data/Documents/wef`.
    3. If the wef folder doesn't exist on your computer, create it.
+   4. Copy the manifest into that folder, then restart Word.
 
 
 2. **Windows**: 
@@ -63,3 +49,21 @@ The deployment process is required only once per device. After deployment, users
    7. Restart the Word -> Open File -> Home -> Add-ins -> Advanced -> "Contoso Task Pane" -> Add -> Show Task Pane
    
       ![4](/fft_deployment/images/4.png)
+
+### 3. Check It Worked
+The task pane shows a version stamp at the top: `Ver. x.y.z · <build time>`.
+If the pane is blank, close Word completely, clear the add-in cache
+(`%LOCALAPPDATA%\Microsoft\Office\16.0\Wef` on Windows), and reopen Word.
+
+## Removing an Older Installation
+Only needed if you installed FFT from the old office-network server.
+
+1. Close all Word windows.
+2. Word Options -> Trust Center -> Trust Center Settings -> Trusted Add-in
+   Catalogs: remove the old catalog entry. Delete the old manifest file.
+3. Clear the add-in cache: `Win+R` -> paste
+   `%LOCALAPPDATA%\Microsoft\Office\16.0\Wef` -> Enter -> delete the contents.
+4. *(Optional)* The old server's certificate is no longer used. To remove it:
+   `Win+R` -> `certmgr.msc` -> Trusted Root Certification Authorities ->
+   Certificates -> delete the `ratools.topalliancebio.com` entry.
+5. Follow step 1 above with the new manifest.
