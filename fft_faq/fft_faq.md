@@ -76,3 +76,9 @@
    - Word on a non-Japanese Windows stores ＭＳ 明朝 / ＭＳ ゴシック under their English names, "MS Mincho" / "MS Gothic", when the template is loaded and again on every save. Most Japanese Word installations map the names back; some do not and fall back to Yu Gothic.
    - Step 1 prints a "Font names" line when a file carries the English names.
    - Run the file through **FFT Script → JP → Page grid & tables** with *Japanese font names* ticked (it is on by default, since v2.7.0). The result carries ＭＳ 明朝 / ＭＳ ゴシック again. The PDF is never affected; only people reviewing the .docx are.
+
+#### 14. My translated file already carries the US FFT styles ("FFT Heading 1", "Table 2.3.P-1"). Do I delete them before Step 1 under JP? ####
+   - No. The two style sets have different names and coexist. Since v2.8.0 Step 1 under JP moves every paragraph on a US FFT style to its JP twin — headings, body text, bullets, table cells, notes — numbers the headings from the module and rebuilds every caption that has a live number as `表 2.3.P-1. Title`. The result line under Submit says how many headings and captions it took over.
+   - Before v2.8.0 the JP headings on such a file counted "1", "1.1": the module number had gone onto the US heading list. Re-run Step 1 under the new version and the headings read "2.3.P", "2.3.P.1".
+   - A caption whose text before the number is not a label word is left alone and listed under Submit: press `t` / `f` on it by hand.
+   - Deleting the US styles by hand is never needed and can strip the tables the English run formatted.

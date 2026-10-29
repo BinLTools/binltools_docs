@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.9** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.0** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.7.9 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.8.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -188,6 +188,7 @@ Click **Submit**. FFT loads the styles, sets the page and margins, and writes th
 - **Wrong module number?** Re-run Step 1 with the right module. Headings renumber in place.
 - **Wrong region?** Start from a fresh document.
 - **Wrong template loaded?** Delete the FFT styles (Styles → Manage Styles → Import/Export → select all FFT styles → Delete), then run Step 1 again.
+- **JP, and the file was formatted with FFT (US) before translation?** Nothing to do (v2.8.0). Step 1 moves the US FFT styles to the JP ones — headings, body text, bullets, table cells, notes — numbers the headings from the module and rebuilds every caption that has a live number ("Table 2.3.P-1", or a typed "表1") as `表 2.3.P-1. Title`. The result line under Submit says how many headings and captions it took over. The US styles stay in the file and do no harm: do **not** delete them.
 
 ## Step 2 Format
 Step 2 formats the content. It opens after Step 1 is submitted.
@@ -537,7 +538,7 @@ Once Step 3 is complete the document is ready for final QC and submission export
 ## JP Workflow End to End
 ![43](/fft_user_guide/images/43.png)
 
-1. **Translate first, format last.** Run FFT on the final Japanese text.
+1. **Translate first, format last.** Run FFT on the final Japanese text. If the English was formatted with FFT (US) before translation, keep it that way: Step 1 under JP takes the US styles over (v2.8.0, see the Submit tips under Step 1).
 2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header. Heading sizes follow the number's depth (v2.7.0): in a three-part module (2.6.1, 2.6.2, 2.6.3, 2.7.x) the heading styles come one step smaller than in 2.4 — 12 pt not bold / 11.5 / 11 / 10.5 — so "2.6.2.1" looks like "2.4.2.1"; the result line under Submit says which ladder was set. Step 1 also prints a **Font names** line: on a non-Japanese Windows, Word stores ＭＳ 明朝 / ＭＳ ゴシック as "MS Mincho" / "MS Gothic" — the FFT Script step (row 9 below) writes the Japanese names back.
 3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables (run it or skip it — see **Tables: two ways** below) → 2.4 Clean CN Fonts → 2.5 Typography.
 4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
@@ -600,6 +601,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.8.0** (Oct 29, 2026) — Step 1 under JP adopts a file that was formatted with FFT (US) before translation: headings, body text, bullets, table cells and notes move to the JP styles, the headings are numbered from the module, and every caption with a live number ("Table 2.3.P-1" or a typed "表1") is rebuilt as `表 2.3.P-1. Title` (FAQ 14). Fixed: on such a file the JP headings counted "1", "1.1" instead of "2.3.P", "2.3.P.1", because the module number had been written onto the US heading list; it now always goes to the list of the chosen region. Re-run Step 1 on a translated file formatted earlier.
 - **v2.7.9** (Oct 26, 2026) — 3.3 Link Mentions links a citation whose surname has a hyphen or a space ("Lazar-Molnar et al. 2008" → the `Lazar_Molnar_2008` entry). Since v2.7.2 the bookmark was right but the match never fired, so such citations stayed black (found in a partner review of 2.6.6). Re-run 3.3 on a document formatted earlier.
 - **v2.7.8** (Oct 26, 2026) — 3.2 and the 2.5 reference index take a standalone year from each reference entry, never the digits inside a trial name ("Hong S … GEM20110714 … (2021)" used to become Hong_2011). 2.5 keeps the initial before "et al." when two entries share a surname and year ("Yang Y et al. 2021" / "Yang H et al. 2021").
 - **v2.7.7** (Oct 26, 2026) — Heading keys remove the typed number after the automatic one is attached (it stayed when the heading list had to be rebuilt) and also a number typed without dots ("27313" under 2.7.3.1.3). 2.5 citations: a group that occurs twice in one paragraph is no longer doubled; initials before "et al." are dropped ("Kodama H et al. 2024" → "Kodama et al. 2024"). 3.2 verifies its bookmarks and reports any that did not take; 3.3 says "run 3.2 first" when the document has none.
