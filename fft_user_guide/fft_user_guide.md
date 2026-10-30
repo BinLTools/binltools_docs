@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.8** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.9** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.8.8 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.8.9 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -392,6 +392,7 @@ Translated text often keeps Chinese fonts (DengXian, SimSun, YaHei, 游明朝…
 - Tables and figures are never touched.
 - Changes are tracked. Paragraphs FFT cannot edit (inside tables, field results) are reported as skipped.
 - Fast since v2.8.2: the document is scanned once and only the paragraphs that carry a leftover font are rewritten. A 6,600-paragraph 2.3.P took twenty minutes before; now it takes well under one. The running message says how many paragraphs are being cleaned.
+- Files with large figures (v2.8.9): the scan reads the document in chunks and skips the figure paragraphs, so a module with vector figures of tens of megabytes (the 2.3.S) no longer stalls the pane for minutes.
 - Greyed out outside JP.
 
 ### 2.5 Scientific Typography
@@ -431,7 +432,7 @@ Before you start: Steps 1 and 2 are complete for the whole document.
 
 Lists every highlighted spot in the document — your own marks (Shift + H + H) and any colour a reviewer added by hand. FFT itself adds no highlights (v2.8.6); what it is unsure about is named in the result of the step that found it.
 
-- Click **Load Highlights**. The counter shows "n / N". The list appears in seconds, however long the document (v2.1.13: the document is read once, not paragraph by paragraph).
+- Click **Load Highlights**. The counter shows "n / N". The list appears in seconds, however long the document (v2.1.13: the document is read once, not paragraph by paragraph; v2.8.9: in chunks that skip the figure paragraphs, so large figures no longer stall it — a highlight inside a figure paragraph is not listed).
 - Click an item to jump to it, or use **Previous / Next** (Shift + ← / Shift + → while shortcuts are on).
 - Fix or clear each spot.
 
@@ -605,6 +606,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **The arrow keys stop inside a table**: fixed in v2.8.6 — a table is crossed in one step whatever its size. If it still happens, click the paragraph after the table and go on.
 
 ## Version History
+- **v2.8.9** (Oct 30, 2026) — Large-figure files. Step 1, 2.4 Clean CN Fonts and 3.1 Highlights each read the whole document in one piece, and that piece carries every picture: on the 2.3.S (176 pages, 79 figures, one 43 MB vector drawing) Step 1 stalled for minutes. Step 1 now checks the figures directly; 2.4 and 3.1 read the document in chunks that skip the figure paragraphs. Files with small pictures see no difference. Word itself still slows down around very large vector figures — see FAQ #15.
 - **v2.8.8** (Oct 30, 2026) — JP adoption of a US-formatted file: the body text now lands on FFT JP Normal (key x, with the first-line indent), the JP default, instead of FFT JP Normal 2 (key c). Re-run Step 1 on a translated file formatted since 2.8.0 to get it; paragraphs that must not indent get key c by hand.
 - **v2.8.7** (Oct 30, 2026) — JP figures. On a long translated module (2.3.S, 71 figures) every inline picture showed as a one-line strip after Step 1: the FFT JP body styles use an exact line height and Word clips an inline picture to it. Step 1 now gives each paragraph that holds an inline picture single line spacing (result line "Figures: …"); the FFT Script *Page grid & tables* step does the same and lists it under "What changed". Floating pictures and table cells are left as they are.
 - **v2.8.6** (Oct 30, 2026) — FFT no longer highlights anything. Where it used to turn text cyan for 3.1 (a typed heading number that differs from the automatic one, a citation group 2.5 cannot rewrite safely, a mention 3.3 cannot link), it now leaves the text as typed and names the case in the pane: the heading key's warning, the list under 2.5, the 3.3 result message. 3.1 Highlights lists your own and reviewers' marks only. Keyboard walk (→ / ←): a table is crossed in one step — a large study table used to leave the walk standing in a cell, so the next key styled that cell. Paragraphs that are only a picture are skipped as well. Heading keys on a file whose heading list had to be rebuilt: the first key 1 came back "2.7.4.1" instead of "2.7.4" and needed a second press; the rebuild now checks every heading's level after it and corrects it.
