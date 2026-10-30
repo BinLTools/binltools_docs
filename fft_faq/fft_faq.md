@@ -85,3 +85,6 @@
    - Before v2.8.0 the JP headings on such a file counted "1", "1.1": the module number had gone onto the US heading list. Re-run Step 1 under the new version and the headings read "2.3.P", "2.3.P.1".
    - A caption whose text before the number is not a label word is left alone and listed under Submit: press `t` / `f` on it by hand.
    - Deleting the US styles by hand is never needed and can strip the tables the English run formatted.
+
+#### 15. After Step 1 (JP) a figure shows only as a thin strip, or looks hidden behind the text. ####
+Pictures that sit in the text flow are cut down to the line height when the paragraph uses an exact line spacing — every FFT JP body style does, for the 38-line grid. Since v2.8.7 Step 1 gives each paragraph that holds an inline picture single line spacing (result line "Figures: …"), and the FFT Script *Page grid & tables* step does the same. On an older file: re-run Step 1, or run the file through the FFT Script page. If one picture is still clipped, click in its paragraph and set Line spacing to Single (Paragraph → Line spacing) — the style stays. Floating pictures (Layout Options → Top and Bottom) are not affected.
