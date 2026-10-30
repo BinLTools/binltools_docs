@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.1** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.2** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.8.1 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.8.2 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -389,6 +389,7 @@ Translated text often keeps Chinese fonts (DengXian, SimSun, YaHei, 游明朝…
 
 - Tables and figures are never touched.
 - Changes are tracked. Paragraphs FFT cannot edit (inside tables, field results) are reported as skipped.
+- Fast since v2.8.2: the document is scanned once and only the paragraphs that carry a leftover font are rewritten. A 6,600-paragraph 2.3.P took twenty minutes before; now it takes well under one. The running message says how many paragraphs are being cleaned.
 - Greyed out outside JP.
 
 ### 2.5 Scientific Typography
@@ -601,6 +602,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
 
 ## Version History
+- **v2.8.2** (Oct 29, 2026) — 2.4 Clean CN Fonts reads the document once and rewrites only the paragraphs that carry a leftover font: a 6,600-paragraph 2.3.P took twenty minutes and now takes well under one. It also no longer removes a run's East Asian language tag, which the old check mistook for a font. 2.5 Scientific Typography (JP): the check that turns stray blue table text black reads the cells in batches instead of one by one, so 2.5 finishes minutes sooner on table-heavy modules; no rule changed.
 - **v2.8.1** (Oct 29, 2026) — Caption keys can be pressed again on a caption that already has its live number: the old label, number and separator are removed first, so nothing stacks ("表 2.3.P-2. 3.P-3. Title" used to appear on a re-press). A typed label whose module has a letter ("Table 2.3.P-3") is now removed whole.
 - **v2.8.0** (Oct 29, 2026) — Step 1 under JP adopts a file that was formatted with FFT (US) before translation: headings, body text, bullets, table cells and notes move to the JP styles, the headings are numbered from the module, and every caption with a live number ("Table 2.3.P-1" or a typed "表1") is rebuilt as `表 2.3.P-1. Title` (FAQ 14). Fixed: on such a file the JP headings counted "1", "1.1" instead of "2.3.P", "2.3.P.1", because the module number had been written onto the US heading list; it now always goes to the list of the chosen region. Re-run Step 1 on a translated file formatted earlier.
 - **v2.7.9** (Oct 26, 2026) — 3.3 Link Mentions links a citation whose surname has a hyphen or a space ("Lazar-Molnar et al. 2008" → the `Lazar_Molnar_2008` entry). Since v2.7.2 the bookmark was right but the match never fired, so such citations stayed black (found in a partner review of 2.6.6). Re-run 3.3 on a document formatted earlier.
