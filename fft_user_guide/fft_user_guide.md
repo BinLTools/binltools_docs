@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.7** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.8** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.8.7 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.8.8 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -189,6 +189,7 @@ Click **Submit**. FFT loads the styles, sets the page and margins, and writes th
 - **Wrong region?** Start from a fresh document.
 - **Wrong template loaded?** Delete the FFT styles (Styles → Manage Styles → Import/Export → select all FFT styles → Delete), then run Step 1 again.
 - **JP, and the file was formatted with FFT (US) before translation?** Nothing to do (v2.8.0). Step 1 moves the US FFT styles to the JP ones — headings, body text, bullets, table cells, notes — numbers the headings from the module and rebuilds every caption that has a live number ("Table 2.3.P-1", or a typed "表1") as `表 2.3.P-1. Title`. The result line under Submit says how many headings and captions it took over. The US styles stay in the file and do no harm: do **not** delete them.
+- **JP adoption and body text (v2.8.8):** the US body style ("FFT Normal 2") becomes **FFT JP Normal** (key `x`, first-line indent), the JP default for body text. Press `c` yourself on a paragraph that must not indent (a continuation line under a list, a lead-in). Before 2.8.8 the adoption put the body on key `c`.
 - **JP, figures show as a thin strip after Submit?** Not since v2.8.7. The JP body styles use an exact line height (the 38-line grid) and Word cuts an inline picture down to it; Step 1 now gives every paragraph that holds a picture single line spacing and says so in the result line ("Figures: N inline picture paragraph(s) set to single line spacing"). The FFT Script page's *Page grid & tables* does the same, so a file finished by script is covered too. Floating pictures (Top and Bottom) are not changed.
 
 ## Step 2 Format
@@ -604,6 +605,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **The arrow keys stop inside a table**: fixed in v2.8.6 — a table is crossed in one step whatever its size. If it still happens, click the paragraph after the table and go on.
 
 ## Version History
+- **v2.8.8** (Oct 30, 2026) — JP adoption of a US-formatted file: the body text now lands on FFT JP Normal (key x, with the first-line indent), the JP default, instead of FFT JP Normal 2 (key c). Re-run Step 1 on a translated file formatted since 2.8.0 to get it; paragraphs that must not indent get key c by hand.
 - **v2.8.7** (Oct 30, 2026) — JP figures. On a long translated module (2.3.S, 71 figures) every inline picture showed as a one-line strip after Step 1: the FFT JP body styles use an exact line height and Word clips an inline picture to it. Step 1 now gives each paragraph that holds an inline picture single line spacing (result line "Figures: …"); the FFT Script *Page grid & tables* step does the same and lists it under "What changed". Floating pictures and table cells are left as they are.
 - **v2.8.6** (Oct 30, 2026) — FFT no longer highlights anything. Where it used to turn text cyan for 3.1 (a typed heading number that differs from the automatic one, a citation group 2.5 cannot rewrite safely, a mention 3.3 cannot link), it now leaves the text as typed and names the case in the pane: the heading key's warning, the list under 2.5, the 3.3 result message. 3.1 Highlights lists your own and reviewers' marks only. Keyboard walk (→ / ←): a table is crossed in one step — a large study table used to leave the walk standing in a cell, so the next key styled that cell. Paragraphs that are only a picture are skipped as well. Heading keys on a file whose heading list had to be rebuilt: the first key 1 came back "2.7.4.1" instead of "2.7.4" and needed a second press; the rebuild now checks every heading's level after it and corrects it.
 - **v2.8.5** (Oct 30, 2026) — Heading numbers on a translated 2.7.x file. Step 1 of a source that brings its own heading ladder (GlobalSubmit C-Heading styles: 2.7.2, 2.7.4) keeps the template's bullet and number lists but drops the heading list, AutoSave or not; the earlier rebuild was dropped the same way. Now the heading key builds the list inside the document with Word's own list commands and names the reason if it still cannot; Step 1 ends with "Heading list: linked" or "Heading list: Word dropped it during the import — the first heading key rebuilds it"; the Script page's **Heading list repair** builds the ladder from the template when the file has none (choose whether the source's heading 1 is the module title or the first section, and a module title to insert), links the styles and puts every heading on it. FAQ 12 updated.
