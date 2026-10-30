@@ -61,9 +61,10 @@
    - "Rows skipped (shape could not be read)": the table has a merge Word and FFT cannot reconcile in that row. Format that block with the manual steps (a / b) instead.
    - "TEXT GUARD: content changed at row r, cell c": FFT found a difference between the cell text before and after. Press Ctrl + Z to undo the run and send the table to TopAlliance RA — 2.2 never edits text, so this should not happen.
 
-#### 11. A heading or caption turned cyan after I pressed the key. ####
-   - The number typed in the text differs from the number FFT assigned (for example you typed 2.4.3.2.3 but the heading level makes it 2.4.3.2.2, or the caption order gives a different table number).
-   - Fix the level or the order, delete the typed number, then remove the highlight (Home → Text Highlight Color → No Color). When the typed number matches, FFT removes it by itself.
+#### 11. The pane says "Heading number typed as … but numbered …" after I pressed the key. ####
+   - The number typed in the text differs from the number FFT assigned (for example you typed 2.4.3.2.3 but the heading level makes it 2.4.3.2.2). The text is left as it is — since v2.8.6 FFT never highlights anything; before that the paragraph turned cyan.
+   - Fix the level (press the right heading key) and delete the typed number. When the typed number matches, FFT removes it by itself. A caption key always removes the typed label and reports a changed number in the toast.
+   - Cyan left in a file by an older FFT: Home → Text Highlight Color → No Color.
 
 #### 12. I pressed a heading key, the style applied, but there is no number. ####
    - The document's FFT heading styles have lost their list. It happened on a file open straight from the SharePoint site: co-authoring merged the document while FFT worked and dropped the list.

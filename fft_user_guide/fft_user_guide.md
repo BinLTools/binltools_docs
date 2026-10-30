@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.5** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.6** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.8.5 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.8.6 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -217,7 +217,7 @@ Each style has a button and a key (shown in grey on the button). Both do the sam
 |---|---|---|
 | X | Normal | Body text |
 | C | Normal 2 | Body text, second form (JP: without first-line indent) |
-| 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …). A number typed in the text that equals the automatic one — also without its dots ("27313" under 2.7.3.1.3) — or is its tail ("3.2" under 2.7.2.3.2, a source numbered inside its module), is removed once the number is attached; a different one is highlighted cyan |
+| 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …). A number typed in the text that equals the automatic one — also without its dots ("27313" under 2.7.3.1.3) — or is its tail ("3.2" under 2.7.2.3.2, a source numbered inside its module), is removed once the number is attached; a different one stays and the pane warns "typed as … but numbered …" (check the level) |
 | A | Appendix Heading | Same look as NoNum Heading, no number, listed in the TOC (US/EU at level 1; JP at the title level — use it for 略語及び略号一覧). Older document? Re-run Step 1 first |
 | 6 | NoNum Heading | Heading without a number, never in the TOC (all regions since v2.6.4) |
 | T | Table Title | Table caption — inserts the prefix and auto-number |
@@ -417,7 +417,7 @@ JP adds the partner's house style:
 What you see afterwards:
 - **Text edits are tracked changes.** Review them before accepting.
 - **Italic, subscript and colour are not tracked** — Word does not record formatting made by an add-in. The list under the button names every word FFT italicised or subscripted.
-- Anything FFT is unsure about is highlighted cyan for 3.1.
+- Anything FFT is unsure about (a citation group it cannot rewrite safely) is left as typed and named in the list under the button. FFT never highlights text (v2.8.6).
 
 ## Step 3 Finalize
 Step 3 builds the document-wide structures. Work the four sections in order; the TOC is always last.
@@ -427,7 +427,7 @@ Before you start: Steps 1 and 2 are complete for the whole document.
 ### 3.1 Highlights
 ![35](/fft_user_guide/images/35.png)
 
-Lists every highlighted spot in the document — FFT's cyan marks and any colour a reviewer added by hand.
+Lists every highlighted spot in the document — your own marks (Shift + H + H) and any colour a reviewer added by hand. FFT itself adds no highlights (v2.8.6); what it is unsure about is named in the result of the step that found it.
 
 - Click **Load Highlights**. The counter shows "n / N". The list appears in seconds, however long the document (v2.1.13: the document is read once, not paragraph by paragraph).
 - Click an item to jump to it, or use **Previous / Next** (Shift + ← / Shift + → while shortcuts are on).
@@ -468,7 +468,7 @@ Turns typed mentions in the body text into live links:
 | "(Smith et al., 2020)", "（Bray et al., 2024）" | A link to the reference entry (run 3.2 first). Your text stays as typed. |
 
 - One pair of parentheses can hold several citations; each is linked separately.
-- Unclear cases (no matching caption, two entries for the same author and year) are highlighted cyan for 3.1.
+- Unclear cases (no matching caption, two entries for the same author and year, no matching heading) are left as typed and named in the result message — "3 mention(s) not linked, check by hand: Table 2.7.4-9 (no caption); Smith 2020 (two entries)".
 - "No reference bookmarks in the document" in the result means 3.2 was not run on this file (or did not take): run 3.2, then Link Mentions again.
 - Reference entries never cited in the text are counted — a quick way to find a spelling mismatch.
 - Body text only: never tables, captions, the TOC or the reference list. Changes are tracked.
@@ -599,9 +599,11 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Text boxes** are not reached by 2.5. Fix them by hand.
 - **Pane looks old after an update**: check the build stamp, then FAQ #1.
 - **Style will not apply**: Ctrl + Space in the document, then the key again.
-- **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
+- **"Heading number typed as … but numbered …" after a heading key**: the number you typed differs from the automatic one. Check the level, then delete the typed number by hand. A caption key always removes the typed label and the toast reports a changed number.
+- **The arrow keys stop inside a table**: fixed in v2.8.6 — a table is crossed in one step whatever its size. If it still happens, click the paragraph after the table and go on.
 
 ## Version History
+- **v2.8.6** (Oct 30, 2026) — FFT no longer highlights anything. Where it used to turn text cyan for 3.1 (a typed heading number that differs from the automatic one, a citation group 2.5 cannot rewrite safely, a mention 3.3 cannot link), it now leaves the text as typed and names the case in the pane: the heading key's warning, the list under 2.5, the 3.3 result message. 3.1 Highlights lists your own and reviewers' marks only. Keyboard walk (→ / ←): a table is crossed in one step — a large study table used to leave the walk standing in a cell, so the next key styled that cell. Paragraphs that are only a picture are skipped as well. Heading keys on a file whose heading list had to be rebuilt: the first key 1 came back "2.7.4.1" instead of "2.7.4" and needed a second press; the rebuild now checks every heading's level after it and corrects it.
 - **v2.8.5** (Oct 30, 2026) — Heading numbers on a translated 2.7.x file. Step 1 of a source that brings its own heading ladder (GlobalSubmit C-Heading styles: 2.7.2, 2.7.4) keeps the template's bullet and number lists but drops the heading list, AutoSave or not; the earlier rebuild was dropped the same way. Now the heading key builds the list inside the document with Word's own list commands and names the reason if it still cannot; Step 1 ends with "Heading list: linked" or "Heading list: Word dropped it during the import — the first heading key rebuilds it"; the Script page's **Heading list repair** builds the ladder from the template when the file has none (choose whether the source's heading 1 is the module title or the first section, and a module title to insert), links the styles and puts every heading on it. FAQ 12 updated.
 - **v2.8.4** (Oct 29, 2026) — 3.3 Link Mentions leaves a mention alone when it is already a live link from the English source. v2.8.3 linked such mentions a second time and put the new link inside the old one; Word showed the right text, but an "update fields" would have dropped the inner link. If you ran 3.3 with v2.8.3 on a file that already had links, ask RA to run the repair on the file.
 - **v2.8.3** (Oct 29, 2026) — 3.3 Link Mentions no longer freezes Word on a document whose table or figure mentions are already live links from the English source (a file formatted in the US, then translated, keeps them). On the 2.3.A Word stopped responding and had to be closed. The search pattern asked for one character after the number; at the end of a link's text that character is Word's field mark, and Word kept returning an empty match in the same place. The pattern now takes the whole number and needs nothing after it. Mentions that are already links are skipped as before.
