@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.8.9 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.8.10 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -566,6 +566,7 @@ It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input
 | 8 | Built-in Normal style set to 10.5 pt. | Styles | Only with the 44 chars × 38 lines grid |
 | 9 | 目次 / 表一覧 / 図一覧 entries that sit on Word's plain TOC styles (a list updated outside FFT, e.g. Word's own *Update Table*) are moved to the FFT JP styles: 10.5 pt, blue, hanging indents. Every entry also loses the fonts the field copied from the headings (SimSun numbers, 游明朝 words, Calibri Latin), so Times New Roman / ＭＳ 明朝 show. The entries' text is not changed. | 目次, 表一覧, 図一覧 | Always |
 | 9 | Japanese font names: every "MS Mincho" / "MS Gothic" (the English names Word writes on a non-Japanese Windows, on import and on every save) becomes ＭＳ 明朝 / ＭＳ ゴシック, font table included. A reviewer's Word that cannot find the English name falls back to another font (Yu Gothic) — this is what the partner saw on the 2.6.2 TOC. The PDF is unaffected; only .docx reviewers are. | Styles, text, headers, footers | Always (untick *Japanese font names* to skip) |
+| 10 | Word's own contents styles ("toc 1–4", "table of figures") get the definition of the FFT JP entry styles: ＭＳ 明朝, 10.5 pt, blue, the FFT indents. Word rebuilds the entries on these styles every time you update the 目次, 表一覧 or 図一覧; in a translated file they had no Japanese font and the entries came back in SimSun or Microsoft YaHei. After this, an update in Word keeps the look (v2.8.10). | Styles | Always, in a file that has the FFT JP styles |
 
 The script never adds, deletes or reorders text.
 
@@ -606,6 +607,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **The arrow keys stop inside a table**: fixed in v2.8.6 — a table is crossed in one step whatever its size. If it still happens, click the paragraph after the table and go on.
 
 ## Version History
+- **v2.8.10** (Nov 6, 2026) — A 目次 updated in Word keeps the FFT fonts. On the 2.5 臨床に関する概括評価 the entry fonts changed after the 目次 was regenerated in Word (Japanese text in SimSun, one heading in Microsoft YaHei): Word rebuilds the entries on its own contents styles, which had no Japanese font in a translated English source, picks a fallback font and writes it onto the text. The **Page grid & tables** script now gives those built-in styles the FFT definition, so *Update entire table* no longer changes the look. Order unchanged: update the 目次 first, run the script last — it also restores the Japanese font names that Word renames on every save. No change in the pane.
 - **v2.8.9** (Oct 30, 2026) — Large-figure files. Step 1, 2.4 Clean CN Fonts and 3.1 Highlights each read the whole document in one piece, and that piece carries every picture: on the 2.3.S (176 pages, 79 figures, one 43 MB vector drawing) Step 1 stalled for minutes. Step 1 now checks the figures directly; 2.4 and 3.1 read the document in chunks that skip the figure paragraphs. Files with small pictures see no difference. Word itself still slows down around very large vector figures — see FAQ #15.
 - **v2.8.8** (Oct 30, 2026) — JP adoption of a US-formatted file: the body text now lands on FFT JP Normal (key x, with the first-line indent), the JP default, instead of FFT JP Normal 2 (key c). Re-run Step 1 on a translated file formatted since 2.8.0 to get it; paragraphs that must not indent get key c by hand.
 - **v2.8.7** (Oct 30, 2026) — JP figures. On a long translated module (2.3.S, 71 figures) every inline picture showed as a one-line strip after Step 1: the FFT JP body styles use an exact line height and Word clips an inline picture to it. Step 1 now gives each paragraph that holds an inline picture single line spacing (result line "Figures: …"); the FFT Script *Page grid & tables* step does the same and lists it under "What changed". Floating pictures and table cells are left as they are.
