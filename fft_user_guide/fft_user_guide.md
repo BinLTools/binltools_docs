@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.11** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.12** (November 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.8.11 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.8.12 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -133,14 +133,27 @@ Pick the exact document.
 - USPI and SmPC keep their fixed, typed section numbers (FDA PLR / EMA QRD). FFT never auto-numbers them.
 
 ### 1.3 Page header
-Four boxes, laid out like the header itself:
+Four boxes, laid out like the header itself. What they show depends on the kind of document (v2.8.12):
+
+**CTD module** (2.5, 3.2.S.4.1, …):
 
 | Left column (remembered on this computer) | Right column (fills in from the module) |
 |---|---|
-| Company | Line 1 — for CTD modules "Module 2 Common Technical Document Summaries", for a protocol or ICF type the document title, e.g. *Informed Consent Form* |
-| Product / protocol number | Line 2 — for CTD modules "2.5 Clinical Overview", for a protocol or ICF type e.g. *Version: 1.0, Date: October 20, 2025* |
+| Company Name | Line 1 — "Module 2 Common Technical Document Summaries" |
+| Drug Name | Line 2 — "2.5 Clinical Overview" |
 
-The right boxes are refilled with the module defaults whenever you change the module, so a CTD document needs no typing. **Protocol** presets "[Protocol No.]" over "Version: 0.1; Date: Month DD, YYYY" and **ICF** presets "Informed Consent Form" over "version number: 1.0, version date: Month DD, YYYY" — edit the number and date, type the protocol number; the left boxes show an example as a hint. The footer is always "Confidential … Page N". JP: the boxes change to match the partner's header — line 1 is **Product** and the **module title** (unchanged), the company is not shown, and line 2 (a free left text and a right text) is written only when you fill one of its boxes.
+The right boxes are refilled with the module titles whenever you change the module, so a CTD document needs no typing. An empty left box shows its grey hint and writes nothing into the header.
+
+**General document** (regular_1 for a protocol, regular_1.0 for an ICF, SOP): nothing is preset, because a study number, a file name or a version line changes with every document. The boxes show grey hints and you type what this document needs:
+
+| Left column | Right column |
+|---|---|
+| Company Name (remembered) | *Study no.* (SOP: *SOP no.*) |
+| *File name* (per document, e.g. Main ICF) | *Version: Date: Month DD, YYYY* |
+
+An empty box writes nothing. The footer is always "Confidential … Page N". JP: the boxes change to match the partner's header — line 1 is **Product** and the **module title** (unchanged for CTD modules), the company is not shown, and line 2 (a free left text and a right text) is written only when you fill one of its boxes; a JP general document shows the same hints as above.
+
+The header stays on one line on any paper size since v2.8.12. If a document formatted earlier shows a two- or three-line header on A4 paper ("TopAlliance … Biosciences" spread over the line, the number below it), re-run Step 1.
 
 ### Layout
 Open the **Layout** section to control what Step 1 loads.
@@ -613,6 +626,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **The arrow keys stop inside a table**: fixed in v2.8.6 — a table is crossed in one step whatever its size. If it still happens, click the paragraph after the table and go on.
 
 ## Version History
+- **v2.8.12** (Nov 11, 2026) — Page header on A4 paper stays on one line. An ICF on A4 came out with a three-line header: the header lines carried a plain tab aimed at a stop set for Letter paper, which on A4 ran past the margin and broke the line. The header templates now carry the margin-aligned tab alone (every region); Letter files were never affected. Re-run Step 1 on an A4 document whose header wrapped. Also: the Step 1 header boxes for general documents (regular_1, regular_1.0, SOP) show grey hints — Study no. · File name · Version: Date: Month DD, YYYY — instead of preset text such as "Study Number"; you type each one, an empty box writes nothing. A protocol runs as regular_1 and an ICF as regular_1.0; the separate Protocol / ICF entries are gone. CTD modules are unchanged; their company and drug-name boxes show grey hints when empty.
 - **v2.8.11** (Nov 11, 2026) — 2.3 Normalize Symbols keeps your formatting. The pass rewrote every paragraph that held a full-width symbol, and the rewrite dropped the paragraph's sub- and superscripts, links and field codes (a PK table: C<sub>max</sub> became Cmax). Now each symbol is replaced on its own, in its own place; nothing around it changes. Table cells are included. Ran 2.3 on a file before this version? Reject that run's tracked changes and run it again. Also: 2.5 Scientific Typography names the step it is on in the running bar ("2.5 · 3/14 PK subscripts"), so a long pass no longer looks stuck.
 - **v2.8.10** (Nov 6, 2026) — A 目次 updated in Word keeps the FFT fonts. On the 2.5 臨床に関する概括評価 the entry fonts changed after the 目次 was regenerated in Word (Japanese text in SimSun, one heading in Microsoft YaHei): Word rebuilds the entries on its own contents styles, which had no Japanese font in a translated English source, picks a fallback font and writes it onto the text. The **Page grid & tables** script now gives those built-in styles the FFT definition, so *Update entire table* no longer changes the look. Order unchanged: update the 目次 first, run the script last — it also restores the Japanese font names that Word renames on every save. No change in the pane.
 - **v2.8.9** (Oct 30, 2026) — Large-figure files. Step 1, 2.4 Clean CN Fonts and 3.1 Highlights each read the whole document in one piece, and that piece carries every picture: on the 2.3.S (176 pages, 79 figures, one 43 MB vector drawing) Step 1 stalled for minutes. Step 1 now checks the figures directly; 2.4 and 3.1 read the document in chunks that skip the figure paragraphs. Files with small pictures see no difference. Word itself still slows down around very large vector figures — see FAQ #15.
