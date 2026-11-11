@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.9** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.11** (October 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.8.10 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.8.11 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -375,13 +375,17 @@ Click **Header**, **Text** or **Numerals**. The rectangle is taken in grid colum
 ### 2.3 Normalize Symbols
 ![38](/fft_user_guide/images/38.png)
 
-One click converts full-width symbols in the whole document to English ones:
+One click converts full-width symbols in the whole document to English ones, in body text and in table cells:
 - （ ） → ( )
 - ， → ,
 - 。 → .
 - ： → :
+- also ！？；、“”【】＞＜
 
+- Each symbol is replaced on its own (v2.8.11): the words around it keep their formatting, so C<sub>max</sub> stays subscript, links and fields stay links and fields. Before 2.8.11 the whole paragraph was rewritten and lost its sub/superscripts.
 - Changes are tracked. Review them in Track Changes.
+- A symbol inside a field (a cross-reference, a caption number) is left as typed and counted under the button.
+- Ran it before 2.8.11 and the subscripts went? Reject that run's tracked changes, then run it again.
 - Disabled for JP: Japanese full-width punctuation is correct and must stay.
 
 ### 2.4 Clean Leftover CN Fonts (JP only)
@@ -416,6 +420,8 @@ JP adds the partner's house style:
 - Legacy Symbol-font Greek letters (μ, α, γ, ∞) repaired
 - "ug/mL", "ug/kg", "ug/L" typed for µ → µg/… (never after a letter: "drug/mL" is left alone)
 - The sign after CD4 / CD8 / CD3 / CD95 set plain — never superscript, the partner's 2.4 standard (also in tables; "CD4+/CD8+ signs set plain: N" in the list)
+
+While it runs, the bar at the top names the step it is on — "2.5 · 3/14 PK subscripts" (v2.8.11). Only the steps for the region are counted: four under US/EU, sixteen under JP.
 
 What you see afterwards:
 - **Text edits are tracked changes.** Review them before accepting.
@@ -607,6 +613,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **The arrow keys stop inside a table**: fixed in v2.8.6 — a table is crossed in one step whatever its size. If it still happens, click the paragraph after the table and go on.
 
 ## Version History
+- **v2.8.11** (Nov 11, 2026) — 2.3 Normalize Symbols keeps your formatting. The pass rewrote every paragraph that held a full-width symbol, and the rewrite dropped the paragraph's sub- and superscripts, links and field codes (a PK table: C<sub>max</sub> became Cmax). Now each symbol is replaced on its own, in its own place; nothing around it changes. Table cells are included. Ran 2.3 on a file before this version? Reject that run's tracked changes and run it again. Also: 2.5 Scientific Typography names the step it is on in the running bar ("2.5 · 3/14 PK subscripts"), so a long pass no longer looks stuck.
 - **v2.8.10** (Nov 6, 2026) — A 目次 updated in Word keeps the FFT fonts. On the 2.5 臨床に関する概括評価 the entry fonts changed after the 目次 was regenerated in Word (Japanese text in SimSun, one heading in Microsoft YaHei): Word rebuilds the entries on its own contents styles, which had no Japanese font in a translated English source, picks a fallback font and writes it onto the text. The **Page grid & tables** script now gives those built-in styles the FFT definition, so *Update entire table* no longer changes the look. Order unchanged: update the 目次 first, run the script last — it also restores the Japanese font names that Word renames on every save. No change in the pane.
 - **v2.8.9** (Oct 30, 2026) — Large-figure files. Step 1, 2.4 Clean CN Fonts and 3.1 Highlights each read the whole document in one piece, and that piece carries every picture: on the 2.3.S (176 pages, 79 figures, one 43 MB vector drawing) Step 1 stalled for minutes. Step 1 now checks the figures directly; 2.4 and 3.1 read the document in chunks that skip the figure paragraphs. Files with small pictures see no difference. Word itself still slows down around very large vector figures — see FAQ #15.
 - **v2.8.8** (Oct 30, 2026) — JP adoption of a US-formatted file: the body text now lands on FFT JP Normal (key x, with the first-line indent), the JP default, instead of FFT JP Normal 2 (key c). Re-run Step 1 on a translated file formatted since 2.8.0 to get it; paragraphs that must not indent get key c by hand.
