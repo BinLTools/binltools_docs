@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.12** (November 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.13** (November 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -35,7 +35,7 @@ FFT asks you to sign in the first time on a computer.
 - Licences belong to an organization (TopAlliance, a partner company). When a licence expires the pane says so and Step 1 stops loading styles; contact TopAlliance to renew.
 
 Two web pages use the same account:
-- **[binltools.com/fft/script.html](https://binltools.com/fft/script.html)** — the **FFT Script** page — runs the JP page-grid script and the label scripts on uploaded files, one or several at a time (the old finalize.html address redirects). No Python needed; each result downloads by itself; files are processed in memory and not stored.
+- **[binltools.com/fft/script.html](https://binltools.com/fft/script.html)** — the **FFT Script** page — runs the JP page-grid script, the label scripts and the Heading list repair (JP and US) on uploaded files, one or several at a time (the old finalize.html address redirects). Each script card lists what changes in the file, one line per change. No Python needed; each result downloads by itself; files are processed in memory and not stored.
 - **[binltools.com/fft/admin.html](https://binltools.com/fft/admin.html)** is the administrator's page: accounts, organizations, seats and announcements.
 
 ## The Pane
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.8.12 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.8.13 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -626,6 +626,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **The arrow keys stop inside a table**: fixed in v2.8.6 — a table is crossed in one step whatever its size. If it still happens, click the paragraph after the table and go on.
 
 ## Version History
+- **v2.8.13** (Nov 12, 2026) — FFT Script page. Every script card now lists what changes in the file, one line per change (page grid, tables, fonts, headings), in place of a paragraph. **Heading list repair**: the Module title fills in from the module number — the same title the pane writes into the page header (JP: the MHLW title, 2.7.4 → 臨床的安全性; US: 2.7.4 → Summary of Clinical Safety); edit it or clear it to add none. The title is inserted only when the file has no title line: a file that already starts with its Heading 1 is left as it is (before, a title typed in the box was added a second time). No change in the pane.
 - **v2.8.12** (Nov 11, 2026) — Page header on A4 paper stays on one line. An ICF on A4 came out with a three-line header: the header lines carried a plain tab aimed at a stop set for Letter paper, which on A4 ran past the margin and broke the line. The header templates now carry the margin-aligned tab alone (every region); Letter files were never affected. Re-run Step 1 on an A4 document whose header wrapped. Also: the Step 1 header boxes for general documents (regular_1, regular_1.0, SOP) show grey hints — Study no. · File name · Version: Date: Month DD, YYYY — instead of preset text such as "Study Number"; you type each one, an empty box writes nothing. A protocol runs as regular_1 and an ICF as regular_1.0; the separate Protocol / ICF entries are gone. CTD modules are unchanged; their company and drug-name boxes show grey hints when empty.
 - **v2.8.11** (Nov 11, 2026) — 2.3 Normalize Symbols keeps your formatting. The pass rewrote every paragraph that held a full-width symbol, and the rewrite dropped the paragraph's sub- and superscripts, links and field codes (a PK table: C<sub>max</sub> became Cmax). Now each symbol is replaced on its own, in its own place; nothing around it changes. Table cells are included. Ran 2.3 on a file before this version? Reject that run's tracked changes and run it again. Also: 2.5 Scientific Typography names the step it is on in the running bar ("2.5 · 3/14 PK subscripts"), so a long pass no longer looks stuck.
 - **v2.8.10** (Nov 6, 2026) — A 目次 updated in Word keeps the FFT fonts. On the 2.5 臨床に関する概括評価 the entry fonts changed after the 目次 was regenerated in Word (Japanese text in SimSun, one heading in Microsoft YaHei): Word rebuilds the entries on its own contents styles, which had no Japanese font in a translated English source, picks a fallback font and writes it onto the text. The **Page grid & tables** script now gives those built-in styles the FFT definition, so *Update entire table* no longer changes the look. Order unchanged: update the 目次 first, run the script last — it also restores the Japanese font names that Word renames on every save. No change in the pane.
