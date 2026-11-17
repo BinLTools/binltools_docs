@@ -1,0 +1,18 @@
+name: Trigger frontend deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send repository_dispatch to binltools_frontend
+        run: |
+          curl -sS --fail-with-body -X POST \
+            -H "Authorization: Bearer ${{ secrets.FRONTEND_DEPLOY_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/BinL233/binltools_frontend/dispatches \
+            -d '{"event_type":"docs-updated"}'
