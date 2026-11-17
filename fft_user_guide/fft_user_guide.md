@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.7.9** (October 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.8.13** (November 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -35,7 +35,7 @@ FFT asks you to sign in the first time on a computer.
 - Licences belong to an organization (TopAlliance, a partner company). When a licence expires the pane says so and Step 1 stops loading styles; contact TopAlliance to renew.
 
 Two web pages use the same account:
-- **[binltools.com/fft/script.html](https://binltools.com/fft/script.html)** — the **FFT Script** page — runs the JP page-grid script and the label scripts on uploaded files, one or several at a time (the old finalize.html address redirects). No Python needed; each result downloads by itself; files are processed in memory and not stored.
+- **[binltools.com/fft/script.html](https://binltools.com/fft/script.html)** — the **FFT Script** page — runs the JP page-grid script, the label scripts and the Heading list repair (JP and US) on uploaded files, one or several at a time (the old finalize.html address redirects). Each script card lists what changes in the file, one line per change, with one example. No Python needed; each result downloads by itself; files are processed in memory and not stored.
 - **[binltools.com/fft/admin.html](https://binltools.com/fft/admin.html)** is the administrator's page: accounts, organizations, seats and announcements.
 
 ## The Pane
@@ -76,7 +76,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.7.9 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.8.13 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -133,14 +133,27 @@ Pick the exact document.
 - USPI and SmPC keep their fixed, typed section numbers (FDA PLR / EMA QRD). FFT never auto-numbers them.
 
 ### 1.3 Page header
-Four boxes, laid out like the header itself:
+Four boxes, laid out like the header itself. What they show depends on the kind of document (v2.8.12):
+
+**CTD module** (2.5, 3.2.S.4.1, …):
 
 | Left column (remembered on this computer) | Right column (fills in from the module) |
 |---|---|
-| Company | Line 1 — for CTD modules "Module 2 Common Technical Document Summaries", for a protocol or ICF type the document title, e.g. *Informed Consent Form* |
-| Product / protocol number | Line 2 — for CTD modules "2.5 Clinical Overview", for a protocol or ICF type e.g. *Version: 1.0, Date: October 20, 2025* |
+| Company Name | Line 1 — "Module 2 Common Technical Document Summaries" |
+| Drug Name | Line 2 — "2.5 Clinical Overview" |
 
-The right boxes are refilled with the module defaults whenever you change the module, so a CTD document needs no typing. **Protocol** presets "[Protocol No.]" over "Version: 0.1; Date: Month DD, YYYY" and **ICF** presets "Informed Consent Form" over "version number: 1.0, version date: Month DD, YYYY" — edit the number and date, type the protocol number; the left boxes show an example as a hint. The footer is always "Confidential … Page N". JP: the boxes change to match the partner's header — line 1 is **Product** and the **module title** (unchanged), the company is not shown, and line 2 (a free left text and a right text) is written only when you fill one of its boxes.
+The right boxes are refilled with the module titles whenever you change the module, so a CTD document needs no typing. An empty left box shows its grey hint and writes nothing into the header.
+
+**General document** (regular_1 for a protocol, regular_1.0 for an ICF, SOP): nothing is preset, because a study number, a file name or a version line changes with every document. The boxes show grey hints and you type what this document needs:
+
+| Left column | Right column |
+|---|---|
+| Company Name (remembered) | *Study no.* (SOP: *SOP no.*) |
+| *File name* (per document, e.g. Main ICF) | *Version: Date: Month DD, YYYY* |
+
+An empty box writes nothing. The footer is always "Confidential … Page N". JP: the boxes change to match the partner's header — line 1 is **Product** and the **module title** (unchanged for CTD modules), the company is not shown, and line 2 (a free left text and a right text) is written only when you fill one of its boxes; a JP general document shows the same hints as above.
+
+The header stays on one line on any paper size since v2.8.12. If a document formatted earlier shows a two- or three-line header on A4 paper ("TopAlliance … Biosciences" spread over the line, the number below it), re-run Step 1.
 
 ### Layout
 Open the **Layout** section to control what Step 1 loads.
@@ -188,6 +201,9 @@ Click **Submit**. FFT loads the styles, sets the page and margins, and writes th
 - **Wrong module number?** Re-run Step 1 with the right module. Headings renumber in place.
 - **Wrong region?** Start from a fresh document.
 - **Wrong template loaded?** Delete the FFT styles (Styles → Manage Styles → Import/Export → select all FFT styles → Delete), then run Step 1 again.
+- **JP, and the file was formatted with FFT (US) before translation?** Nothing to do (v2.8.0). Step 1 moves the US FFT styles to the JP ones — headings, body text, bullets, table cells, notes — numbers the headings from the module and rebuilds every caption that has a live number ("Table 2.3.P-1", or a typed "表1") as `表 2.3.P-1. Title`. The result line under Submit says how many headings and captions it took over. The US styles stay in the file and do no harm: do **not** delete them.
+- **JP adoption and body text (v2.8.8):** the US body style ("FFT Normal 2") becomes **FFT JP Normal** (key `x`, first-line indent), the JP default for body text. Press `c` yourself on a paragraph that must not indent (a continuation line under a list, a lead-in). Before 2.8.8 the adoption put the body on key `c`.
+- **JP, figures show as a thin strip after Submit?** Not since v2.8.7. The JP body styles use an exact line height (the 38-line grid) and Word cuts an inline picture down to it; Step 1 now gives every paragraph that holds a picture single line spacing and says so in the result line ("Figures: N inline picture paragraph(s) set to single line spacing"). The FFT Script page's *Page grid & tables* does the same, so a file finished by script is covered too. Floating pictures (Top and Bottom) are not changed.
 
 ## Step 2 Format
 Step 2 formats the content. It opens after Step 1 is submitted.
@@ -216,7 +232,7 @@ Each style has a button and a key (shown in grey on the button). Both do the sam
 |---|---|---|
 | X | Normal | Body text |
 | C | Normal 2 | Body text, second form (JP: without first-line indent) |
-| 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …). A number typed in the text that equals the automatic one — also without its dots ("27313" under 2.7.3.1.3) — or is its tail ("3.2" under 2.7.2.3.2, a source numbered inside its module), is removed once the number is attached; a different one is highlighted cyan |
+| 1–5 | Heading 1–5 | Section headings, numbered automatically (2.5, 2.5.1, …). A number typed in the text that equals the automatic one — also without its dots ("27313" under 2.7.3.1.3) — or is its tail ("3.2" under 2.7.2.3.2, a source numbered inside its module), is removed once the number is attached; a different one stays and the pane warns "typed as … but numbered …" (check the level) |
 | A | Appendix Heading | Same look as NoNum Heading, no number, listed in the TOC (US/EU at level 1; JP at the title level — use it for 略語及び略号一覧). Older document? Re-run Step 1 first |
 | 6 | NoNum Heading | Heading without a number, never in the TOC (all regions since v2.6.4) |
 | T | Table Title | Table caption — inserts the prefix and auto-number |
@@ -372,13 +388,17 @@ Click **Header**, **Text** or **Numerals**. The rectangle is taken in grid colum
 ### 2.3 Normalize Symbols
 ![38](/fft_user_guide/images/38.png)
 
-One click converts full-width symbols in the whole document to English ones:
+One click converts full-width symbols in the whole document to English ones, in body text and in table cells:
 - （ ） → ( )
 - ， → ,
 - 。 → .
 - ： → :
+- also ！？；、“”【】＞＜
 
+- Each symbol is replaced on its own (v2.8.11): the words around it keep their formatting, so C<sub>max</sub> stays subscript, links and fields stay links and fields. Before 2.8.11 the whole paragraph was rewritten and lost its sub/superscripts.
 - Changes are tracked. Review them in Track Changes.
+- A symbol inside a field (a cross-reference, a caption number) is left as typed and counted under the button.
+- Ran it before 2.8.11 and the subscripts went? Reject that run's tracked changes, then run it again.
 - Disabled for JP: Japanese full-width punctuation is correct and must stay.
 
 ### 2.4 Clean Leftover CN Fonts (JP only)
@@ -388,6 +408,8 @@ Translated text often keeps Chinese fonts (DengXian, SimSun, YaHei, 游明朝…
 
 - Tables and figures are never touched.
 - Changes are tracked. Paragraphs FFT cannot edit (inside tables, field results) are reported as skipped.
+- Fast since v2.8.2: the document is scanned once and only the paragraphs that carry a leftover font are rewritten. A 6,600-paragraph 2.3.P took twenty minutes before; now it takes well under one. The running message says how many paragraphs are being cleaned.
+- Files with large figures (v2.8.9): the scan reads the document in chunks and skips the figure paragraphs, so a module with vector figures of tens of megabytes (the 2.3.S) no longer stalls the pane for minutes.
 - Greyed out outside JP.
 
 ### 2.5 Scientific Typography
@@ -412,10 +434,12 @@ JP adds the partner's house style:
 - "ug/mL", "ug/kg", "ug/L" typed for µ → µg/… (never after a letter: "drug/mL" is left alone)
 - The sign after CD4 / CD8 / CD3 / CD95 set plain — never superscript, the partner's 2.4 standard (also in tables; "CD4+/CD8+ signs set plain: N" in the list)
 
+While it runs, the bar at the top names the step it is on — "2.5 · 3/14 PK subscripts" (v2.8.11). Only the steps for the region are counted: four under US/EU, sixteen under JP.
+
 What you see afterwards:
 - **Text edits are tracked changes.** Review them before accepting.
 - **Italic, subscript and colour are not tracked** — Word does not record formatting made by an add-in. The list under the button names every word FFT italicised or subscripted.
-- Anything FFT is unsure about is highlighted cyan for 3.1.
+- Anything FFT is unsure about (a citation group it cannot rewrite safely) is left as typed and named in the list under the button. FFT never highlights text (v2.8.6).
 
 ## Step 3 Finalize
 Step 3 builds the document-wide structures. Work the four sections in order; the TOC is always last.
@@ -425,9 +449,9 @@ Before you start: Steps 1 and 2 are complete for the whole document.
 ### 3.1 Highlights
 ![35](/fft_user_guide/images/35.png)
 
-Lists every highlighted spot in the document — FFT's cyan marks and any colour a reviewer added by hand.
+Lists every highlighted spot in the document — your own marks (Shift + H + H) and any colour a reviewer added by hand. FFT itself adds no highlights (v2.8.6); what it is unsure about is named in the result of the step that found it.
 
-- Click **Load Highlights**. The counter shows "n / N". The list appears in seconds, however long the document (v2.1.13: the document is read once, not paragraph by paragraph).
+- Click **Load Highlights**. The counter shows "n / N". The list appears in seconds, however long the document (v2.1.13: the document is read once, not paragraph by paragraph; v2.8.9: in chunks that skip the figure paragraphs, so large figures no longer stall it — a highlight inside a figure paragraph is not listed).
 - Click an item to jump to it, or use **Previous / Next** (Shift + ← / Shift + → while shortcuts are on).
 - Fix or clear each spot.
 
@@ -466,7 +490,7 @@ Turns typed mentions in the body text into live links:
 | "(Smith et al., 2020)", "（Bray et al., 2024）" | A link to the reference entry (run 3.2 first). Your text stays as typed. |
 
 - One pair of parentheses can hold several citations; each is linked separately.
-- Unclear cases (no matching caption, two entries for the same author and year) are highlighted cyan for 3.1.
+- Unclear cases (no matching caption, two entries for the same author and year, no matching heading) are left as typed and named in the result message — "3 mention(s) not linked, check by hand: Table 2.7.4-9 (no caption); Smith 2020 (two entries)".
 - "No reference bookmarks in the document" in the result means 3.2 was not run on this file (or did not take): run 3.2, then Link Mentions again.
 - Reference entries never cited in the text are counted — a quick way to find a spelling mismatch.
 - Body text only: never tables, captions, the TOC or the reference list. Changes are tracked.
@@ -537,7 +561,7 @@ Once Step 3 is complete the document is ready for final QC and submission export
 ## JP Workflow End to End
 ![43](/fft_user_guide/images/43.png)
 
-1. **Translate first, format last.** Run FFT on the final Japanese text.
+1. **Translate first, format last.** Run FFT on the final Japanese text. If the English was formatted with FFT (US) before translation, keep it that way: Step 1 under JP takes the US styles over (v2.8.0, see the Submit tips under Step 1).
 2. **Step 1**: Region JP → Module 2 → the module (or General → regular_1). Type the product name. Submit. FFT sets A4, 25 mm margins and the "Version: Date:" header. Heading sizes follow the number's depth (v2.7.0): in a three-part module (2.6.1, 2.6.2, 2.6.3, 2.7.x) the heading styles come one step smaller than in 2.4 — 12 pt not bold / 11.5 / 11 / 10.5 — so "2.6.2.1" looks like "2.4.2.1"; the result line under Submit says which ladder was set. Step 1 also prints a **Font names** line: on a non-Japanese Windows, Word stores ＭＳ 明朝 / ＭＳ ゴシック as "MS Mincho" / "MS Gothic" — the FFT Script step (row 9 below) writes the Japanese names back.
 3. **Step 2**: 2.1 walk the paragraphs → 2.2 tables (run it or skip it — see **Tables: two ways** below) → 2.4 Clean CN Fonts → 2.5 Typography.
 4. **Step 3**: 3.1 Highlights → 3.2 Bookmarks → 3.3 Link Mentions and Link Sections → 3.1 again → 3.4 目次.
@@ -561,6 +585,7 @@ It does what a Word add-in cannot. It writes `FILE_final.docx` next to the input
 | 8 | Built-in Normal style set to 10.5 pt. | Styles | Only with the 44 chars × 38 lines grid |
 | 9 | 目次 / 表一覧 / 図一覧 entries that sit on Word's plain TOC styles (a list updated outside FFT, e.g. Word's own *Update Table*) are moved to the FFT JP styles: 10.5 pt, blue, hanging indents. Every entry also loses the fonts the field copied from the headings (SimSun numbers, 游明朝 words, Calibri Latin), so Times New Roman / ＭＳ 明朝 show. The entries' text is not changed. | 目次, 表一覧, 図一覧 | Always |
 | 9 | Japanese font names: every "MS Mincho" / "MS Gothic" (the English names Word writes on a non-Japanese Windows, on import and on every save) becomes ＭＳ 明朝 / ＭＳ ゴシック, font table included. A reviewer's Word that cannot find the English name falls back to another font (Yu Gothic) — this is what the partner saw on the 2.6.2 TOC. The PDF is unaffected; only .docx reviewers are. | Styles, text, headers, footers | Always (untick *Japanese font names* to skip) |
+| 10 | Word's own contents styles ("toc 1–4", "table of figures") get the definition of the FFT JP entry styles: ＭＳ 明朝, 10.5 pt, blue, the FFT indents. Word rebuilds the entries on these styles every time you update the 目次, 表一覧 or 図一覧; in a translated file they had no Japanese font and the entries came back in SimSun or Microsoft YaHei. After this, an update in Word keeps the look (v2.8.10). | Styles | Always, in a file that has the FFT JP styles |
 
 The script never adds, deletes or reorders text.
 
@@ -587,7 +612,7 @@ Decide once per document, before Step 2, and keep to the same column through the
 Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Module 1 → 1.6. Their section numbers are FDA's / EMA's / NMPA's own, with gaps, so they stay typed:
 - Keys 1–3 restyle the heading without numbering it; T / F apply the caption style only.
 - Step 1 leaves page size, margins, header and footer as in the source.
-- The bulk formatting of a whole label is done before the pane pass: **binltools.com/fft/script.html** → JP → **Label format** (label: detect / EU SmPC / US PI / NMPA), then Step 1 → 2.5 → 3.1 in the pane, then **Label page → M2.4** on the same page. Contact RA before formatting a label.
+- The bulk formatting of a whole label is done before the pane pass: **binltools.com/fft/script.html** → JP → **Label format** (label: detect / EU SmPC / US PI / NMPA), then Step 1 → 2.5 → 3.1 in the pane. The final page set-up for M2.4 (A4, 25 mm, equal columns) is done by the tool team on request. Contact RA before formatting a label.
 
 ## Good to Know
 - **Work on a local copy**: download the file from SharePoint and open it with AutoSave off before Step 1. A document open from the SharePoint site is merged by co-authoring while FFT works, and such a merge once dropped the heading list (October 2026).
@@ -597,9 +622,24 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **Text boxes** are not reached by 2.5. Fix them by hand.
 - **Pane looks old after an update**: check the build stamp, then FAQ #1.
 - **Style will not apply**: Ctrl + Space in the document, then the key again.
-- **Cyan after a heading key**: the number you typed differs from the automatic one. Check the level, then clear the highlight. A caption key never leaves cyan: the typed label is removed and the toast reports a changed number.
+- **"Heading number typed as … but numbered …" after a heading key**: the number you typed differs from the automatic one. Check the level, then delete the typed number by hand. A caption key always removes the typed label and the toast reports a changed number.
+- **The arrow keys stop inside a table**: fixed in v2.8.6 — a table is crossed in one step whatever its size. If it still happens, click the paragraph after the table and go on.
 
 ## Version History
+- **v2.8.13** (Nov 12, 2026) — FFT Script page. Every script card now lists what changes in the file, one line per change (page grid, tables, fonts, headings), in place of a paragraph, each with one example; the *Label page → M2.4* card is gone (it served the label files only; the tool team runs it on request). **Heading list repair**: the Module title fills in from the module number — the same title the pane writes into the page header (JP: the MHLW title, 2.7.4 → 臨床的安全性; US: 2.7.4 → Summary of Clinical Safety); edit it or clear it to add none. The title is inserted only when the file has no title line: a file that already starts with its Heading 1 is left as it is (before, a title typed in the box was added a second time). JP page header for 2.3.S / 2.3.P / 2.3.A / 2.3.R: now 原薬 / 製剤 / その他 / 各極の要求資料 as the MHLW notification heads them (the module title 品質に関する概括資料 is no longer repeated) — re-run Step 1 on such a file to update its header. **Label format** no longer paints cyan on the paragraphs it cannot place: they are listed in the log on the Script page, nothing in the file is marked (FFT never highlights original content). No other change in the pane.
+- **v2.8.12** (Nov 11, 2026) — Page header on A4 paper stays on one line. An ICF on A4 came out with a three-line header: the header lines carried a plain tab aimed at a stop set for Letter paper, which on A4 ran past the margin and broke the line. The header templates now carry the margin-aligned tab alone (every region); Letter files were never affected. Re-run Step 1 on an A4 document whose header wrapped. Also: the Step 1 header boxes for general documents (regular_1, regular_1.0, SOP) show grey hints — Study no. · File name · Version: Date: Month DD, YYYY — instead of preset text such as "Study Number"; you type each one, an empty box writes nothing. A protocol runs as regular_1 and an ICF as regular_1.0; the separate Protocol / ICF entries are gone. CTD modules are unchanged; their company and drug-name boxes show grey hints when empty.
+- **v2.8.11** (Nov 11, 2026) — 2.3 Normalize Symbols keeps your formatting. The pass rewrote every paragraph that held a full-width symbol, and the rewrite dropped the paragraph's sub- and superscripts, links and field codes (a PK table: C<sub>max</sub> became Cmax). Now each symbol is replaced on its own, in its own place; nothing around it changes. Table cells are included. Ran 2.3 on a file before this version? Reject that run's tracked changes and run it again. Also: 2.5 Scientific Typography names the step it is on in the running bar ("2.5 · 3/14 PK subscripts"), so a long pass no longer looks stuck.
+- **v2.8.10** (Nov 6, 2026) — A 目次 updated in Word keeps the FFT fonts. On the 2.5 臨床に関する概括評価 the entry fonts changed after the 目次 was regenerated in Word (Japanese text in SimSun, one heading in Microsoft YaHei): Word rebuilds the entries on its own contents styles, which had no Japanese font in a translated English source, picks a fallback font and writes it onto the text. The **Page grid & tables** script now gives those built-in styles the FFT definition, so *Update entire table* no longer changes the look. Order unchanged: update the 目次 first, run the script last — it also restores the Japanese font names that Word renames on every save. No change in the pane.
+- **v2.8.9** (Oct 30, 2026) — Large-figure files. Step 1, 2.4 Clean CN Fonts and 3.1 Highlights each read the whole document in one piece, and that piece carries every picture: on the 2.3.S (176 pages, 79 figures, one 43 MB vector drawing) Step 1 stalled for minutes. Step 1 now checks the figures directly; 2.4 and 3.1 read the document in chunks that skip the figure paragraphs. Files with small pictures see no difference. Word itself still slows down around very large vector figures — see FAQ #15.
+- **v2.8.8** (Oct 30, 2026) — JP adoption of a US-formatted file: the body text now lands on FFT JP Normal (key x, with the first-line indent), the JP default, instead of FFT JP Normal 2 (key c). Re-run Step 1 on a translated file formatted since 2.8.0 to get it; paragraphs that must not indent get key c by hand.
+- **v2.8.7** (Oct 30, 2026) — JP figures. On a long translated module (2.3.S, 71 figures) every inline picture showed as a one-line strip after Step 1: the FFT JP body styles use an exact line height and Word clips an inline picture to it. Step 1 now gives each paragraph that holds an inline picture single line spacing (result line "Figures: …"); the FFT Script *Page grid & tables* step does the same and lists it under "What changed". Floating pictures and table cells are left as they are.
+- **v2.8.6** (Oct 30, 2026) — FFT no longer highlights anything. Where it used to turn text cyan for 3.1 (a typed heading number that differs from the automatic one, a citation group 2.5 cannot rewrite safely, a mention 3.3 cannot link), it now leaves the text as typed and names the case in the pane: the heading key's warning, the list under 2.5, the 3.3 result message. 3.1 Highlights lists your own and reviewers' marks only. Keyboard walk (→ / ←): a table is crossed in one step — a large study table used to leave the walk standing in a cell, so the next key styled that cell. Paragraphs that are only a picture are skipped as well. Heading keys on a file whose heading list had to be rebuilt: the first key 1 came back "2.7.4.1" instead of "2.7.4" and needed a second press; the rebuild now checks every heading's level after it and corrects it.
+- **v2.8.5** (Oct 30, 2026) — Heading numbers on a translated 2.7.x file. Step 1 of a source that brings its own heading ladder (GlobalSubmit C-Heading styles: 2.7.2, 2.7.4) keeps the template's bullet and number lists but drops the heading list, AutoSave or not; the earlier rebuild was dropped the same way. Now the heading key builds the list inside the document with Word's own list commands and names the reason if it still cannot; Step 1 ends with "Heading list: linked" or "Heading list: Word dropped it during the import — the first heading key rebuilds it"; the Script page's **Heading list repair** builds the ladder from the template when the file has none (choose whether the source's heading 1 is the module title or the first section, and a module title to insert), links the styles and puts every heading on it. FAQ 12 updated.
+- **v2.8.4** (Oct 29, 2026) — 3.3 Link Mentions leaves a mention alone when it is already a live link from the English source. v2.8.3 linked such mentions a second time and put the new link inside the old one; Word showed the right text, but an "update fields" would have dropped the inner link. If you ran 3.3 with v2.8.3 on a file that already had links, ask RA to run the repair on the file.
+- **v2.8.3** (Oct 29, 2026) — 3.3 Link Mentions no longer freezes Word on a document whose table or figure mentions are already live links from the English source (a file formatted in the US, then translated, keeps them). On the 2.3.A Word stopped responding and had to be closed. The search pattern asked for one character after the number; at the end of a link's text that character is Word's field mark, and Word kept returning an empty match in the same place. The pattern now takes the whole number and needs nothing after it. Mentions that are already links are skipped as before.
+- **v2.8.2** (Oct 29, 2026) — 2.4 Clean CN Fonts reads the document once and rewrites only the paragraphs that carry a leftover font: a 6,600-paragraph 2.3.P took twenty minutes and now takes well under one. It also no longer removes a run's East Asian language tag, which the old check mistook for a font. 2.5 Scientific Typography (JP): the check that turns stray blue table text black reads the cells in batches instead of one by one, so 2.5 finishes minutes sooner on table-heavy modules; no rule changed.
+- **v2.8.1** (Oct 29, 2026) — Caption keys can be pressed again on a caption that already has its live number: the old label, number and separator are removed first, so nothing stacks ("表 2.3.P-2. 3.P-3. Title" used to appear on a re-press). A typed label whose module has a letter ("Table 2.3.P-3") is now removed whole.
+- **v2.8.0** (Oct 29, 2026) — Step 1 under JP adopts a file that was formatted with FFT (US) before translation: headings, body text, bullets, table cells and notes move to the JP styles, the headings are numbered from the module, and every caption with a live number ("Table 2.3.P-1" or a typed "表1") is rebuilt as `表 2.3.P-1. Title` (FAQ 14). Fixed: on such a file the JP headings counted "1", "1.1" instead of "2.3.P", "2.3.P.1", because the module number had been written onto the US heading list; it now always goes to the list of the chosen region. Re-run Step 1 on a translated file formatted earlier.
 - **v2.7.9** (Oct 26, 2026) — 3.3 Link Mentions links a citation whose surname has a hyphen or a space ("Lazar-Molnar et al. 2008" → the `Lazar_Molnar_2008` entry). Since v2.7.2 the bookmark was right but the match never fired, so such citations stayed black (found in a partner review of 2.6.6). Re-run 3.3 on a document formatted earlier.
 - **v2.7.8** (Oct 26, 2026) — 3.2 and the 2.5 reference index take a standalone year from each reference entry, never the digits inside a trial name ("Hong S … GEM20110714 … (2021)" used to become Hong_2011). 2.5 keeps the initial before "et al." when two entries share a surname and year ("Yang Y et al. 2021" / "Yang H et al. 2021").
 - **v2.7.7** (Oct 26, 2026) — Heading keys remove the typed number after the automatic one is attached (it stayed when the heading list had to be rebuilt) and also a number typed without dots ("27313" under 2.7.3.1.3). 2.5 citations: a group that occurs twice in one paragraph is no longer doubled; initials before "et al." are dropped ("Kodama H et al. 2024" → "Kodama et al. 2024"). 3.2 verifies its bookmarks and reports any that did not take; 3.3 says "run 3.2 first" when the document has none.
