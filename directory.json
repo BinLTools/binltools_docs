@@ -124,6 +124,17 @@
     "cloud": {
         "title": "Cloud",
         "articles": {
+            "raft": {
+                "title": "Raft Consensus Algorithm",
+                "author": "BinL",
+                "tags": [
+                    "distributed-system",
+                    "replication",
+                    "system"
+                ],
+                "category": "",
+                "date": "Nov 17, 2026"
+            },
             "load_balancer": {
                 "title": "Load Balancer",
                 "author": "BinL",
