@@ -54,7 +54,7 @@
                     "system",
                     "kernel",
                     "linux",
-                    "networks"
+                    "network"
                 ],
                 "category": "",
                 "date": "Nov 20, 2025"
@@ -66,7 +66,9 @@
                     "ebpf",
                     "system",
                     "kernel",
-                    "linux"
+                    "linux",
+                    "network",
+                    "command"
                 ],
                 "category": "",
                 "date": "Nov 20, 2025"
@@ -78,6 +80,7 @@
                     "ebpf",
                     "system",
                     "kernel",
+                    "network",
                     "linux"
                 ],
                 "category": "",
@@ -90,6 +93,7 @@
                     "ebpf",
                     "system",
                     "kernel",
+                    "network",
                     "linux"
                 ],
                 "category": "",
@@ -102,6 +106,7 @@
                     "ebpf",
                     "system",
                     "kernel",
+                    "network",
                     "linux"
                 ],
                 "category": "",
@@ -114,6 +119,7 @@
                     "ebpf",
                     "system",
                     "kernel",
+                    "network",
                     "cloud"
                 ],
                 "category": "",
@@ -141,6 +147,7 @@
                 "tags": [
                     "kubernetes",
                     "cloud-native",
+                    "cloud",
                     "networks"
                 ],
                 "category": "",
@@ -151,6 +158,7 @@
                 "author": "BinL",
                 "tags": [
                     "kubernetes",
+                    "cloud",
                     "cloud-native"
                 ],
                 "category": "",
@@ -161,6 +169,7 @@
                 "author": "BinL",
                 "tags": [
                     "kubernetes",
+                    "cloud",
                     "cloud-native"
                 ],
                 "category": "",
@@ -171,6 +180,7 @@
                 "author": "BinL",
                 "tags": [
                     "kubernetes",
+                    "cloud",
                     "cloud-native",
                     "csi"
                 ],
@@ -183,7 +193,9 @@
                 "tags": [
                     "kubernetes",
                     "cloud-native",
+                    "cloud",
                     "sig-scheduling",
+                    "scheduling",
                     "kueue"
                 ],
                 "category": "",
@@ -310,7 +322,7 @@
                 "tags": [
                     "vim",
                     "linux",
-                    "commands"
+                    "command"
                 ],
                 "category": "",
                 "date": "Jan 31, 2026"
