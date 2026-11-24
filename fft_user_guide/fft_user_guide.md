@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.10.0** (November 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.10.1** (November 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -77,7 +77,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.10.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.10.1 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -237,7 +237,7 @@ Each style has a button and a key (shown in grey on the button). Both do the sam
 | A | Appendix Heading | Same look as NoNum Heading, no number, listed in the TOC (US/EU at level 1; JP at the module title's level — use it for 略語及び略号一覧). Older document? Re-run Step 1 first |
 | 6 | NoNum Heading | Heading without a number, never in the TOC (all regions since v2.6.4) |
 | T | Table Title | Table caption — inserts the prefix and auto-number |
-| E | Table Note | Note line under a table |
+| E | Table Note | Note line under a table. A numbered or bulleted note keeps its number (v2.10.1) |
 | F | Figure Title | Figure caption — inserts the prefix and auto-number |
 | B / H / U | Bulletpoint1 / 2 / 3 | Bullet lists (• → o → ▪) |
 | V / G / Y | Numbering1 / 2 / 3 | Numbered lists (US: 1. → a. → i. · JP: （1） → 1） → a)). A marker typed in the text ("(1) ", "1. ") is removed. To start a section at 1: tag the whole list, right-click its first item → Restart at 1 |
@@ -645,6 +645,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **The arrow keys stop inside a table**: fixed in v2.8.6 — a table is crossed in one step whatever its size. If it still happens, click the paragraph after the table and go on.
 
 ## Version History
+- **v2.10.1** (Nov 24, 2026) — Key **E** (Table Note) keeps the list a note is on: numbered notes under a table ("1. …", "2. …") and bulleted ones keep their numbers and bullets when tagged. To start a table's notes at 1 again, right-click the first note → Restart at 1; to take a note off its list, use Word's numbering button.
 - **v2.10.0** (Nov 24, 2026) — **Document check**: a new card on the FFT Script page for US, EU and JP, and a closing step **3.5 Check and Finish** in the pane that opens it. It reads a finished file, changes nothing, and reports errors, warnings and what passed (captions, links, 目次 and lists, leftovers, FFT styles, tables; JP grid and fonts), with an optional comparison against the file before formatting. 2.5 Scientific Typography now ends its result with the time it took and its slowest steps. Settings → Speed (beta): **Fast 2.5 text rules**, the same edits in batches, off by default.
 - **v2.9.3** (Nov 24, 2026) — Links to tables and figures stay with their table. Each caption keeps one hidden anchor for its links; adding a table and running 3.3 again no longer moves the earlier links to another table, and pressing T / F again on a caption no longer breaks the links to it ("Error! Reference source not found"). The steps are unchanged: 3.2 Bookmarks, then 3.3. 2.7.5 Literature References added to the US module list.
 - **v2.9.2** (Nov 24, 2026) — Captions in Module 2.7.6 number per study, as the partner's 2.7.6 template: 表 2.7.6.5-1, 表 2.7.6.5-2 … 表 2.7.6.6-1 (US: Table 2.7.6.5-1). The T / F keys take the study number from the nearest numbered heading above the caption; each study starts at 1, and every caption key re-checks the whole document so a caption added before a study's first table takes number 1 (a file with two "-1" captions is healed by pressing the key on either). Step 1 on a US-formatted 2.7.6 rebuilds the captions the same way. Module 2.7.6 is now in the US module list. Other modules are unchanged.
