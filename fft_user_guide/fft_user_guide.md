@@ -1,4 +1,4 @@
-> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.9.3** (November 2026).
+> **📌 Two guides, two jobs.** For what FFT does today and the rules behind it, see [FFT — How It Works](https://claude.ai/artifact/W7u5DM3w3YRWX7CRZ6AoDT) — always current, updated with every release. This page is the **step-by-step tutorial with screenshots**. It matches FFT **v2.10.0** (November 2026).
 
 ## Introduction
 File Formatting Tool (FFT) is a Microsoft Word add-in. It formats regulatory documents for health authority submissions faster, more consistently and with fewer mistakes.
@@ -69,6 +69,7 @@ The pill at the top of the pane shows whether the style keys are active. It has 
 Click the gear icon in the top-right corner of the pane.
 
 - **About** — version number, **Sign out** and a **Documentation** button (opens the guide list on binltools.com: install guide, this user guide, FAQ).
+- **Speed (beta)** — **Fast 2.5 text rules** (v2.10.0): runs the six text rules of 2.5 in batches. Same edits, fewer waits. Off unless you switch it on; click **Save**.
 - **Notifications** — how long messages stay on screen (seconds), and whether to show success / warning / error messages.
 - **Shortcuts** — click a key box, press the new key, then **Save**. **Reset to Defaults** restores the original keys. See 2.1 for the default keys.
 
@@ -76,7 +77,7 @@ Click the gear icon in the top-right corner of the pane.
 - Heading keys **1–6** are fixed and cannot be changed.
 
 ### Version and Build Stamp
-The pane header shows `Ver. 2.9.3 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
+The pane header shows `Ver. 2.10.0 · <build stamp>`. If the stamp is older than the latest announcement, Word is running a cached copy of the pane. See FAQ #1 (close Word, clear the add-in cache).
 
 ### Running Bar and Result Messages
 Every button shows a blue **running…** bar while it works and ends with a result message — even when there was nothing to do (for example "no highlighted text found"). Green success messages disappear after 3 seconds. Detailed results (for example the list of words 2.5 changed) stay under the button.
@@ -419,6 +420,8 @@ Translated text often keeps Chinese fonts (DengXian, SimSun, YaHei, 游明朝…
 
 One click fixes scientific typography in the whole document. **Run it after 2.2 and before 3.3.**
 
+The result list ends with the time it took and its slowest steps (v2.10.0), for example "Time: 95 s · slowest: subscripts 40 s, table colour 22 s". If 2.5 feels slow on a large file, send us that line.
+
 Every region:
 - *in vivo*, *in vitro*, *ex vivo*, *in situ*, *in silico*, *de novo* → italic
 - EC50, T1/2, Cmax, Vd, KD, AUC0-168h, MRT0-last, AUC0→∞ → subscripts
@@ -546,7 +549,18 @@ One click builds the **Table of Contents**, **List of Tables** and **List of Fig
 💡 Tips:
 - **Do not right-click → Update Field on the TOC.** Word rebuilds it in its default look. Delete the three lists and click **Add TOC** again instead.
 
-Once Step 3 is complete the document is ready for final QC and submission export (eCTD / PDF).
+### 3.5 Check and Finish
+The last step before a file leaves your desk (v2.10.0). Save the document, click **Open Script Page**: the FFT Script page opens on the **Document check** card for your region. Drop the saved file and click **Run**.
+
+- **Nothing in the file changes.** You get a report on the page and a copy as a text file.
+- **Errors** must be fixed: a caption number used twice, a caption series that does not run 1, 2, 3, a caption typed inside another paragraph, a link whose target is gone, "Error! Reference source not found", a broken field, a footnote without its mark.
+- **Warnings** are for you to look at: the 目次 or a list out of date, comments, tracked changes or highlights still in the file, paragraphs not on an FFT style, a caption away from its table, a table inside a table. JP: the 38-line grid, "MS Mincho" font names, leftover Chinese fonts.
+- **File before formatting** (optional): add the file as it was before FFT and the body text, every table cell, the pictures and the footnotes are compared. Typography edits of 2.5 show up there, as they should; anything else should not.
+- Places are named by section heading and the paragraph's first words: search for the words in Word (Ctrl+F).
+- Fix, save, run the check again. JP: run **Page grid & tables** first, then the check.
+- What it cannot see: whether a link points at the RIGHT table, and anything a reader must judge.
+
+Once the check is clean the document is ready for final QC and submission export (eCTD / PDF).
 
 ## Region Quick Reference
 
@@ -631,6 +645,7 @@ Japanese translations of the EU SmPC, US PI or NMPA label are filed under JP Mod
 - **The arrow keys stop inside a table**: fixed in v2.8.6 — a table is crossed in one step whatever its size. If it still happens, click the paragraph after the table and go on.
 
 ## Version History
+- **v2.10.0** (Nov 24, 2026) — **Document check**: a new card on the FFT Script page for US, EU and JP, and a closing step **3.5 Check and Finish** in the pane that opens it. It reads a finished file, changes nothing, and reports errors, warnings and what passed (captions, links, 目次 and lists, leftovers, FFT styles, tables; JP grid and fonts), with an optional comparison against the file before formatting. 2.5 Scientific Typography now ends its result with the time it took and its slowest steps. Settings → Speed (beta): **Fast 2.5 text rules**, the same edits in batches, off by default.
 - **v2.9.3** (Nov 24, 2026) — Links to tables and figures stay with their table. Each caption keeps one hidden anchor for its links; adding a table and running 3.3 again no longer moves the earlier links to another table, and pressing T / F again on a caption no longer breaks the links to it ("Error! Reference source not found"). The steps are unchanged: 3.2 Bookmarks, then 3.3. 2.7.5 Literature References added to the US module list.
 - **v2.9.2** (Nov 24, 2026) — Captions in Module 2.7.6 number per study, as the partner's 2.7.6 template: 表 2.7.6.5-1, 表 2.7.6.5-2 … 表 2.7.6.6-1 (US: Table 2.7.6.5-1). The T / F keys take the study number from the nearest numbered heading above the caption; each study starts at 1, and every caption key re-checks the whole document so a caption added before a study's first table takes number 1 (a file with two "-1" captions is healed by pressing the key on either). Step 1 on a US-formatted 2.7.6 rebuilds the captions the same way. Module 2.7.6 is now in the US module list. Other modules are unchanged.
 - **v2.9.1** (Nov 17, 2026) — One citation form for Japanese section references (partner comment on the 2.7.3, Nov 12; RA decision Nov 17). Link Sections writes every reference to a numbered section as "M" + the full number — M2.7.3.4.1, M2.7.2.3.2.3.1 — without brackets; a typed "M2.7.2の3.2.3.1項" becomes M2.7.2.3.2.3.1 and "2.7.3.4.1項" becomes M2.7.3.4.1 (tracked); a section of the open document gets its "M" and the live link; "M2.6の2.6.2項" collapses to M2.6.2. Brackets already in a file are left until the partner decides. Same rules in the Script page's Japanese pass.
